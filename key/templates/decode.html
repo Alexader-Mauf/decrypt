@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+        <div>
+            <h3 class="float-md-start mb-0">Decode</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+              <a class="nav-link active" aria-current="page" href="/key/home">Encode</a>
+            <!--  <a class="nav-link" href="#">das Spacing</a>
+              <a class="nav-link" href="#">shit?</a>-->
+            </nav>
+        </div>
+
+{% endblock %}
+{% block content %}
+        <h1>Decode your Key</h1>
+        <p class="lead">
+        <input type="text" id="uuidinput">
+        <p></p>
+        <a href="/key/secretnote/uuid" class="btn btn-lg btn-secondary fw-bold border-white bg-white" id="bbb">Decode
+        </a>
+{% endblock %}
+
+    <footer class="mt-auto text-white-50">
+        <p>This CSS implementation kicked my butt big time.</p>
+    </footer>
+</div>
+{% block script %}
+<script src="{% static 'js/link-gen.js' %}" type="text/javascript">
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<div>
+    <h3 class="float-md-start mb-0">Encode</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/key/decode">Decode</a>
+        <!--<a class="nav-link" href="#">das Spacing</a>
+        <a class="nav-link" href="#">shit?</a>-->
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<p id="status-message">Dieser Text soll sich ändern</p>
+<p class="lead">
+    <!--
+    <form action="{% url 'encode_decode' %}" method="post">
+
+    {% csrf_token %}
+
+    V1 Request zum Server , Server antwortet mit neuer Seite
+
+    <input id="message" type="text" name="message" value="" autocomplete="off" auto>
+        <br><br>
+        <input type="submit" name="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white" value="Verschlüsseln">
+        <input type="submit" name="decode" class="btn btn-lg btn-secondary fw-bold border-white bg-white" value="Entschlüsseln">
+
+
+    </form>
+
+    -->
+    <input id="message" type="text" name="message" value="" autocomplete="off" auto></input>
+    <br><br>
+    <button type="submit" id="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="Verschlüsseln">Verschlüsseln
+    </button>
+    <button type="submit" id="decode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="Entschlüsseln">Entschlüsseln
+    </button>
+
+
+    {% endblock %}
+
+    {% block script %}
+    <!--
+     V2 mit JQuery an die  API Schnittstelle den Content sendem, Schnittstelle dir uuid zurück
+     mit JQUERY die uuid in in "#status-message" einfügen
+     -->
+
+    <script>
+
+$( "#decode" ).click(function() {
+    var messageText = $("#message").val()
+    $.getJSON( "/key/api/secret-msgs/"+messageText+"/" ).done(function(data) {
+            console.log(data)
+            $("#status-message").text(data.message)
+        }
+    )
+});
+
+$( "#encode" ).click(function() {
+    var messagText = $("#message").val()
+    $.post( "/key/api/secret-msgs/" , { "message": messagText }).done(function( data ) {
+    console.log( data );
+    $("#status-message").text(data.uuid)
+  });
+})
+
+    </script>
+    {% endblock %}

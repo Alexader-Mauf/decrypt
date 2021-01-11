@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+    {% block title %}
+    <div>
+      <h3 class="float-md-start mb-0">Encode</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/key/decode">Decode</a>
+        <a class="nav-link" href="/key/home">Encode</a>
+        <!--<a class="nav-link" href="#">it</a>-->
+      </nav>
+    </div>
+    {% endblock %}
+
+⅜
+    {% block content %}
+    <h1>Success</h1>
+    <p class="lead">Hier ist dein geheimer Schlüssel:
+        <a href="/key/secretnote/{{secret_message.uuid}}" class="lead">{{secret_message.uuid}}</a>
+    <p class="lead">Einfach kopieren und bei Decode eingeben.
+    <p></p>
+    <a class="btn btn-lg btn-secondary fw-bold border-white bg-white" id="derFehler" href="/key/decode" value="zum decode">Zu Decode
+    </a>
+    {% endblock %}
+    {% block script %}
+    {% endblock %}

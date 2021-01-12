@@ -1,0 +1,13 @@
+Dies ist eine App mit der in eine Datenbank geschrieben werden kann und, aus eben dieser,
+Einträge wieder  abgefragt werden können.
+
+Dies wird mit Django, DjangosRESTFramework und javascript (JQuery) erreicht.
+
+Wir haben ein Modell mit:
+[
+ uuid,
+ message,
+ created_at,
+ updated_at,
+
+]

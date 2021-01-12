@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<div>
+    <h3 class="float-md-start mb-0">Secret Message</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page">Decode</a>
+        <!--<a class="nav-link" href="#">das Spacing</a>
+        <a class="nav-link" href="#">shit?</a>-->
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<h1 id="status-message">Hier kannst du Secret Messages erstellen.</h1>
+<p id="content"></p>
+<p class="lead">
+
+
+    <input id="message" type="text" name="message" value="" autocomplete="off" auto></input>
+    <br><br>
+    <button type="submit" id="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="Verschlüsseln">Verschlüsseln
+    </button>
+    <button type="submit" id="decode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="Entschlüsseln">Entschlüsseln
+    </button>
+
+
+    {% endblock %}
+
+    {% block script %}
+
+    <script src="{% static 'js/read_write_data.js' %}" type="text/javascript">
+    </script>
+
+
+    {% endblock %}

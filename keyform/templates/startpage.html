@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "basef.html" %}
 {% load static %}
 
 {% block title %}
@@ -22,7 +22,7 @@
 
     <!--<input id="message" type="text" name="message" value="" autocomplete="off" auto>-->
     <br><br>
-    <a href="{% url 'index' %}" id="encode" name="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+    <a href="{% url 'formdex' %}" id="encode" name="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
             value="SavemitForms">mit form</a>
     <a href="{% url 'apistyle' %}" id="decode" name="decode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
             value="SavemitAPI">mit JQuery</a>

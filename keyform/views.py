@@ -18,7 +18,7 @@ def decode(request, message):
 
 def index(request):
     content = "Hier kann man Texte verschlüsseln."
-    return render(request, "home.html", {
+    return render(request, "homes.html", {
         "content": content
     })
 
@@ -28,9 +28,9 @@ def load_secretnote(request, uuid):
         content = "Deine Geheime Nachricht ist."
         secretnote = models.SecretMsg.objects.get(uuid=uuid)
     except:
-        return render(request, "home.html")
+        return render(request, "homes.html")
 
-    return render(request, "home.html", {
+    return render(request, "homes.html", {
         "secretnote": secretnote,
         "content": content
     })
@@ -65,7 +65,7 @@ def encode_decode(request):
         )
         secret_message.save()
         linktomsg = "home/"+str(secret_message.uuid)
-        return render(request, "home.html", {
+        return render(request, "homes.html", {
             "secretnote": secret_message.uuid,
             "content": "Gespeichert",
             "linktomsg": linktomsg,
@@ -74,19 +74,20 @@ def encode_decode(request):
     # decode action
         try:
             secretnote = models.SecretMsg.objects.get(uuid=input)
+            return render(request, "homes.html", {
+                "secretnote": secretnote.message,
+                "content": "Deine Nachricht  ist:"
+            })
+
         except:
             content = "Diese Nachricht existiert nicht"
-            return render(request, "home.html",{
+            return render(request, "homes.html",{
                 "content": content
 
             })
 
-        return render(request, "home.html", {
-            "secretnote": secretnote.message,
-            "content": "Deine Nachricht  ist:"
-            })
 
     else:
     # no button pressed
         return
-    return render(request, "home.html")
+    return render(request, "homes.html")

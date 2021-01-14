@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Third Party
     'rest_framework',
     'django_filters',
+    'pipeline',
     #Own
     'core',
     'key',
@@ -131,3 +132,33 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'static')
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+
+PIPELINE = {'STYLESHEETS': {
+    'PIPELINE_ENABLED': True,
+    'stats': {
+        'source_filenames': (
+            'css/bootstrap.css',
+            'css/cover.css',
+            'css/product.css',
+        ),
+        'output_filename': 'css/stats.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        }
+    }
+}, 'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}
+
+
+
+
+

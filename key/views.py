@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'homes.html')
 
 def testest(request):
     return render(request, "bootstraptest.html")
@@ -21,7 +21,7 @@ def decode(request):
     return render(request, "decode.html")
 
 def index(request):
-    return render(request, "home.html")
+    return render(request, "homes.html")
 
 
 def load_secretnote(request, uuid):
@@ -77,7 +77,7 @@ def encode_decode(request):
     else:
     # no button pressed
         return
-    return render(request, "home.html")
+    return render(request, "homes.html")
 
 class SecretMsgViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SecretMsgSerializer

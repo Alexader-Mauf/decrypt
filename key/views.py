@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 def home(request):
-    return render(request, 'homes.html')
+    return render(request, 'home.html')
 
 def testest(request):
     return render(request, "bootstraptest.html")
@@ -21,7 +21,7 @@ def decode(request):
     return render(request, "decode.html")
 
 def index(request):
-    return render(request, "homes.html")
+    return render(request, "home.html")
 
 
 def load_secretnote(request, uuid):

@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added  some tests">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="wording">
+      <change afterPath="$PROJECT_DIR$/keyform/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/static/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/static/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/static/css/cover.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/static/css/product.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/templates/keyform/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/templates/keyform/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyform/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/key/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/key/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypt/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/key/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/key/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +45,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/keyform" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/keyform" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/keyform/templates/keyform" />
+      <recent name="$PROJECT_DIR$/keyform" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -68,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610546350059</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="wording">
+      <created>1610549715511</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1610549715511</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -89,6 +121,7 @@
     <MESSAGE value="errorhandling and trying to get the script to an external location" />
     <MESSAGE value="fixed the external .js file not loading --&gt; did some parenthesis mistakes&#10;changed the bottom of the site to be more professional looking (a little)" />
     <MESSAGE value="added  some tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="added  some tests" />
+    <MESSAGE value="wording" />
+    <option name="LAST_COMMIT_MESSAGE" value="wording" />
   </component>
 </project>

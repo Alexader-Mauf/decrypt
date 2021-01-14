@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Decode</title>
+
+    <!-- Bootstrap core css -->
+    <!--<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"/>-->
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cover.css' %}">
+    -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+            crossorigin="anonymous"></script>-->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+
+    {% load pipeline %}
+    {% stylesheet 'stats' %}
+<!--
+   <link rel="stylesheet" type="text/css" href="{% static 'css/cover.css' %}">
+-->
+<body class="d-flex h-100 text-center text-white bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        {% block title %}{% endblock %}
+    </header>
+
+    <main class="px-3">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>A site created by Alexander 'Axel-Mao' Mauf.</p>
+    </footer>
+</div>
+{% block script %}
+{% endblock %}
+</body>
+</html>

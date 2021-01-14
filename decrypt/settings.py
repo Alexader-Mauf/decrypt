@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #Own
     'core',
     'key',
+    'keyform',
 
 ]
 

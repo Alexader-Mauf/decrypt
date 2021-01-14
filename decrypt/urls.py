@@ -18,11 +18,11 @@ from django.urls import path
 
 from django.contrib import admin
 from django.urls import include, path
-from key import views as key_views
+from keyform import views as keyform_views
 
 urlpatterns = [
     path('key/', include('key.urls')),
     path('admin/', admin.site.urls),
-    path('',key_views.home,name='home'),
-    path('keyform/', include('keyform.url')),
+    path('',keyform_views.home,name='home'),
+    path('keyform/', include('keyform.urls')),
 ]

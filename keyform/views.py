@@ -4,6 +4,14 @@ from django.urls import reverse
 from . import models
 
 
+def home(request):
+    return render(request, "startpage.html", {
+        "content" : "Zugang zu meinen Apps"
+    })
+
+
+
+
 
 def decode(request, message):
     return render(request, "decode.html")

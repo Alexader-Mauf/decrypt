@@ -59,6 +59,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE_CLASSES = (
+   'django.middleware.gzip.GZipMiddleware',
+   'pipeline.middleware.MinifyHTMLMiddleware',
+)
+
+
 ROOT_URLCONF = 'decrypt.urls'
 
 TEMPLATES = [
@@ -131,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'static')
+STATIC_ROOT = os.path.join(BASE_DIR,  'key/static/')
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
@@ -142,20 +148,32 @@ STATICFILES_FINDERS = (
 )
 
 
-PIPELINE = {'STYLESHEETS': {
+PIPELINE = {
     'PIPELINE_ENABLED': True,
-    'stats': {
+    'STYLESHEETS': {
+    'keyform': {
         'source_filenames': (
             'css/bootstrap.css',
             'css/cover.css',
             'css/product.css',
         ),
-        'output_filename': 'css/stats.css',
+        'output_filename': 'css/keyform.css',
         'extra_context': {
             'media': 'screen,projection',
+        },
+    },
+},
+    'JAVASCRIPT': {
+        'jscripts': {
+            'source_filenames': (
+              'js/jquery-3.5.1.min.js',
+              'js/read_write_data.js',
+            ),
+            'output_filename': 'js/jscripts.js',
         }
-    }
-}, 'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
+    },
+
+    'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
     'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}
 
 

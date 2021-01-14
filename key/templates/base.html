@@ -10,11 +10,15 @@
     <title>Decode</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
     <!-- Bootstrap core CSS -->
+   <!--
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/cover.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
             integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
             crossorigin="anonymous"></script>
+    -->
+
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -29,10 +33,17 @@
         }
       }
     </style>
+   <!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    -->
     <!-- Custom styles for this template -->
+
+    {% load pipeline %}
+    {% javascript 'jscripts' %}
+    {% stylesheet 'keyform' %}
+<!--
     <link rel="stylesheet" type="text/css" href="{% static 'css/cover.css' %}">
+-->
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
 

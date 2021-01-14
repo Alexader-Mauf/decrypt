@@ -64,7 +64,7 @@ def encode_decode(request):
         message=input
         )
         secret_message.save()
-        linktomsg = "home/"+str(secret_message.uuid)
+        linktomsg = "home/"+ str(secret_message.uuid)
         return render(request, "homes.html", {
             "secretnote": secret_message.uuid,
             "content": "Gespeichert",

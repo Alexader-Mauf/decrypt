@@ -9,7 +9,7 @@ from . import models
 from . import serializers
 
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 def home(request):
     return render(request, 'home.html')
@@ -82,8 +82,8 @@ def encode_decode(request):
 class SecretMsgViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SecretMsgSerializer
     queryset = models.SecretMsg.objects.order_by('-uuid')
-    permission_classes = ()#(IsAuthenticated, DjangoModelPermission)
-    authentication_classes = ()# zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
+    permission_classes = [IsAuthenticated]#(IsAuthenticated, DjangoModelPermission)
+    authentication_classes = (SessionAuthentication, BasicAuthentication)# zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
         'uuid':['exact'],

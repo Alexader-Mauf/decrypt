@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+from bank import views as banking
 from key import views as apiviews
 
 
@@ -12,5 +13,6 @@ urlpatterns = [
     path('home/<uuid>/', views.load_secretnote, name='load_secretnote'),
     path('decode', views.decode, name='decode'),
     path('apistyles', apiviews.index, name='apistyle'),
+    path('banking', banking.index, name='banking'),
     #path('home?message=<uuid>', views.load_secretnote, name='load_secretnote'),
 ]

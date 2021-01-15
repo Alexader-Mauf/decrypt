@@ -13,10 +13,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 
 def index(request):
-    return render(request, 'homescreen.html')
-
-
-
+    return render(request, "homescreen.html")
 
 
 

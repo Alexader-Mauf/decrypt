@@ -5,6 +5,7 @@ from . import views
 
 router = routers.SimpleRouter()
 router.register(r'api/bank_customers', views.BankCustomerViewSet)
+router.register(r'api/bank_accounts', views.BankAccountViewSet)
 urlpatterns = [
     path('home', views.index, name='index'),
 ]

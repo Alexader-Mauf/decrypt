@@ -2,14 +2,328 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added a landingpage still missing requirements">
-      <change afterPath="$PROJECT_DIR$/bank/css/new-age.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bank/js/new-age.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/edition/gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/edition/rose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/sport/black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/sport/blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/sport/green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/sport/red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/sport/white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/watch/metal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/apple_watch/watch/steel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/device-mockups.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/device-mockups.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/device-mockups2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/device-mockups2.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s3/s3_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s3/s3_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s3/s3_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s3/s3_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_land_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_port_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_s5/galaxy_s5_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_tab4/galaxy_tab4_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_tab4/galaxy_tab4_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_tab4_small/galaxy_tab4_black_small.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/galaxy_tab4_small/galaxy_tab4_white_small.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/imac/imac.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad/ipad_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad/ipad_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad/ipad_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad/ipad_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air/ipad_air_gray_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air/ipad_air_gray_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air/ipad_air_silver_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air/ipad_air_silver_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_gold_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_gold_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_gray_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_gray_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_silver_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_air_2/ipad_air_2_silver_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_land_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_land_silver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_port_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/ipad_pro/ipad_pro_port_silver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone5/iphone5_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone5/iphone5_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone5/iphone5_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone5/iphone5_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_land_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_port_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6/iphone_6_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_black_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_black_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_gold_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_gold_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_white_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_6_plus/iphone_6_plus_white_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_land_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_land_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_land_rose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_land_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_port_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_port_gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_port_rose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_se/iphone_se_port_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_x/iphone_x_black_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_x/iphone_x_black_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_x/iphone_x_white_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/iphone_x/iphone_x_white_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia920/lumia920_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia920/lumia920_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia_930/lumia_930_dark_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia_930/lumia_930_dark_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia_930/lumia_930_light_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/lumia_930/lumia_930_light_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/macbook/macbook.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/macbook_2015/gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/macbook_2015/grey.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/macbook_2015/silver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/nexus7/nexus7_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/nexus7/nexus7_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/nexus_6/nexus_6_land.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/nexus_6/nexus_6_port.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/samsung_tv/samsung_tv.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/device-mockups/surface/surface.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/all.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/all.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/brands.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/brands.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/fontawesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/fontawesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/regular.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/regular.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/solid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/solid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/svg-with-js.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/svg-with-js.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/v4-shims.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/css/v4-shims.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-brands-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-brands-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-brands-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-brands-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-regular-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-regular-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-regular-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-regular-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-solid-900.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-solid-900.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-solid-900.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-solid-900.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.compatibility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.min.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.slim.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.slim.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.slim.min.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/css/simple-line-icons.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/fonts/Simple-Line-Icons.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/fonts/Simple-Line-Icons.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/fonts/Simple-Line-Icons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/edition/gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/edition/rose.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/sport/black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/sport/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/sport/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/sport/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/sport/white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/watch/metal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/apple_watch/watch/steel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/device-mockups.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/device-mockups.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/device-mockups2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/device-mockups2.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s3/s3_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s3/s3_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s3/s3_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s3/s3_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_land_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_port_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_s5/galaxy_s5_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_tab4/galaxy_tab4_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_tab4/galaxy_tab4_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_tab4_small/galaxy_tab4_black_small.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/galaxy_tab4_small/galaxy_tab4_white_small.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/imac/imac.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad/ipad_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad/ipad_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad/ipad_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad/ipad_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air/ipad_air_gray_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air/ipad_air_gray_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air/ipad_air_silver_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air/ipad_air_silver_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_gold_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_gold_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_gray_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_gray_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_silver_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_air_2/ipad_air_2_silver_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_land_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_land_silver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_port_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/ipad_pro/ipad_pro_port_silver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone5/iphone5_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone5/iphone5_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone5/iphone5_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone5/iphone5_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_land_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_port_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6/iphone_6_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_black_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_black_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_gold_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_gold_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_white_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_6_plus/iphone_6_plus_white_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_land_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_land_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_land_rose.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_land_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_port_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_port_gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_port_rose.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_se/iphone_se_port_white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_x/iphone_x_black_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_x/iphone_x_black_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_x/iphone_x_white_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/iphone_x/iphone_x_white_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia920/lumia920_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia920/lumia920_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia_930/lumia_930_dark_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia_930/lumia_930_dark_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia_930/lumia_930_light_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/lumia_930/lumia_930_light_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/macbook/macbook.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/macbook_2015/gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/macbook_2015/grey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/macbook_2015/silver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/nexus7/nexus7_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/nexus7/nexus7_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/nexus_6/nexus_6_land.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/nexus_6/nexus_6_port.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/samsung_tv/samsung_tv.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/device-mockups/surface/surface.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/bootstrap/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/all.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/brands.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/brands.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/fontawesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/fontawesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/regular.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/regular.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/solid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/solid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/svg-with-js.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/svg-with-js.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/v4-shims.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/css/v4-shims.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-brands-400.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-brands-400.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-brands-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-brands-400.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-regular-400.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-regular-400.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-regular-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-regular-400.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-solid-900.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-solid-900.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-solid-900.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-solid-900.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery-easing/jquery.easing.compatibility.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery-easing/jquery.easing.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery-easing/jquery.easing.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.slim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.slim.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/jquery/jquery.slim.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/css/simple-line-icons.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/fonts/Simple-Line-Icons.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/fonts/Simple-Line-Icons.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/fonts/Simple-Line-Icons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/templateforbankkingapp/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/bankbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bankbase.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/templates/homescreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/homescreen.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyform/templates/startpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/keyform/templates/startpage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyform/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyform/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/key/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyform/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyform/templates/basef.html" beforeDir="false" afterPath="$PROJECT_DIR$/keyform/templates/basef.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyform/templates/homes.html" beforeDir="false" afterPath="$PROJECT_DIR$/keyform/templates/homes.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,18 +359,19 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Project_Euler" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/keyform" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bank/static" />
+      <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/bank" />
       <recent name="$PROJECT_DIR$/bank/templates" />
       <recent name="$PROJECT_DIR$/core" />
-      <recent name="$PROJECT_DIR$/keyform/templates" />
-      <recent name="$PROJECT_DIR$/keyform/templates/keyform" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

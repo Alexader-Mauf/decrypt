@@ -12,6 +12,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 
+def index(request):
+    return render(request, 'homescreen.html')
+
+
+
+
+
+
+
 
 
 

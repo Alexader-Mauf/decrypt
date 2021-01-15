@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'core',
     'key',
     'keyform',
-
+    'bank',
 ]
 
 MIDDLEWARE = [

@@ -17,3 +17,4 @@ class SecretMsgAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
+

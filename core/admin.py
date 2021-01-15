@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import SecretMsg, BankModel
 from . import models
 # Register your models here.
 
@@ -18,12 +17,11 @@ class SecretMsgAdmin(admin.ModelAdmin):
         "updated_at",
     )
 
-@admin.register(models.BankModel)
+@admin.register(models.BankCustomer)
 class BankModelAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "vorname",
-        "balance"
         "created_at",
         "updated_at",
     )
@@ -32,5 +30,19 @@ class BankModelAdmin(admin.ModelAdmin):
         "name",
         "vorname"
 ,        "created_at",
+        "updated_at",
+    )
+
+@admin.register(models.BankAccount)
+class BankModelAdmin(admin.ModelAdmin):
+    list_display = (
+        "inhaber",
+        "balance",
+        "created_at",
+        "updated_at",
+    )
+    readonly_fields = (
+        "pk",
+        "created_at",
         "updated_at",
     )

@@ -7,8 +7,6 @@ class BankSerializer(serializers.ModelSerializer):
         model = models.BankModel
         fields = '__all__'
         read_only_fields = (
-            'name',
-            'vorname',
             'created_at',
             'updated_at',
         )

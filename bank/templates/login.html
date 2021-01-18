@@ -5,7 +5,19 @@
     <title>login PogBank</title>
 </head>
 <body>
-hier soll man sich einloggen können
+<h1>hier soll man sich einloggen können</h1>
+<p>{{ statusmsg }}</p>
+
+<form method="POST" action="{% url 'index' %}">
+    {% csrf_token %}
+    <p>USERNAME</p>
+    <input type="text" id="username">
+    <p>PASSWORD</p>
+    <input type="text" id="password">
+    <input type="submit" id="login_button" value="login">
+</form>
+<a href="{% url 'signup' %}">Neuen Nutzer erstellen</a>
+
 
 </body>
 </html>

@@ -22,8 +22,8 @@ class SecretMsg(models.Model):
 class BankCustomer(models.Model):
     name = models.TextField(max_length=255)
     vorname = models.TextField(max_length=255)
-    adress = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    adress = models.CharField(max_length=255,  default="None")
+    email = models.EmailField()
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

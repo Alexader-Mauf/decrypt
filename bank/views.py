@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,8 +11,9 @@ from . import serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
-from django.auth import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import  authenticate
+
 
 def login(request):
     return render(request, "login.html")
@@ -20,36 +21,44 @@ def login(request):
 
 def index(request):
     # getting usernames as post from login
-    username = "" #request.POST.get("username")
-    password = "" #request.POST.get("password")
+    username = request.POST.get("username")
+    password = request.POST.get("password")
 
 
     user = authenticate(username=username, password=password)
     if user is not None:
-        return render(request, "homescreen.html")
+        login(user)
+        return redirect('admin')
     else:
-        return rrender(request, "login.html",{
+        return render(request, "login.html",{
             "statusmsg":"ungültige Zugangsdaten",
         })
+
+def signup(request):
+    return render(request, "signup.html")
 
 
 def createuser(request):
     # get data from a form
-    vorname = ""
-    nachname = ""
-    email = ""
-    password = ""
-    passwordcheck = ""
+    vorname = request.POST.get("vorname")
+    nachname = request.POST.get("name")
+    username = request.POST.get("username")
+    email = request.POST.get("email")
+    password = request.POST.get("password")
+    passwordcheck = request.POST.get("passwordcheck")
     if password != passwordcheck:
         return render(request, "signup.html",{
             "statusmsg" : "Passwörter stimmen nicht überein.",
         })
-    user  = User.objects.create_user(vorname,email,password)
-    user.last_name = nachname
-    user.save()
-    return render(request, "signup.html", {
+    else:
+        user  = User.objects.create_user(vorname,email,password)
+        user.last_name = nachname
+        user.username = username
+
+        user.save()
+        return render(request, "signup.html", {
         "statusmsg": "Nutzer erfolgreich erstellt.",
-    })
+        })
 
 
 

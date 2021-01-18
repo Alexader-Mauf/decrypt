@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neuen Account erstellen</title>
+</head>
+<body>
+<h1>hier soll man einen neuen account erstellen können</h1>
+<p id="statusmsg">{{ statusmsg }}</p>
+
+
+<form method="POST" action="{% url 'createuser' %}">
+
+    {% csrf_token %}
+    <p>USERNAME</p>
+    <input type="text" id="username" name="username">
+    <p>PASSWORD</p>
+    <input type="text" id="password" name="password">
+    <p>PASSWORD WIEDERHOLEN</p>
+    <input type="text" id="passwordcheck" name="passwordcheck">
+    <p>VORNAME</p>
+    <input type="text" id="vorname" name="vorname">
+    <p>NAME</p>
+    <input type="text" id="name" name="name">
+    <p>email</p>
+    <input type="text" id="email" name="email">
+    <input type="submit" id="login_button" value="Sign Up">
+
+</form>
+
+
+<a href="{% url 'login' %}">Anmelden</a>
+
+<script src="{% static 'js/createbankuser.js' %}" type="text/javascript">
+</script>
+
+
+</body>
+</html>

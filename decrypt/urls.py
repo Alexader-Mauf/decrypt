@@ -22,7 +22,7 @@ from keyform import views as keyform_views
 
 urlpatterns = [
     path('key/', include('key.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('',keyform_views.home,name='home'),
     path('keyform/', include('keyform.urls')),
     path('bank/', include('bank.urls')),

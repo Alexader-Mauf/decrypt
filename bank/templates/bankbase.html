@@ -27,6 +27,10 @@
   <!-- Plugin CSS -->
   <link rel="stylesheet" type="text/css" href="{% static 'device-mockups/device-mockups.min.css' %}">
   <!-- Custom styles for this template -->
+  {% load pipeline %}
+  {% javascript 'bankingjscripts' %}
+  {% stylesheet 'stylesheetsbanking' %}
+
 
   <link rel="stylesheet" type="text/css" href="{% static 'css/new-age.css' %}">
 

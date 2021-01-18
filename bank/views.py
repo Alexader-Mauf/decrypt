@@ -11,6 +11,9 @@ from . import serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
+def login(request):
+    return render(request, "login.html")
+
 
 def index(request):
     return render(request, "homescreen.html")
@@ -51,3 +54,4 @@ class BankAccountViewSet(viewsets.ModelViewSet):
         'IBAN':['exact'],
         'inhaber':['exact'],
     }
+

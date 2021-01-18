@@ -162,6 +162,17 @@ PIPELINE = {
             'media': 'screen,projection',
         },
     },
+    #'stylesheetsbanking':{
+    #    'source_filenames':(
+    #        'device-mockups/device-mockups.min.css',
+    #        'css/bootstrap.css',
+    #        'vendor/simple-line-icons/css/simple-line-icons.css',
+    #        'vendor/fontawesome-freecss/all.min.css',
+    #        'css/new-age.css',
+    #        'device-mockups/device-mockups.min.css',
+    #    ),
+    #    'output_filename':'css/stylesheetsbanking.css',
+    #}
 },
     'JAVASCRIPT': {
         'jscripts': {
@@ -170,8 +181,18 @@ PIPELINE = {
               'js/read_write_data.js',
             ),
             'output_filename': 'js/jscripts.js',
-        }
+        },
+        #'bankingjscripts':{
+        #    'source_filenames':(
+        #        'vendor/jquery/jquery.min.js',
+        #        'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        #        'vendor/jquery-easing/jquery.easing.min.js',
+        #        'templateforbankkingapp/js/new-age.min.js',
+        #    ),
+        #    'output_filename':'js/bankingjscripts.js'
+        #}
     },
+
 
     'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
     'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}

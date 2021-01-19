@@ -74,3 +74,7 @@ class TestAPIFunctionality(SetupClass):
 
         self.assertEqual(response.status_code, 404)
 
+#
+#def testtransfer(SetUpClass):
+#    sende an die transfer api einen post  request mit  json  und der  information konto from, konto to, betrag
+#    also check if send konto is loged in konto also das der authorisierte benutzer nur geld von seinem konto schickt

@@ -12,8 +12,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from django.contrib.auth.models import User, Permission
-from django.contrib.auth import  authenticate
+from django.contrib.auth import authenticate
 
+from rest_framework import status
+from rest_framework.response import Response
 
 def login(request):
     return render(request, "login.html")
@@ -21,18 +23,19 @@ def login(request):
 
 def index(request):
     # getting usernames as post from login
-    username = request.POST.get("username")
+    usname = request.POST.get("username")
     password = request.POST.get("password")
 
-
-    user = authenticate(username=username, password=password)
+    user = authenticate(request, username=usname, password=password)
     if user is not None:
         login(user)
-        return redirect('admin')
+        return render('home2.html')
     else:
-        return render(request, "login.html",{
-            "statusmsg":"ungültige Zugangsdaten",
+        output = str(usname) + str(password)
+        return render(request, "login.html", {
+            "statusmsg": output,
         })
+
 
 def signup(request):
     return render(request, "signup.html")
@@ -47,55 +50,89 @@ def createuser(request):
     password = request.POST.get("password")
     passwordcheck = request.POST.get("passwordcheck")
     if password != passwordcheck:
-        return render(request, "signup.html",{
-            "statusmsg" : "Passwörter stimmen nicht überein.",
+        return render(request, "signup.html", {
+            "statusmsg": "Passwörter stimmen nicht überein.",
         })
     else:
-        user  = User.objects.create_user(vorname,email,password)
+        user = User.objects.create_user(vorname, email, password)
         user.last_name = nachname
         user.username = username
-
         user.save()
+
+        #
+        from django.contrib.auth.models import Group
+        group = Group.objects.get(name='Bankkunden')
+        group.user_set.add(user)
+        group.save()
+
         return render(request, "signup.html", {
-        "statusmsg": "Nutzer erfolgreich erstellt.",
+            "statusmsg": "Nutzer erfolgreich erstellt./"
+                         "vorname:{}/"
+                         "nachname:{}/"
+                         "email:{}/"
+                         "password:{}".format(vorname, nachname, email, password),
         })
 
 
-
-
-
-
-
-
+def update_adress(request, user_id):
+    user = User.objects.get(pk=user_id)
+    newadress = request.POST.get("adress")
+    user.BankCustomer.adress = newadress
+    user.save()
 
 
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
     queryset = models.BankCustomer.objects.order_by('id')
-    permission_classes = [IsAuthenticated]#(IsAuthenticated, DjangoModelPermission)
-    authentication_classes = (SessionAuthentication, BasicAuthentication)# zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
+    permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
-        'vorname':['exact'],
-        'created_at':['gte', 'lte'],
-        'updated_at':['gte', 'lte'],
-        'name':['exact'],
-        'email':['exact'],
+        'vorname': ['exact'],
+        'created_at': ['gte', 'lte'],
+        'updated_at': ['gte', 'lte'],
+        'name': ['exact'],
+        'email': ['exact'],
     }
-
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankAccountSerializer
     queryset = models.BankCustomer.objects.order_by('id')
-    permission_classes = [IsAuthenticated]#(IsAuthenticated, DjangoModelPermission)
-    authentication_classes = (SessionAuthentication, BasicAuthentication)# zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
+    permission_classes = [IsAuthenticated,] #DjangoModelPermission]
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
-        'balance':['exact'],
-        'created_at':['gte', 'lte'],
-        'updated_at':['gte', 'lte'],
-        'IBAN':['exact'],
-        'inhaber':['exact'],
+        'balance': ['exact'],
+        'created_at': ['gte', 'lte'],
+        'updated_at': ['gte', 'lte'],
+        'iban': ['exact'],
+        'inhaber': ['exact'],
+        'name': ['exact'],
     }
 
+
+class BankTransferViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.BankTransferSerializer
+    queryset = models.BankTransfer.objects.order_by('id')
+    permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_fields = {
+        'amount': ['exact'],
+        'created_at': ['gte', 'lte'],
+        'updated_at': ['gte', 'lte'],
+        'iban_from': ['exact'],
+        'iban_to': ['exact'],
+    }
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid(raise_exception=True):
+            if request.user.bank_accounts.filter(iban=serializer.valid_data.get("iban_from")).first() is not None:
+                self.perform_create(serializer)
+                headers = self.get_success_headers(serializer.data)
+                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

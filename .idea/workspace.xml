@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added views for logging in and creating a user">
-      <change afterPath="$PROJECT_DIR$/bank/static/js/createbankuser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bank/templates/signup.html" afterDir="false" />
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="made the creationsite work with forms and django not via jscript und api">
+      <change afterPath="$PROJECT_DIR$/bank/management/commands/seed.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/home2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decrypt/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/migrations/0002_auto_20201103_1440.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -202,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610964269637</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="made the creationsite work with forms and django not via jscript und api">
+      <created>1610983552420</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1610983552421</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,6 +251,7 @@
     <MESSAGE value="trying to fix the requirements by finding the corrret static folder only to then realize, that i have to put all staticfiles in pipeline directories &#10;now i gotta look up on how to add images and other fileformats  to pipelines compiler.." />
     <MESSAGE value="fixed migration issues&#10;trying to get pipelines runnning with the startbootstrap template" />
     <MESSAGE value="added views for logging in and creating a user" />
-    <option name="LAST_COMMIT_MESSAGE" value="added views for logging in and creating a user" />
+    <MESSAGE value="made the creationsite work with forms and django not via jscript und api" />
+    <option name="LAST_COMMIT_MESSAGE" value="made the creationsite work with forms and django not via jscript und api" />
   </component>
 </project>

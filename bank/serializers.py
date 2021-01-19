@@ -9,6 +9,7 @@ class BankCustomersSerializer(serializers.ModelSerializer):
             'name',
             'vorname',
             'created_at',
+            'adress',
             'updated_at',
             'email',
         )
@@ -23,4 +24,13 @@ class BankAccountSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'email',
+        )
+
+class BankTransferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.BankTransfer
+        fields = '__all__'
+        read_only_fields = (
+            'created_at',
+            'updated_at',
         )

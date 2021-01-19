@@ -18,24 +18,26 @@ class SecretMsgAdmin(admin.ModelAdmin):
     )
 
 @admin.register(models.BankCustomer)
-class BankModelAdmin(admin.ModelAdmin):
+class BankCustomerAdmin(admin.ModelAdmin):
     list_display = (
-        "name",
-        "vorname",
+        "pk",
+        "user",
         "created_at",
         "updated_at",
+        "adress",
     )
     readonly_fields = (
         "pk",
-        "name",
-        "vorname"
-,        "created_at",
+        "created_at",
         "updated_at",
     )
+    select_related = ("user",)
 
 @admin.register(models.BankAccount)
-class BankModelAdmin(admin.ModelAdmin):
+class BankAccountAdmin(admin.ModelAdmin):
     list_display = (
+        'name',
+        'iban',
         "inhaber",
         "balance",
         "created_at",
@@ -43,6 +45,25 @@ class BankModelAdmin(admin.ModelAdmin):
     )
     readonly_fields = (
         "pk",
+        "created_at",
+        "updated_at",
+    )
+    selecet_releated = (
+        'inhaber'
+    )
+
+@admin.register(models.BankTransfer)
+class BankTransferAdmin(admin.ModelAdmin):
+    list_display = (
+        "iban_from",
+        "iban_to",
+        "amount",
+        "created_at",
+        "updated_at",
+    )
+    readonly_fields = (
+        "pk",
+        "iban_from",
         "created_at",
         "updated_at",
     )

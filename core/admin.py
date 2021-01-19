@@ -38,7 +38,7 @@ class BankAccountAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'iban',
-        "inhaber",
+        "account_owned_by",
         "balance",
         "created_at",
         "updated_at",
@@ -49,7 +49,7 @@ class BankAccountAdmin(admin.ModelAdmin):
         "updated_at",
     )
     selecet_releated = (
-        'inhaber'
+        'account_owned_by'
     )
 
 @admin.register(models.BankTransfer)

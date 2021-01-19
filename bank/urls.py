@@ -9,6 +9,7 @@ router.register(r'api/bank_accounts', views.BankAccountViewSet)
 router.register(r'api/bank_transfers', views.BankTransferViewSet)
 urlpatterns = [
     path('home', views.index, name='index'),
+    path('redirect', views.loadhome, name='loadhome'),
     path('login', views.login, name='login'),
     path('sinup', views.signup, name='signup'),
     path('', views.createuser, name='createuser'),

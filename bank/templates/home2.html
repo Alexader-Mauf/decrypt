@@ -1,12 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hier kann man überweisungen ansetzen</title>
 </head>
 <body>
 <a>{{ user.BankCustomer.name }}</a>
 <a>{{ user.BankAccount }}</a>
+<a id="statusmsg">{{ statusmsg }}</a>
+
+<p>{{ user.last_name }}</p>
+
+<p>iban from</p>
+<input type="text" id="iban_from" name="iban_from" value={{user.BankAccount.iban}}>
+<p>überweisungsbetrag</p>
+<input type="text" id="amount" name="amount">
+<p>iban to</p>
+<input type="text" id="iban_to" name="iban_to">
+<input type="submit" id="action" value="Überweisung durchführen.">
+
+
+{% load pipeline %}
+{% javascript 'jscripts' %}
+
+
+<script src="{% static 'js/maketrransfer.js' %}" type="text/javascript">
+</script>
+    <!-- <link href="path_to_staticfile_with_script.js"> -->
 
 
 </body>

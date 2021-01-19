@@ -12,14 +12,28 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from django.contrib.auth.models import User, Permission
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 from rest_framework import status
 from rest_framework.response import Response
 
+
+def _generate_iban():
+        import random
+        output = "DE82"
+        BLZ = random.randint(10000000,99999999)
+        output+=BLZ
+        Kontonummer=random.randint(10**10,9*10**10)
+        output+=Kontonummer
+
 def login(request):
     return render(request, "login.html")
 
+def loadhome(request):
+    return render(request, 'home2.html', {
+        "statusmsg": "user existiert"
+
+                  })
 
 def index(request):
     # getting usernames as post from login
@@ -28,12 +42,13 @@ def index(request):
 
     user = authenticate(request, username=usname, password=password)
     if user is not None:
-        login(user)
-        return render('home2.html')
+
+        return redirect('/bank/redirect')
+
     else:
         output = str(usname) + str(password)
         return render(request, "login.html", {
-            "statusmsg": output,
+            "statusmsg": output
         })
 
 
@@ -54,9 +69,7 @@ def createuser(request):
             "statusmsg": "Passwörter stimmen nicht überein.",
         })
     else:
-        user = User.objects.create_user(vorname, email, password)
-        user.last_name = nachname
-        user.username = username
+        user = User.objects.create_user(username, email, password, first_name=vorname, last_name=nachname)
         user.save()
 
         #
@@ -112,6 +125,7 @@ class BankAccountViewSet(viewsets.ModelViewSet):
         'inhaber': ['exact'],
         'name': ['exact'],
     }
+
 
 
 class BankTransferViewSet(viewsets.ModelViewSet):

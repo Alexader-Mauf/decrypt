@@ -61,7 +61,7 @@ class BankAccount(models.Model):
         max_length=255,
         unique=True
     )
-    inhaber = models.ForeignKey(
+    account_owned_by = models.ForeignKey(
         BankCustomer,
         related_name="bankaccounts",
         on_delete=models.CASCADE,
@@ -83,11 +83,10 @@ class BankAccount(models.Model):
         output+=BLZ
         Kontonummer=random.randint(10**10,9*10**10)
         output+=Kontonummer
-
-
-
-
         return output
+
+    def __init__(self):
+        self.iban=self._generate_iban()
 
     def __str__(self):
         return "IBAN:{}".format(self.iban)

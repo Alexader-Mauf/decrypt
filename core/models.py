@@ -84,6 +84,10 @@ class BankTransfer(models.Model):
         verbose_name="Überweisender",
         related_name="Überweisender",
     )
+    executionlog = models.TextField(default=""),
+    execute_datetime = models.DateTimeField(default=()), #now is the default to be implemented
+    is_open = True,
+    is_success = False,
     iban_to = models.ForeignKey(
         BankAccount,
         on_delete=models.CASCADE,

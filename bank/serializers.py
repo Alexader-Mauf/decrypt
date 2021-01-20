@@ -40,18 +40,18 @@ class BankAccountSerializer(serializers.ModelSerializer):
         model = models.BankAccount
         fields = (
             'pk',
-            #"name",
-            #"iban",
-            #"account_owned_by",
-            #"balance",
+            "name",
+            "iban",
+            "account_owned_by",
+            "balance",
             "updated_at",
             "created_at",
         )
         read_only_fields = (
-            #"name",
-            #"iban",
-            #"account_owned_by",
-            #"balance",
+            "name",
+            "iban",
+            "account_owned_by",
+            "balance",
             'created_at',
             'updated_at',
         )

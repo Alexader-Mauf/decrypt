@@ -1,55 +1,51 @@
-from django.db import transaction
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
-
+from django.urls import reverse
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
-
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import Group
 from core import models
 from . import serializers
 
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
-from django.contrib.auth.models import User, Permission
-from django.contrib.auth import authenticate, login
+def login_view(request):
+    if request.method == "GET":
+        return render(request, "login.html")
+    if request.method == "POST":
+        # getting usernames as post from login
+        usname = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=usname, password=password)
+        login(request, user)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('loadhome'))
+        else:
+            output = f"Nutzername und Passwort nicht bekannt"
+            return render(request, "login.html", {
+                "statusmsg": output
+            })
 
-from rest_framework import status
-from rest_framework.response import Response
 
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('bank_index'))
 
-def _generate_iban():
-        import random
-        output = "DE82"
-        BLZ = random.randint(10000000,99999999)
-        output+=BLZ
-        Kontonummer=random.randint(10**10,9*10**10)
-        output+=Kontonummer
-
-def login(request):
-    return render(request, "login.html")
 
 def loadhome(request):
-    return render(request, 'home2.html', {
-        "statusmsg": "user existiert"
 
-                  })
+    if request.user.is_authenticated:
+        return render(request, 'home2.html')
+    else:
+        return redirect(reverse('bank_index'))
+
 
 def index(request):
-    # getting usernames as post from login
-    usname = request.POST.get("username")
-    password = request.POST.get("password")
-
-    user = authenticate(request, username=usname, password=password)
-    if user is not None:
-
-        return redirect('/bank/redirect')
-
-    else:
-        output = str(usname) + str(password)
-        return render(request, "login.html", {
-            "statusmsg": output
-        })
+    return render(request, "login.html")
 
 
 def signup(request):
@@ -69,11 +65,13 @@ def createuser(request):
             "statusmsg": "Passwörter stimmen nicht überein.",
         })
     else:
+        # user wird erstellt
+
         user = User.objects.create_user(username, email, password, first_name=vorname, last_name=nachname)
         user.save()
 
-        #
-        from django.contrib.auth.models import Group
+        # user wird der folgenden rechtegruppe zugewiesen
+
         group = Group.objects.get(name='Bankkunden')
         group.user_set.add(user)
         group.save()
@@ -96,57 +94,32 @@ def update_adress(request, user_id):
 
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
-    queryset = models.BankCustomer.objects.order_by('id')
+    queryset = models.BankCustomer.objects.order_by('id').all()
     permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
-        'vorname': ['exact'],
+        #'name':['exact'],
+        'adress' : ['exact'],
         'created_at': ['gte', 'lte'],
         'updated_at': ['gte', 'lte'],
-        'name': ['exact'],
-        'email': ['exact'],
     }
-
-
-class BankAccountViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.BankAccountSerializer
-    queryset = models.BankCustomer.objects.order_by('id')
-    permission_classes = [IsAuthenticated,] #DjangoModelPermission]
-    authentication_classes = (SessionAuthentication,
-                              BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filter_fields = {
-        'balance': ['exact'],
-        'created_at': ['gte', 'lte'],
-        'updated_at': ['gte', 'lte'],
-        'iban': ['exact'],
-        'inhaber': ['exact'],
-        'name': ['exact'],
-    }
-
 
 
 class BankTransferViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankTransferSerializer
-    queryset = models.BankTransfer.objects.order_by('id')
+    queryset = models.BankTransfer.objects.all()
     permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filter_fields = {
-        'amount': ['exact'],
-        'created_at': ['gte', 'lte'],
-        'updated_at': ['gte', 'lte'],
-        'iban_from': ['exact'],
-        'iban_to': ['exact'],
-    }
 
-    def create(self, request):
-        serializer = self.get_serializer(data=request.data)
-        if not serializer.is_valid(raise_exception=True):
-            if request.user.bank_accounts.filter(iban=serializer.valid_data.get("iban_from")).first() is not None:
-                self.perform_create(serializer)
-                headers = self.get_success_headers(serializer.data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+class BankAccountViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.BankAccountSerializer
+    queryset = models.BankAccount.objects.all()
+    permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)

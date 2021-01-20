@@ -8,7 +8,7 @@
 <h1>hier soll man sich einloggen können</h1>
 <p>{{ statusmsg }}</p>
 
-<form method="POST" action="{% url 'index' %}">
+<form method="POST" action="{% url 'login_view' %}">
     {% csrf_token %}
     <p>USERNAME</p>
     <input type="text" id="username" name="username">

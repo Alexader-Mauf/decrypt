@@ -1,36 +1,22 @@
-from django.db import models
 import datetime
-from django.utils import timezone
 import uuid
 from django.contrib.auth.models import User
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 
 # Create your models here.
-
-class SecretMsg(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    message = models.TextField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.message
-
-    def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-
 
 class BankCustomer(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE
     )
-    adress = models.CharField(max_length=255,  default="None")
+    adress = models.CharField(max_length=255, default="None")
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
@@ -45,16 +31,18 @@ class BankCustomer(models.Model):
         verbose_name = "Bankkunde"
         verbose_name_plural = "Bankkunden"
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         customer = BankCustomer.objects.create(user=instance)
         BankAccount.objects.create(
-            inhaber=customer,
+            account_owned_by=customer,
         )
 
+
 class BankAccount(models.Model):
-    name=models.CharField(
+    name = models.CharField(
         max_length=255,
     )
     iban = models.CharField(
@@ -78,15 +66,13 @@ class BankAccount(models.Model):
     @staticmethod
     def _generate_iban():
         import random
-        output = "DE82"
-        BLZ = random.randint(10000000,99999999)
-        output+=BLZ
-        Kontonummer=random.randint(10**10,9*10**10)
-        output+=Kontonummer
+        blz = random.randint(10000000, 99999999)
+        account_nr = random.randint(10 ** 10, 9 * 10 ** 10)
+        output = f"DE82{blz}{account_nr}"
         return output
 
     def __init__(self):
-        self.iban=self._generate_iban()
+        self.iban = self._generate_iban()
 
     def __str__(self):
         return "IBAN:{}".format(self.iban)
@@ -97,7 +83,8 @@ class BankAccount(models.Model):
     def save(self, *args, **kwargs):
         if self.iban is None:
             self.iban = self._generate_iban()
-        super(BankAccount, self).save(*args,**kwargs)
+        super(BankAccount, self).save(*args, **kwargs)
+
 
 class BankTransfer(models.Model):
     iban_from = models.ForeignKey(
@@ -116,7 +103,6 @@ class BankTransfer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return "IBAN:{}".fomat(self.iban)
 
@@ -124,5 +110,4 @@ class BankTransfer(models.Model):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     def __repr__(self):
-        return "{} hat {} an {} überwiesen.".format(self.iban_from,self.amount,self.iban_to)
-
+        return "{} hat {} an {} überwiesen.".format(self.iban_from, self.amount, self.iban_to)

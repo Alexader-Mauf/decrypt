@@ -24,8 +24,8 @@ class Command(BaseCommand):
 
 def clear_data():
     """Deletes all the table data"""
-    logger.info("Delete Address instances")
-    Address.objects.all().delete()
+    logger.info("Delete BankCustomer instances")
+    BankCustomer.objects.all().delete()
 
 
 def create_address():

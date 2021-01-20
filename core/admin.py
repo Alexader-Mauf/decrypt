@@ -3,20 +3,6 @@ from . import models
 # Register your models here.
 
 
-@admin.register(models.SecretMsg)
-class SecretMsgAdmin(admin.ModelAdmin):
-    list_display = (
-        "uuid",
-        "message",
-        "created_at",
-        "updated_at",
-    )
-    readonly_fields = (
-        "pk",
-        "created_at",
-        "updated_at",
-    )
-
 @admin.register(models.BankCustomer)
 class BankCustomerAdmin(admin.ModelAdmin):
     list_display = (
@@ -48,8 +34,8 @@ class BankAccountAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
-    selecet_releated = (
-        'account_owned_by'
+    select_related = (
+        'account_owned_by',
     )
 
 @admin.register(models.BankTransfer)

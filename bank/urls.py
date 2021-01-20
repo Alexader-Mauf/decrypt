@@ -13,7 +13,6 @@ urlpatterns = [
     path('login', views.login_view, name='login_view'),
     path('logout', views.logout_view, name='logout_view'),
     path('sinup', views.signup, name='signup'),
-    path('creation', views.createuser, name='createuser'),
     path('home', views.loadhome, name='loadhome')
 ]
 urlpatterns += router.urls

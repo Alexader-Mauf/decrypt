@@ -49,40 +49,60 @@ def index(request):
 
 
 def signup(request):
-    return render(request, "signup.html")
+    if request.method == "GET":
+        return render(request, "signup.html")
+
+    if request.method == "POST":
+        #POST
+        # get data from a form
+        vorname = request.POST.get("vorname")
+        nachname = request.POST.get("name")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        passwordcheck = request.POST.get("passwordcheck")
+        if password != passwordcheck:
+            return render(request, "signup.html", {
+                "statusmsg": "Passwörter stimmen nicht überein.",
+            })
+        else:
+            # user wird erstellt
+
+            user = User.objects.create_user(username, email, password, first_name=vorname, last_name=nachname)
+            user.save()
+            user = User.objects.get(username=username)
+
+            # user wird der folgenden rechtegruppe zugewiesen
+
+            group = Group.objects.get(name='Bankkunden')
+            group.user_set.add(user)
+            group.save()
+
+            customer = models.BankCustomer.objects.create(
+                user=user,
+                adress="",
+            )
+            customer.save()
+
+            account = models.BankAccount.objects.create(
+                name="geld",
+                account_owned_by=customer
+            )
+            account.save()
 
 
-def createuser(request):
-    # get data from a form
-    vorname = request.POST.get("vorname")
-    nachname = request.POST.get("name")
-    username = request.POST.get("username")
-    email = request.POST.get("email")
-    password = request.POST.get("password")
-    passwordcheck = request.POST.get("passwordcheck")
-    if password != passwordcheck:
-        return render(request, "signup.html", {
-            "statusmsg": "Passwörter stimmen nicht überein.",
-        })
-    else:
-        # user wird erstellt
 
-        user = User.objects.create_user(username, email, password, first_name=vorname, last_name=nachname)
-        user.save()
+            return render(request, "signup.html", {
+                "statusmsg": """
+                Nutzer erfolgreich erstellt
+                vorname:{}
+                nachname:{}
+                email:{}
+                password:{}
+                """.format(vorname, nachname, email, password).strip(),
+            })
 
-        # user wird der folgenden rechtegruppe zugewiesen
 
-        group = Group.objects.get(name='Bankkunden')
-        group.user_set.add(user)
-        group.save()
-
-        return render(request, "signup.html", {
-            "statusmsg": "Nutzer erfolgreich erstellt./"
-                         "vorname:{}/"
-                         "nachname:{}/"
-                         "email:{}/"
-                         "password:{}".format(vorname, nachname, email, password),
-        })
 
 
 def update_adress(request, user_id):

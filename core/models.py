@@ -1,5 +1,4 @@
 import datetime
-import uuid
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -32,37 +31,7 @@ class BankCustomer(models.Model):
         verbose_name_plural = "Bankkunden"
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        customer = BankCustomer.objects.create(user=instance)
-        BankAccount.objects.create(
-            account_owned_by=customer,
-        )
-
-
 class BankAccount(models.Model):
-    name = models.CharField(
-        max_length=255,
-    )
-    iban = models.CharField(
-        max_length=255,
-        unique=True
-    )
-    account_owned_by = models.ForeignKey(
-        BankCustomer,
-        related_name="bankaccounts",
-        on_delete=models.CASCADE,
-        verbose_name="Inhaber"
-    )
-    balance = models.DecimalField(
-        max_digits=22,
-        decimal_places=4,
-        default=0.0
-    )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
     @staticmethod
     def _generate_iban():
         import random
@@ -71,8 +40,30 @@ class BankAccount(models.Model):
         output = f"DE82{blz}{account_nr}"
         return output
 
-    def __init__(self):
-        self.iban = self._generate_iban()
+    name = models.CharField(
+        max_length=255,
+        default=None
+    )
+    iban = models.CharField(
+        max_length=255,
+        unique=True,
+        default=_generate_iban.__get__(models.Model),
+    )
+    account_owned_by = models.ForeignKey(
+        BankCustomer,
+        # related_name="bankaccounts",
+        on_delete=models.CASCADE,
+        verbose_name="Inhaber"
+    )
+    balance = models.DecimalField(
+        max_digits=22,
+        decimal_places=4,
+        default=0.0,
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 
     def __str__(self):
         return "IBAN:{}".format(self.iban)
@@ -80,10 +71,10 @@ class BankAccount(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-    def save(self, *args, **kwargs):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None) -> None:
         if self.iban is None:
             self.iban = self._generate_iban()
-        super(BankAccount, self).save(*args, **kwargs)
+        super().save(force_insert, force_update, using, update_fields)
 
 
 class BankTransfer(models.Model):

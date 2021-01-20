@@ -22,6 +22,7 @@ class BankCustomerAdmin(admin.ModelAdmin):
 @admin.register(models.BankAccount)
 class BankAccountAdmin(admin.ModelAdmin):
     list_display = (
+        'pk',
         'name',
         'iban',
         "account_owned_by",

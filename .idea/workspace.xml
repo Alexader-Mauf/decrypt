@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added tests for the newly buid core API">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers">
       <change beforePath="$PROJECT_DIR$/core/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -247,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611233182332</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers">
+      <created>1611241851297</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1611241851297</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -263,7 +268,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="errorhandling and trying to get the script to an external location" />
     <MESSAGE value="fixed the external .js file not loading --&gt; did some parenthesis mistakes&#10;changed the bottom of the site to be more professional looking (a little)" />
     <MESSAGE value="added  some tests" />
     <MESSAGE value="wording" />
@@ -288,17 +292,7 @@
     <MESSAGE value="adding additional functionality to the transfer-class" />
     <MESSAGE value="added a private API from which a root user can access the data" />
     <MESSAGE value="added tests for the newly buid core API" />
-    <option name="LAST_COMMIT_MESSAGE" value="added tests for the newly buid core API" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/tests.py</url>
-          <line>218</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers" />
+    <option name="LAST_COMMIT_MESSAGE" value="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers" />
   </component>
 </project>

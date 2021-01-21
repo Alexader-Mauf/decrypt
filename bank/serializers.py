@@ -25,11 +25,16 @@ class BankTransferSerializer(serializers.ModelSerializer):
             'pk',
             'iban_from',
             'iban_to',
+            'is_success',
+            'is_open',
+            'executionlog',
+            'execute_datetime',
             'amount',
             'created_at',
             'updated_at',
         )
         read_only_fields = (
+            'pk',
             'created_at',
             'updated_at',
         )
@@ -48,6 +53,7 @@ class BankAccountSerializer(serializers.ModelSerializer):
             "created_at",
         )
         read_only_fields = (
+            "pk",
             "name",
             "iban",
             "account_owned_by",

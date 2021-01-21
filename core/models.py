@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -45,13 +45,16 @@ class BankAccount(models.Model):
         default=None
     )
     iban = models.CharField(
+        primary_key=True,
         max_length=255,
         unique=True,
         default=_generate_iban.__get__(models.Model),
+        verbose_name="IBAN",
     )
     account_owned_by = models.ForeignKey(
         BankCustomer,
-        # related_name="bankaccounts",
+        #default=BankCustomer.user.username,
+        related_name="bankaccounts",
         on_delete=models.CASCADE,
         verbose_name="Inhaber"
     )
@@ -85,9 +88,13 @@ class BankTransfer(models.Model):
         related_name="Überweisender",
     )
     executionlog = models.TextField(default=""),
-    execute_datetime = models.DateTimeField(default=()), #now is the default to be implemented
-    is_open = True,
-    is_success = False,
+    execute_datetime = models.DateTimeField(default=(datetime.now())), #now is the default to be implemented
+    is_open = models.BooleanField(
+        default=True,
+    )
+    is_success = models.BooleanField(
+        default=False,
+    )
     iban_to = models.ForeignKey(
         BankAccount,
         on_delete=models.CASCADE,
@@ -99,10 +106,10 @@ class BankTransfer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "IBAN:{}".fomat(self.iban)
+        return str(self.pk)
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     def __repr__(self):
-        return "{} hat {} an {} überwiesen.".format(self.iban_from, self.amount, self.iban_to)
+        return self.pk

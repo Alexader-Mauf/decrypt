@@ -26,4 +26,5 @@ urlpatterns = [
     path('',keyform_views.home,name='home'),
     path('keyform/', include('keyform.urls')),
     path('bank/', include('bank.urls')),
+    path('core/', include('core.urls')),
 ]

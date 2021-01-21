@@ -33,6 +33,7 @@ class BankAccountAdmin(admin.ModelAdmin):
     readonly_fields = (
         "pk",
         "created_at",
+        "account_owned_by",
         "updated_at",
     )
     select_related = (
@@ -47,10 +48,13 @@ class BankTransferAdmin(admin.ModelAdmin):
         "amount",
         "created_at",
         "updated_at",
+        "is_success",
+        "is_open",
+        "executionlog",
+        "execute_datetime"
     )
     readonly_fields = (
         "pk",
-        "iban_from",
         "created_at",
         "updated_at",
     )

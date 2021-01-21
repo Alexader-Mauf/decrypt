@@ -7,7 +7,7 @@ $( document ).ready(function() {
             var to = $("#iban_to").val()
 
 
-            $.post( "/bank/api/bank_transfers/" , {
+            $.post( "/bank/api/bank-transfers/" , {
              "iban_from": from,
              "amount":  amount,
              "iban_to":  to,

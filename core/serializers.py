@@ -19,6 +19,16 @@ class BankAccountSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         )
+
+class BankAccountpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.BankAccount
+        fields = ("name","iban","balance",)
+        read_only_fields = (
+            'iban',
+            'balance',
+        )
+
 class BankTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BankTransfer

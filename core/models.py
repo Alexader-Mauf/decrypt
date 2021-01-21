@@ -63,6 +63,7 @@ class BankAccount(models.Model):
         decimal_places=4,
         default=0.0,
     )
+
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -104,6 +105,26 @@ class BankTransfer(models.Model):
     amount = models.DecimalField(max_digits=22, decimal_places=4)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def run_transfer(self):
+        with atomic.transaction():
+            account_from = BankAccount.objects.get(pk=self.iban_from)
+            account_to = BankAccount.objects.get(pk=self.iban_to)
+            amount = self.amount
+            # do the transaction
+
+            ## Checks if transaction is possible
+            # if not
+            # is_open = False
+            # is_success = False
+            # self.save()
+
+            account_from.balance = account_from.balance - amount
+            account_to.balance = account_to.balance + amount
+            # change
+            self.is_open = False
+            self.is_success = True
+            self.save()
 
     def __str__(self):
         return str(self.pk)

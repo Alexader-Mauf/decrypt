@@ -1,22 +1,23 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import Group
-from core import models
-from . import serializers
+
+from .models import BankTransfer
+from . import serializers, models
+
+
 # Create your views here.
 
 
-
-
-
 def make_transfers(request):
+    list_of_transactions = BankTransfer.objects.get(is_open=True)
+    for transfer in list_of_transactions:
+        # get the data
+        transfer.runtransfer()
+
     return redirect('index')
 
 
@@ -28,8 +29,8 @@ class BankCustomerViewSet(viewsets.ModelViewSet):
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
-        #'name':['exact'],
-        'adress' : ['exact'],
+        # 'name':['exact'],
+        'adress': ['exact'],
         'created_at': ['gte', 'lte'],
         'updated_at': ['gte', 'lte'],
     }
@@ -42,7 +43,6 @@ class BankTransferViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):

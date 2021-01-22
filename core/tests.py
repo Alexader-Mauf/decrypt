@@ -214,7 +214,6 @@ class TestApiClass(SetupClass):
         # Read
         r = client.get('/core/api/bank-transfers/{}/'.format(transfer_id))
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        #self.assertEqual(r.json().get("id"), data.get("offen"))
         self.assertEqual(r.json().get("is_open"), data.get("is_open"))
         self.assertEqual(r.json().get("is_success"), data.get("is_success"))
         self.assertEqual(r.json().get("amount"), data.get("amount"))

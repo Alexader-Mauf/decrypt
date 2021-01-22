@@ -88,20 +88,27 @@ class BankTransfer(models.Model):
         verbose_name="Überweisender",
         related_name="Überweisender",
     )
-    executionlog = models.TextField(default=""),
-    execute_datetime = models.DateTimeField(default=(datetime.now())), #now is the default to be implemented
+    executionlog = models.CharField(
+            max_length=255,
+            default=["erstellt"],
+    )
+
+    execute_datetime = models.DateTimeField(
+        default=(datetime.now())
+        ) #now is the default to be implemented
+
     is_open = models.BooleanField(
         default=True,
-    )
+        )
     is_success = models.BooleanField(
         default=False,
-    )
+        )
     iban_to = models.ForeignKey(
         BankAccount,
         on_delete=models.CASCADE,
         verbose_name="Begünstigter",
         related_name="Begünstigter",
-    )
+        )
     amount = models.DecimalField(max_digits=22, decimal_places=4)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -116,8 +123,13 @@ class BankTransfer(models.Model):
 
                 ## Checks if transaction is possible
                 # user must be admin
+                if  self.is_open == False:
+                    self.executionlog += (" Error: dieser Auftrag wurde schon angesetzt")
+                    self.save()
+                    return
+
                 if account_from == account_to:
-                    self.executionlog += ("Kann keine Überweisung an das selbe Koto ausführen.",)
+                    self.executionlog += (" Error: Kann keine Überweisung an das selbe Koto ausführen.",)
                     self.is_open = False
                     self.save()
                     print("gleicher account")
@@ -130,6 +142,7 @@ class BankTransfer(models.Model):
                     self.iban_to.balance = self.iban_to.balance + self.amount
                     self.iban_to.save()
                     self.iban_from.save()
+                    self.executionlog += ("Sucess: überweisung ausgeführt")
                     # change
                     self.is_open = False
                     self.is_success = True
@@ -137,7 +150,7 @@ class BankTransfer(models.Model):
                 else:
                     print("nicht genug guthaben")
                     self.is_open = False
-                    self.executionlog += ("Nicht genug Guthaben.",)
+                    self.executionlog += ("Nicht genug Guthaben.")
                     self.save()
 
         except Exception as e:

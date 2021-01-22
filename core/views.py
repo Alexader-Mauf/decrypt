@@ -64,10 +64,11 @@ class BankTransferViewSet(viewsets.ModelViewSet):
         transfer = models.BankTransfer.objects.filter(pk=pk).first()
         transfer.run_transfer()
 
-        if not transfer.is_open:
-            return Response({"error": "Transaction wurde erfolgreich durchgeführt"},status=status.HTTP_200_OK)
+
+        if transfer.is_success:
+            return Response({"error": "Transaction wurde erfolgreich durchgeführt"}, status=status.HTTP_200_OK)
         else:
-            return Response({"error": "Transaction wurde nicht erfolgreich durchgeführt"},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({"error": transfer.executionlog}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):

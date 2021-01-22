@@ -33,7 +33,7 @@ def make_transfers(request):
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
     queryset = models.BankCustomer.objects.order_by('id').all()
-    permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
@@ -63,17 +63,17 @@ class BankTransferViewSet(viewsets.ModelViewSet):
     def run_transfer(self, request, pk):
         transfer = models.BankTransfer.objects.filter(pk=pk).first()
         transfer.run_transfer()
-        transfer = models.BankTransfer.objects.filter(pk=pk).first()
 
-        if transfer.is_success:
-            return Response({"error": "Transaction wurde nicht erfolgreich durchgeführt"},status=status.HTTP_200_OK)
+        if not transfer.is_open:
+            return Response({"error": "Transaction wurde erfolgreich durchgeführt"},status=status.HTTP_200_OK)
         else:
             return Response({"error": "Transaction wurde nicht erfolgreich durchgeführt"},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
 
 class BankAccountViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankAccountSerializer
     queryset = models.BankAccount.objects.all()
-    permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)

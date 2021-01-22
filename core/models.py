@@ -109,26 +109,37 @@ class BankTransfer(models.Model):
     def run_transfer(self):
         try:
             with transaction.atomic():
-                accoutn_from = self.iban_from
+                account_from = self.iban_from
                 account_to = self.iban_to
                 amount = self.amount
                 # do the transaction
 
                 ## Checks if transaction is possible
                 # user must be admin
-                # if not
-                # is_open = False
-                # is_success = False
-                # self.save()
+                if account_from == account_to:
+                    self.executionlog += ("Kann keine Überweisung an das selbe Koto ausführen.",)
+                    self.is_open = False
+                    self.save()
+                    print("gleicher account")
 
-                accoutn_from.balance = accoutn_from.balance - amount
-                account_to.balance = account_to.balance + amount
-                accoutn_from.save()
-                account_to.save()
-                # change
-                self.is_open = False
-                self.is_success = True
-                self.save()
+
+
+                if account_from.balance > amount:
+                    print("starting  transaction")
+                    self.iban_from.balance = self.iban_from.balance - self.amount
+                    self.iban_to.balance = self.iban_to.balance + self.amount
+                    self.iban_to.save()
+                    self.iban_from.save()
+                    # change
+                    self.is_open = False
+                    self.is_success = True
+                    self.save()
+                else:
+                    print("nicht genug guthaben")
+                    self.is_open = False
+                    self.executionlog += ("Nicht genug Guthaben.",)
+                    self.save()
+
         except Exception as e:
             print(e)
 

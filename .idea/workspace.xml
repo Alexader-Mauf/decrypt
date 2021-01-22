@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added an @action to the BankTransferViewSet wich actuates the transfers that have is_open=True &#10;Bugfixing in the core TestSet  with andre&#10;&#10;the action still has an error coming up have to rewrite the logic of the run_transfer method">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="made  both tests work but still have to figure out how to set the authorization for tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611310011346</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="made  both tests work but still have to figure out how to set the authorization for tests">
+      <created>1611316274943</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1611316274943</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,7 +284,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added  some tests" />
     <MESSAGE value="wording" />
     <MESSAGE value="combined the 2 decrypts into 1 django file" />
     <MESSAGE value="combined the 2 decrypts into 1 django file with a startpage" />
@@ -302,6 +308,7 @@
     <MESSAGE value="added tests for the newly buid core API" />
     <MESSAGE value="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers" />
     <MESSAGE value="added an @action to the BankTransferViewSet wich actuates the transfers that have is_open=True &#10;Bugfixing in the core TestSet  with andre&#10;&#10;the action still has an error coming up have to rewrite the logic of the run_transfer method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added an @action to the BankTransferViewSet wich actuates the transfers that have is_open=True &#10;Bugfixing in the core TestSet  with andre&#10;&#10;the action still has an error coming up have to rewrite the logic of the run_transfer method" />
+    <MESSAGE value="made  both tests work but still have to figure out how to set the authorization for tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="made  both tests work but still have to figure out how to set the authorization for tests" />
   </component>
 </project>

@@ -60,7 +60,7 @@ class Generator:
     @staticmethod
     def generate_customer(**kwargs):
         customer = models.BankCustomer(
-            user=kwargs.get("user", Generator.generate_user()),
+            user=kwargs.get("account_owned_by", Generator.generate_user()),
             adress=Generator.random_string()
         )
         customer.save()
@@ -70,7 +70,7 @@ class Generator:
     def generate_account(**kwargs):
         account = models.BankAccount(
             name=kwargs.get("name", Generator.random_string()),
-            account_owned_by=("account_owned_by", Generator.generate_user().pk),
+            account_owned_by=kwargs.get("account_owned_by", Generator.generate_customer()),
         )
         account.save()
         return account
@@ -85,12 +85,6 @@ class Generator:
         )
         transfer.save()
         return transfer
-
-
-customer = Generator.generate_customer()
-
-account_1 = Generator.generate_account(customer=customer)
-account_2 = Generator.generate_account(customer=customer)
 
 
 class TestApiClass(SetupClass):
@@ -108,12 +102,12 @@ class TestApiClass(SetupClass):
         # Create
         data = {
             "name": Generator.random_string(),
-            "balance": 0.0,
+            "balance": "0.0000",
             "account_owned_by": bankuser.pk
         }
         r = client.post('/core/api/bank-accounts/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)
-        account_id = r.json().get('id')
+        account_id = r.json().get('iban')
 
         # Read
         r = client.get('/core/api/bank-accounts/{}/'.format(account_id))
@@ -125,7 +119,7 @@ class TestApiClass(SetupClass):
         # Update
         data = {
             "name": Generator.random_string(),
-            "balance": 1.0,
+            "balance": "1.0000",
         }
         r = client.patch(
             '/core/api/bank-accounts/{}/'.format(account_id),
@@ -149,7 +143,7 @@ class TestApiClass(SetupClass):
         r = client.get('/core/api/bank-customers/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
         user = Generator.generate_user()
-        customer = Generator.generate_customer(user=user)
+        # customer = Generator.generate_customer(user=user)
         # Create
         data = {
             "adress": Generator.random_string(),
@@ -158,34 +152,30 @@ class TestApiClass(SetupClass):
         r = client.post('/core/api/bank-customers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)
 
-        account_id = r.json().get('id')
-
+        customer_id = r.json().get('id')
 
         # Read
-        r = client.get('/core/api/bank-customers/{}/'.format(account_id))
+        r = client.get('/core/api/bank-customers/{}/'.format(customer_id))
 
-       # diese implementation ist nicht empfehlenswert,  da beispielsweise  die reihenfolge
-       # der attribute gleich sein muss und zudem nicht klar wird  welcher wert den Fehler verursacht
-       # self.assertEqual(
-       #     r.json().get("customer.pk"), {
-       #         "id": customer.pk,
-       #         "adress": customer.adress,
-       #         "user": customer.user,
-       #
-       #     })
+        # diese implementation ist nicht empfehlenswert,  da beispielsweise  die reihenfolge
+        # der attribute gleich sein muss und zudem nicht klar wird  welcher wert den Fehler verursacht
+        # self.assertEqual(
+        #     r.json().get("customer.pk"), {
+        #         "id": customer.pk,
+        #         "adress": customer.adress,
+        #         "user": customer.user,
+        #
+        #     })
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        self.assertEqual(r.json().get("id"), data.get("id"))
         self.assertEqual(r.json().get("adress"), data.get("adress"))
         self.assertEqual(r.json().get("user"), data.get("user"))
 
         # Update
         data = {
-            "id": customer.pk,
             "adress": Generator.random_string(),
-            "user": customer.user,
         }
         r = client.patch(
-            '/core/api/bank-customers/{}/'.format(account_id),
+            '/core/api/bank-customers/{}/'.format(customer_id),
             data=data,
             format='json'
         )
@@ -194,27 +184,28 @@ class TestApiClass(SetupClass):
         # self.assertEqual(r.json().get("state_from_send_message_defaults", {}).get("Offen"), False)
 
         # Delete
-        r = client.delete('/core/api/bank-customers/{}/'.format(account_id))
+        r = client.delete('/core/api/bank-customers/{}/'.format(customer_id))
         self.assertEqual(r.status_code, status.HTTP_204_NO_CONTENT)
 
-    def  test_transfer(self):
+    def test_transfer(self):
         client = APIClient()
         client.login(username=self.username, password=self.pwd)
         # testing transfers
-        customer = Generator.generate_customer()
-        account_1 = Generator.generate_account(customer=customer)
+        account_1 = Generator.generate_account()
         account_2 = Generator.generate_account()
 
-        transfer = Generator.generate_transfer(iban_from=account_1.iban,iban_to=account_2.iban)
+        # transfer = Generator.generate_transfer(iban_from=account_1.iban, iban_to=account_2.iban)
         # List
         r = client.get('/core/api/bank-transfers/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # Create
         data = {
-            "name": "random",
-            "balance": 0.0,
-            "account_owned_by": user.id
+            'iban_from': account_1.iban,
+            'iban_to': account_2.iban,
+            'amount': "200.0000",
+            'is_open': True,
+            'is_success': False,
         }
         r = client.post('/core/api/bank-transfers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)
@@ -223,13 +214,12 @@ class TestApiClass(SetupClass):
         # Read
         r = client.get('/core/api/bank-transfers/{}/'.format(transfer_id))
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        self.assertEqual(r.json().get("id"), data.get("offen"))
+        #self.assertEqual(r.json().get("id"), data.get("offen"))
         self.assertEqual(r.json().get("is_open"), data.get("is_open"))
         self.assertEqual(r.json().get("is_success"), data.get("is_success"))
         self.assertEqual(r.json().get("amount"), data.get("amount"))
         self.assertEqual(r.json().get("iban_from"), data.get("iban_from"))
         self.assertEqual(r.json().get("iban_to"), data.get("iban_to"))
-
 
         # Update
         data = {
@@ -242,9 +232,9 @@ class TestApiClass(SetupClass):
             format='json'
         )
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        self.assertEqual(r.json().get("is_open"), False)
-        self.assertEqual(r.json().get("is_open"), True)
+        self.assertEqual(r.json().get("is_open"), data.get("is_open"))
+        self.assertEqual(r.json().get("is_success"), data.get("is_success"))
 
         # Delete
-        r = client.delete('/core/api/bank-accounts/{}/'.format(transfer_id))
+        r = client.delete('/core/api/bank-transfers/{}/'.format(transfer_id))
         self.assertEqual(r.status_code, status.HTTP_204_NO_CONTENT)

@@ -82,7 +82,7 @@ class SetupClass(TestCase):
 #         self.assertEqual(response.status_code, 404)
 
 #
-#def testtransfer(SetUpClass):
+# def testtransfer(SetUpClass):
 #    sende an die transfer api einen post  request mit  json  und der  information konto from, konto to, betrag
 #    also check if send konto is loged in konto also das der authorisierte benutzer nur geld von seinem konto schickt
 
@@ -114,6 +114,7 @@ class SetupClass(TestCase):
     def setUp(self):
         self.create_superuser()
 
+
 class Generator:
 
     @staticmethod
@@ -128,6 +129,7 @@ class Generator:
             first_name=kwargs.get("first_name", Generator.random_string()),
             last_name=kwargs.get("last_name", Generator.random_string()),
         )
+        #user.groups.add('Bankkunden') have to programm the rights manualy since the test database is always fresh
         user.save()
         return user
 

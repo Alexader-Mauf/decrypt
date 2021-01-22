@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -107,24 +107,30 @@ class BankTransfer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def run_transfer(self):
-        with atomic.transaction():
-            account_from = BankAccount.objects.get(pk=self.iban_from)
-            account_to = BankAccount.objects.get(pk=self.iban_to)
-            amount = self.amount
-            # do the transaction
+        try:
+            with transaction.atomic():
+                accoutn_from = self.iban_from
+                account_to = self.iban_to
+                amount = self.amount
+                # do the transaction
 
-            ## Checks if transaction is possible
-            # if not
-            # is_open = False
-            # is_success = False
-            # self.save()
+                ## Checks if transaction is possible
+                # user must be admin
+                # if not
+                # is_open = False
+                # is_success = False
+                # self.save()
 
-            account_from.balance = account_from.balance - amount
-            account_to.balance = account_to.balance + amount
-            # change
-            self.is_open = False
-            self.is_success = True
-            self.save()
+                accoutn_from.balance = accoutn_from.balance - amount
+                account_to.balance = account_to.balance + amount
+                accoutn_from.save()
+                account_to.save()
+                # change
+                self.is_open = False
+                self.is_success = True
+                self.save()
+        except Exception as e:
+            print(e)
 
     def __str__(self):
         return str(self.pk)

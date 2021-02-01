@@ -3,13 +3,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Hier kann man überweisungen ansetzen</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bankmain.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 <body>
-<!-- navbar -->
+<!-- navbar
 <nav class="navbar navbar-expand-lg fixed-top ">
     <a class="navbar-brand" href="#">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -32,21 +34,29 @@
         </ul>
     </div>
 </nav>
+-->
 
-
-<a>{{ user.BankCustomer.username }}</a>
-<a>{{ user.BankAccount }}</a>
+<p>{{ user.BankCustomer.BankAccount }}</p>
+<p>{{ user.BankAccount }}</p>
 <a id="statusmsg">{{ statusmsg }}</a>
 
-<p>{{ user.last_name }}</p>
+<p>{{ user.last_name }} {{ user.first_name }}</p>
+<p>kontostand: {{ BankAccount.balance }}</p>
 
 <p>iban from</p>
-<input type="text" id="iban_from" name="iban_from" value={{user.BankAccount.iban}}>
+<label for="Accounts">Wähle dein Konto:</label>
+<select name="Accounts" id="iban_from">
+    <option value=account.name>{{ account1 }}</option>
+    <option value="acc2">{{ account2 }}</option>
+</select>
+
+
 <p>überweisungsbetrag</p>
 <input type="text" id="amount" name="amount">
 <p>iban to</p>
 <input type="text" id="iban_to" name="iban_to">
 <input type="submit" id="action" value="Überweisung durchführen.">
+<!--
 <header>
     <div class="overlay"></div>
      <div class="container">
@@ -57,7 +67,7 @@
          </div>
      </div>
 </header>
-
+-->
 {% load pipeline %}
 {% javascript 'jscripts' %}
 

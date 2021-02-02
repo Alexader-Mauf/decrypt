@@ -201,14 +201,19 @@ class TestApiClass(SetupClass):
 
         # Create
         data = {
-            'iban_from': account_1.iban,
-            'iban_to': account_2.iban,
-            'amount': "200.0000",
-            'is_open': True,
-            'is_success': False,
+            "iban_from": account_1.pk,
+            "iban_to": account_2.pk,
+            "is_success": False,
+            "is_open": False,
+            #"executionlog": "",
+            "amount":'20.0000',
+            "use_case": Generator.random_string(),
+            "created_by": account_1.account_owned_by.pk,
         }
         r = client.post('/core/api/bank-transfers/', data=data, format='json')
+        #print(r.json())
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)
+
         transfer_id = r.json().get('id')
 
         # Read

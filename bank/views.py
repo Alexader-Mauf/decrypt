@@ -121,7 +121,7 @@ def update_adress(request, user_id):
 
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
-    queryset = models.BankCustomer.objects.order_by('id').all()
+    queryset = models.BankCustomer.objects.order_by('id')
     permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
@@ -132,6 +132,13 @@ class BankCustomerViewSet(viewsets.ModelViewSet):
         'created_at': ['gte', 'lte'],
         'updated_at': ['gte', 'lte'],
     }
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return super(BankCustomerViewSet, self).get_queryset()
+        else:
+            return super(BankCustomerViewSet, self).get_queryset().filter(user=user)
 
 
 class BankTransferViewSet(viewsets.ModelViewSet):
@@ -151,3 +158,4 @@ class BankAccountViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+

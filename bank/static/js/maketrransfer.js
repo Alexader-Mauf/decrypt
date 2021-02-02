@@ -11,7 +11,8 @@ $( document ).ready(function() {
              "iban_from": from,
              "amount":  amount,
              "iban_to":  to,
-
+    // this is wrong but it is also wrong in the test since I am struggeling to find
+    // the correct syntax
 
 
              })
@@ -25,5 +26,6 @@ $( document ).ready(function() {
                 $("#statusmsg").text("da ist wohl etwas schiefgegangen..")
             });
             });
-
+    //there has to be a redirect on success else ppl could accidentaly transfer their stuff like
+    // until they literally oom(out of money)
 });

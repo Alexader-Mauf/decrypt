@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="tried some implemetations but struggle with the syntax">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="made the dropdown in the trasferscreen work&#10;&#10;next step ist moving the database to mysql">
+      <change afterPath="$PROJECT_DIR$/bank/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/migrations/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/templates/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/home2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/seeds.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/seeds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612194037133</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="made the dropdown in the trasferscreen work&#10;&#10;next step ist moving the database to mysql">
+      <created>1612257793947</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1612257793948</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,7 +320,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed the input not properly working on the forms site" />
     <MESSAGE value="refactoring stuff" />
     <MESSAGE value="all the compression stuff works now&#10;&#10;my stated directory at faulty syntax&#10;&#10;after makemigrations is everything uglyfied" />
     <MESSAGE value="all the compression stuff works now&#10;&#10;my stated directory at faulty syntax&#10;&#10;Some UI-Text updates" />
@@ -332,6 +344,7 @@
     <MESSAGE value="made the run_transfer Method  run as expected" />
     <MESSAGE value="added some nice-looking signup page stuff" />
     <MESSAGE value="tried some implemetations but struggle with the syntax" />
-    <option name="LAST_COMMIT_MESSAGE" value="tried some implemetations but struggle with the syntax" />
+    <MESSAGE value="made the dropdown in the trasferscreen work&#10;&#10;next step ist moving the database to mysql" />
+    <option name="LAST_COMMIT_MESSAGE" value="made the dropdown in the trasferscreen work&#10;&#10;next step ist moving the database to mysql" />
   </component>
 </project>

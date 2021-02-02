@@ -6,13 +6,10 @@ from core import models
 class BankCustomersSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BankCustomer
-        fields = (
-            'pk',
-            'created_at',
-            'updated_at',
-        )
+        fields = '__all__'
         read_only_fields = (
-            'pk',
+            'id',
+            'user',
             'created_at',
             'updated_at',
         )
@@ -22,7 +19,7 @@ class BankTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BankTransfer
         fields = (
-            'pk',
+            'id',
             'iban_from',
             'iban_to',
             'is_success',
@@ -32,9 +29,10 @@ class BankTransferSerializer(serializers.ModelSerializer):
             'amount',
             'created_at',
             'updated_at',
+            'created_by',
         )
         read_only_fields = (
-            'pk',
+            'id',
             'created_at',
             'updated_at',
         )
@@ -44,7 +42,7 @@ class BankAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BankAccount
         fields = (
-            'pk',
+            'id',
             "name",
             "iban",
             "account_owned_by",
@@ -53,7 +51,7 @@ class BankAccountSerializer(serializers.ModelSerializer):
             "created_at",
         )
         read_only_fields = (
-            "pk",
+            "id",
             "name",
             "iban",
             "account_owned_by",

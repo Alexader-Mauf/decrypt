@@ -55,7 +55,7 @@ class BankAccount(models.Model):
     account_owned_by = models.ForeignKey(
         BankCustomer,
         #default=BankCustomer.user.username,
-        related_name="bankaccounts",
+        related_name="account_owned_by",
         on_delete=models.CASCADE,
         verbose_name="Inhaber"
     )
@@ -85,17 +85,27 @@ class BankAccount(models.Model):
 class BankTransfer(models.Model):
     iban_from = models.ForeignKey(
         BankAccount,
-        on_delete=models.CASCADE,
+        on_delete=models.ProtectedError,
         verbose_name="Überweisender",
         related_name="Überweisender",
     )
+    created_by = models.ForeignKey(
+        BankCustomer,
+        on_delete=models.DO_NOTHING,
+        verbose_name="Auftraggeber",
+        related_name="created_by"
+
+    )
+    use_case = models.TextField(
+        verbose_name="Verwendungszweck",
+            )
     executionlog = models.CharField(
             max_length=255,
             default=["erstellt"],
     )
 
     execute_datetime = models.DateTimeField(
-        default=(datetime.now())
+        default=timezone.now
         ) #now is the default to be implemented
 
     is_open = models.BooleanField(
@@ -165,3 +175,30 @@ class BankTransfer(models.Model):
 
     def __repr__(self):
         return self.pk
+
+
+class RepeatedTransaction(models.Model):
+    transaction_to_be_repeated = models.ForeignKey(
+        BankTransfer,
+        related_name="to_be_repeated",
+        verbose_name="Dauerauftrag",
+        on_delete=models.DO_NOTHING
+    )
+    starting_date = models.DateTimeField
+
+    REPETITIONS_CHOICES=[
+        ("weekly","Wöchentlich"),
+        ("monthly","Monatlich"),
+        ("yearly","Jährlich")
+    ]
+    frequency = models.CharField(
+        max_length=7,
+        choices= REPETITIONS_CHOICES,
+        default="monthly"
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def run_repeated_transaction(self):
+        #create a new trransaction that is sceduled 1 frequency later then the last one
+        return None

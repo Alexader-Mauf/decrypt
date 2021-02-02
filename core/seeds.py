@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from core import models
+from . import models
 import random
 
 
@@ -37,7 +37,7 @@ def seed():
 
     customer2 = models.BankCustomer.objects.create(
         user=user,
-        adress="",
+        adress="",py
     )
     customer2.save()
 
@@ -51,7 +51,7 @@ def seed():
         iban_from=account2,
         amount=20,
         iban_to=account,
-
+        created_by=customer2
     )
     transfer.save()
     print("Done!")

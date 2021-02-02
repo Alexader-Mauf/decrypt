@@ -11,6 +11,7 @@ from django.utils import timezone
 class BankCustomer(models.Model):
     user = models.OneToOneField(
         User,
+        related_name='bank_customer',
         on_delete=models.CASCADE
     )
     adress = models.CharField(max_length=255, default="None")

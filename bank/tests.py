@@ -56,13 +56,25 @@ class TestAPIEndpointAuthorization(TestCase):
 
 
 class SetupClass(TestCase):
-    username = 'admin'
-    pwd = ':L:3M3pFK"N$Y!Qj'
+    admin_username = 'admin'
+    admin_pwd = ':L:3M3pFK"N$Y!Qj'
+
+    bank_customer_username = 'admin'
+    bank_customer_pwd= ':L:3M3pFK"N$Y!Qj'
+
+
+    def create_bank_customer_user(self):
+        #ser erstellen
+        #gruppe
+        # customer
+        # return customer
+
+        pass
 
     def create_superuser(self):
         u = User.objects.create_superuser(
-            username=self.username,
-            password=self.pwd
+            username=self.admin_username,
+            password=self.admin_pwd
         )
         u.save()
 
@@ -135,7 +147,7 @@ class Generator:
 class TestApiClass(SetupClass):
     def test_bankaccount(self):
         client = APIClient()
-        client.login(username=self.username, password=self.pwd)
+        client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
         bankuser = Generator.generate_customer()
 
@@ -181,7 +193,7 @@ class TestApiClass(SetupClass):
 
     def test_customers(self):
         client = APIClient()
-        client.login(username=self.username, password=self.pwd)
+        client.login(username=self.admin_username, password=self.admin_pwd)
 
         # testing Customers
         # List
@@ -226,7 +238,7 @@ class TestApiClass(SetupClass):
 
     def test_transfers(self):
         client = APIClient()
-        client.login(username=self.username, password=self.pwd)
+        client.login(username=self.admin_username, password=self.admin_pwd)
 
         # testing transfers
 

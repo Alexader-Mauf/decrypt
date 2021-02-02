@@ -38,8 +38,15 @@ def logout_view(request):
 
 def loadhome(request):
 
+    bankaccounts = request.user.bank_customer.bankaccounts.all()
+
+    print(bankaccounts)
+
     if request.user.is_authenticated:
-        return render(request, 'home2.html')
+        return render(request, 'home2.html', {
+            "user": request.user,
+            "accounts":bankaccounts
+        })
     else:
         return redirect(reverse('bank_index'))
 

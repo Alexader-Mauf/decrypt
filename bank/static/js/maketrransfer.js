@@ -8,17 +8,14 @@ $( document ).ready(function() {
             var created_by = $("#created_by").val()
             var verwendungszweck = $("verwendungszweck").val()
 
-
-            $.post( "/bank/api/bank-transfers/" , {
+            // der post rewuest muss überarbeited werden um auch die seiion daten mitzugeben -> sonst ist der request nicht authentifiziert -> 403_FORBIDDEN
+            // vielleicht mit einem form machen und kein JQuery verwenden?
+            $.post( {% 'create-transfers' %} , {
              "iban_from": from,
              "amount":  amount,
              "iban_to":  to,
              "use_case": verwendungszweck,
              "created_by": created_by,
-    //
-    //
-
-
              })
             .done(function(data) {
                 console.log(data)

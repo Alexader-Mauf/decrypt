@@ -10,7 +10,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q
 #content_type = ContentType.objects.get_for_model(BankTransfer)
 #permission_to_add_transfers = Permission.objects.create(
 #    codename='can_add_transfer',
@@ -125,8 +125,8 @@ class SetupClass(TestCase):
     admin_username = 'admin'
     admin_pwd = ':L:3M3pFK"N$Y!Qj'
 
-    bank_customer_username = 'not_admin'
-    bank_customer_pwd= ':fuckme'
+    bank_customer_username = Generator.random_string()
+    bank_customer_pwd = Generator.random_string()
 
 
     def create_bank_customer_user(self):
@@ -138,7 +138,7 @@ class SetupClass(TestCase):
             last_name=f"nachname{random.randint(100000, 999999)}",
         )
         user.save()
-        Generator.generate_customer(user=user,adress=f"{random.randint(1,100)}te Straße, {random.randint(1,234)}")
+        customer = Generator.generate_customer(user=user, adress=f"{random.randint(1,100)}te Straße, {random.randint(1,234)}")
 
         # gruppe
         codenames = [
@@ -150,13 +150,13 @@ class SetupClass(TestCase):
 
         ]
         permissions = Permission.objects.filter(codename__in=codenames).all()
-        user.user_permissions = permissions
-
+        user.user_permissions.set(permissions)
+        user.save()
         # customer
-        customer = Generator.generate_customer(user=user)
+
         account = Generator.generate_account(account_owned_by=customer, name="Testkonto")
-        customer = get_object_or_404(customer, pk=user.id)
-        # return customer
+        #customer = get_object_or_404(BankCustomer, pk=user.id)
+        return account
 
 
 
@@ -169,6 +169,7 @@ class SetupClass(TestCase):
 
     def setUp(self):
         self.create_superuser()
+        self.create_bank_customer_user()
 
 
 
@@ -177,12 +178,17 @@ class TestApiClass(SetupClass):
         client = APIClient()
         client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
-        bankuser = Generator.generate_customer()
+        bankuser = User.objects.get(username=self.bank_customer_username).bank_customer
 
         # testing accounts
         # List
+        #gibt nur eigene Accounts wieder (funktioniert das mit mehereren Accounts?)
         r = client.get('/core/api/bank-accounts/')
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
+        account_id = r.json().get('iban')
+        # hier noch ein self assert, dass prüft ob die
+        self.assertEqual(account_id, bankuser.account_owned_by.iban)
+
 
         # Create
         data = {
@@ -192,11 +198,13 @@ class TestApiClass(SetupClass):
         }
         r = client.post('/core/api/bank-accounts/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-        account_id = r.json().get('iban')
 
-        # Read
+
+        # Read not own account
+
+        account_id = Generator.generate_account().iban
         r = client.get('/core/api/bank-accounts/{}/'.format(account_id))
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
         #self.assertEqual(r.json().get("name"), data.get("name"))
         #self.assertEqual(r.json().get("balance"), data.get("balance"))
         #self.assertEqual(r.json().get("account_owned_by"), data.get("account_owned_by"))
@@ -223,35 +231,42 @@ class TestApiClass(SetupClass):
         client = APIClient()
         client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
+        bankuser = User.objects.get(username=self.bank_customer_username)
+
         # testing Customers
         # List
         r = client.get('/core/api/bank-customers/')
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-        user = self.create_bank_customer_user()
+
         # customer = Generator.generate_customer(user=user)
         # Create
         data = {
             "adress": Generator.random_string(),
-            "user": user.id
+            "user": bankuser.id
         }
         r = client.post('/core/api/bank-customers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
 
-        customer_id = r.json().get('id')
+        # Read own
+        r = client.get('/core/api/bank-customers/{}/'.format(bankuser.id))
 
-        # Read
-        r = client.get('/core/api/bank-customers/{}/'.format(customer_id))
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
+        self.assertEqual(r.json().get("adress"), data.get("adress"))
+        self.assertEqual(r.json().get("user"), data.get("user"))
+
+        # Read other
+        otheruser = Generator.generate_customer()
+        r = client.get('/core/api/bank-customers/{}/'.format(otheruser.pk))
 
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-        #self.assertEqual(r.json().get("adress"), data.get("adress"))
-        #self.assertEqual(r.json().get("user"), data.get("user"))
+
 
         # Update
         data = {
             "adress": Generator.random_string(),
         }
         r = client.patch(
-            '/core/api/bank-customers/{}/'.format(customer_id),
+            '/core/api/bank-customers/{}/'.format(bankuser.id),
             data=data,
             format='json'
         )
@@ -261,7 +276,7 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.json().get("adress"), data.get("adress"))
 
         # Delete
-        r = client.delete('/core/api/bank-customers/{}/'.format(customer_id))
+        r = client.delete('/core/api/bank-customers/{}/'.format(bankuser.id))
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
 
 
@@ -270,21 +285,31 @@ class TestApiClass(SetupClass):
         client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
         # testing transfers
-
-        account_1 = Generator.generate_account()
+        user = User.objects.get(username=self.bank_customer_username)
+        account_1 = user.bank_customer.account_owned_by # der account muss mit der ralation auf den eingeloggten user gesetzt werden
         account_2 = Generator.generate_account()
 
         # List
+        # get self
         r = client.get('/core/api/bank-transfers/')
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
+        response_iban_from = r.json().get("iban_from")
+        response_iban_to = r.json().get("iban_to")
+        response_created_by = r.json().get("created_by")
+        self.assertEqual(response_created_by, user.id)
+        self.assertEqual(response_iban_to, account_2.iban)
+        self.assertEqual(response_iban_from, account_1.iban)
+
+        # get other
+        other_iban = account_2.iban
+        r = client.get(f'/core/api/bank-transfers/{other_iban}')
+        self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
+
 
         # Create
         data = {
-            "iban_from": account_1.pk,
-            "iban_to": account_2.pk,
-            "is_success": False,
-            "is_open": False,
-            # "executionlog": "",
+            "iban_from": account_1.iban,
+            "iban_to": account_2.iban,
             "amount": '20.0000',
             "use_case": Generator.random_string(),
             "created_by": account_1.account_owned_by.pk,
@@ -299,9 +324,11 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.json().get("iban_from"), data.get("iban_from"))
         self.assertEqual(r.json().get("iban_to"),data.get("iban_to"))
         self.assertEqual(r.json().get("amount"), data.get("amount"))
-        self.assertEqual(r.json().get("is_open"), data.get("is_open"))
-        self.assertEqual(r.json().get("is_success"), data.get("is_success"))
-
+        self.assertEqual(r.json().get("created_by"), data.get("created_by"))
+        self.assertEqual(r.json().get("use_case"), data.get("use_case"))
+        #self.assertEqual(r.json().get("is_open"), data.get("is_open"))
+        #self.assertEqual(r.json().get("is_success"), data.get("is_success"))
+#
 
 
         # Update
@@ -315,8 +342,8 @@ class TestApiClass(SetupClass):
             format='json'
         )
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-       # self.assertEqual(r.json().get("is_open"), data.get("is_open"))
-       # self.assertEqual(r.json().get("is_success"), data.get("is_success"))
+        # self.assertEqual(r.json().get("is_open"), data.get("is_open"))
+        # self.assertEqual(r.json().get("is_success"), data.get("is_success"))
         # wäre es sinnvoll, wenn man self.assertEqual(None,data.get("is_open")) benutzt zum doppelcheck?
 
         # Delete

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django_filters.rest_framework import DjangoFilterBackend
@@ -10,6 +11,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import Group,Permission
 from core import models
+from core.models import BankTransfer
 from . import serializers
 
 
@@ -131,6 +133,24 @@ def update_adress(request, user_id):
     newadress = request.POST.get("adress")
     user.BankCustomer.adress = newadress
     user.save()
+
+
+def create_transfer(request, iban_to, amount, use_case, iban_from):
+
+    transfer = BankTransfer(
+                iban_to=request.POST.get("iban_to"),
+                iban_from=request.POST.get("iban_from"),
+                amount=request.POST.get("amount"),
+                use_case=request.POST.get("use_case"),
+                created_by=request.user.get("id"),
+    )
+    bankaccounts = request.user.bank_customer.account_owned_by.all()
+    return render(request, 'home2.html', {
+            "user": request.user,
+            "accounts": bankaccounts
+        })
+
+
 
 
 class BankCustomerViewSet(viewsets.ModelViewSet):

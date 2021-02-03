@@ -1,8 +1,7 @@
 from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models, transaction
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils import timezone
 
 
@@ -54,7 +53,7 @@ class BankAccount(models.Model):
     )
     account_owned_by = models.ForeignKey(
         BankCustomer,
-        #default=BankCustomer.user.username,
+        # default=BankCustomer.user.username,
         related_name="account_owned_by",
         on_delete=models.CASCADE,
         verbose_name="Inhaber"
@@ -67,8 +66,6 @@ class BankAccount(models.Model):
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
 
     def __str__(self):
         return "IBAN:{}".format(self.iban)
@@ -98,28 +95,28 @@ class BankTransfer(models.Model):
     )
     use_case = models.TextField(
         verbose_name="Verwendungszweck",
-            )
+    )
     executionlog = models.CharField(
-            max_length=255,
-            default=["erstellt"],
+        max_length=255,
+        default=["erstellt"],
     )
 
     execute_datetime = models.DateTimeField(
         default=timezone.now
-        ) #now is the default to be implemented
+    )  # now is the default to be implemented
 
     is_open = models.BooleanField(
         default=True,
-        )
+    )
     is_success = models.BooleanField(
         default=False,
-        )
+    )
     iban_to = models.ForeignKey(
         BankAccount,
         on_delete=models.CASCADE,
         verbose_name="Begünstigter",
         related_name="Begünstigter",
-        )
+    )
     amount = models.DecimalField(max_digits=22, decimal_places=4)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -134,7 +131,7 @@ class BankTransfer(models.Model):
 
                 ## Checks if transaction is possible
                 # user must be admin
-                if  self.is_open == False:
+                if self.is_open == False:
                     self.executionlog += (" Error: dieser Auftrag wurde schon angesetzt")
                     self.save()
                     return
@@ -144,8 +141,6 @@ class BankTransfer(models.Model):
                     self.is_open = False
                     self.save()
                     print("gleicher account")
-
-
 
                 if account_from.balance > amount:
                     print("starting  transaction")
@@ -186,19 +181,19 @@ class RepeatedTransaction(models.Model):
     )
     starting_date = models.DateTimeField
 
-    REPETITIONS_CHOICES=[
-        ("weekly","Wöchentlich"),
-        ("monthly","Monatlich"),
-        ("yearly","Jährlich")
+    REPETITIONS_CHOICES = [
+        ("weekly", "Wöchentlich"),
+        ("monthly", "Monatlich"),
+        ("yearly", "Jährlich")
     ]
     frequency = models.CharField(
         max_length=7,
-        choices= REPETITIONS_CHOICES,
+        choices=REPETITIONS_CHOICES,
         default="monthly"
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def run_repeated_transaction(self):
-        #create a new trransaction that is sceduled 1 frequency later then the last one
+        # create a new trransaction that is sceduled 1 frequency later then the last one
         return None

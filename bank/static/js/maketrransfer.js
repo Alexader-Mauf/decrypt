@@ -5,14 +5,18 @@ $( document ).ready(function() {
             var from = $("#iban_from").val()
             var amount = $("#amount").val()
             var to = $("#iban_to").val()
+            var created_by = $("#created_by").val()
+            var verwendungszweck = $("verwendungszweck").val()
 
 
             $.post( "/bank/api/bank-transfers/" , {
              "iban_from": from,
              "amount":  amount,
              "iban_to":  to,
-    // this is wrong but it is also wrong in the test since I am struggeling to find
-    // the correct syntax
+             "use_case": verwendungszweck,
+             "created_by": created_by,
+    //
+    //
 
 
              })

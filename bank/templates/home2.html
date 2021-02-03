@@ -48,7 +48,7 @@
     <option value=account.name>{{ account.iban }}</option>
     {% endfor %}
 </select>
-
+<input type="hidden" id="created_by" name="created_by" val="{{ user.id }}" >
 <p>Zielkonto</p>
 <p><input type="text" id="iban_to" name="iban_to"></p>
 <p>Verwendungszweck</p>

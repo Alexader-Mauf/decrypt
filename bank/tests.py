@@ -56,56 +56,6 @@ class TestAPIEndpointAuthorization(TestCase):
             self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
 
 
-class SetupClass(TestCase):
-    admin_username = 'admin'
-    admin_pwd = ':L:3M3pFK"N$Y!Qj'
-
-    bank_customer_username = 'not_admin'
-    bank_customer_pwd= ':fuckme'
-
-
-    def create_bank_customer_user(self):
-        #user erstellen
-        user = User.objects.create(
-            username=self.bank_customer_username,
-            password=self.bank_customer_pwd,
-            first_name=f"vorname{random.randint(100000, 999999)}",
-            last_name=f"nachname{random.randint(100000, 999999)}",
-        )
-
-        # gruppe
-        codenames = [
-            'view_banktransfer',
-            'add_banktransfer',
-            'view_bankaccount',
-            'view_bankcustomer',
-            'change_bankcustomer',
-
-        ]
-        permissions = Permission.objects.filter(codename__in=codenames).all()
-        user.user_permissions = permissions
-
-        # customer
-        customer = models.BankCustomer.objects.create(
-            user=user,
-            adress="",
-        )
-        customer.save()
-        customer = get_object_or_404(customer, pk=user_id)
-        # return customer
-
-
-
-    def create_superuser(self):
-        u = User.objects.create_superuser(
-            username=self.admin_username,
-            password=self.admin_pwd
-        )
-        u.save()
-
-    def setUp(self):
-        self.create_superuser()
-
 
 class Generator:
 
@@ -116,8 +66,8 @@ class Generator:
     @staticmethod
     def generate_user(**kwargs):
         user = User.objects.create(
-            username=f"SeedCustomer{random.randint(100000, 999999)}",
-            password="customer@12345678",
+            username=kwargs.get("username", f"SeedCustomer{random.randint(100000, 999999)}"),
+            password=kwargs.get("asd", f"pw{random.randint(10000,999909)}"),
             first_name=kwargs.get("first_name", Generator.random_string()),
             last_name=kwargs.get("last_name", Generator.random_string()),
         )
@@ -130,7 +80,7 @@ class Generator:
     def generate_customer(**kwargs):
         customer = BankCustomer(
             user=kwargs.get("user", Generator.generate_user()),
-            adress=Generator.random_string()
+            adress=kwargs.get("adress", Generator.random_string())
         )
         customer.save()
         return customer
@@ -139,9 +89,9 @@ class Generator:
     def generate_account(**kwargs):
         customer = Generator.generate_customer()
         account = BankAccount(
-            name=Generator.random_string(),
-            account_owned_by=customer,
-            balance=500,
+            name=kwargs.get("name", Generator.random_string()),
+            account_owned_by=kwargs.get("account_owned_by", customer),
+            balance=kwargs.get("balance", 500),
         )
         account.save()
         return account
@@ -168,6 +118,58 @@ class Generator:
     #    [mandant.users.add(x) for x in kwargs.get("users", [])]
     #    mandant.save()
     #    return mandant
+
+
+
+class SetupClass(TestCase):
+    admin_username = 'admin'
+    admin_pwd = ':L:3M3pFK"N$Y!Qj'
+
+    bank_customer_username = 'not_admin'
+    bank_customer_pwd= ':fuckme'
+
+
+    def create_bank_customer_user(self):
+        #user erstellen
+        user = User.objects.create(
+            username=self.bank_customer_username,
+            password=self.bank_customer_pwd,
+            first_name=f"vorname{random.randint(100000, 999999)}",
+            last_name=f"nachname{random.randint(100000, 999999)}",
+        )
+        user.save()
+        Generator.generate_customer(user=user,adress=f"{random.randint(1,100)}te Straße, {random.randint(1,234)}")
+
+        # gruppe
+        codenames = [
+            'view_banktransfer',
+            'add_banktransfer',
+            'view_bankaccount',
+            'view_bankcustomer',
+            'change_bankcustomer',
+
+        ]
+        permissions = Permission.objects.filter(codename__in=codenames).all()
+        user.user_permissions = permissions
+
+        # customer
+        customer = Generator.generate_customer(user=user)
+        account = Generator.generate_account(account_owned_by=customer, name="Testkonto")
+        customer = get_object_or_404(customer, pk=user.id)
+        # return customer
+
+
+
+    def create_superuser(self):
+        u = User.objects.create_superuser(
+            username=self.admin_username,
+            password=self.admin_pwd
+        )
+        u.save()
+
+    def setUp(self):
+        self.create_superuser()
+
 
 
 class TestApiClass(SetupClass):
@@ -225,7 +227,7 @@ class TestApiClass(SetupClass):
         # List
         r = client.get('/core/api/bank-customers/')
         self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-        user = Generator.generate_user()
+        user = self.create_bank_customer_user()
         # customer = Generator.generate_customer(user=user)
         # Create
         data = {

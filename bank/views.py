@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django_filters.rest_framework import DjangoFilterBackend
@@ -7,7 +8,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,Permission
 from core import models
 from . import serializers
 
@@ -38,9 +39,22 @@ def logout_view(request):
 
 def loadhome(request):
 
-    bankaccounts = request.user.bank_customer.bankaccounts.all()
+    bankaccounts = request.user.bank_customer.account_owned_by.all()
 
     print(bankaccounts)
+    codenames = [
+        'view_banktransfer',
+        'add_banktransfer',
+        'view_bankaccount',
+        'view_bankcustomer',
+        'change_bankcustomer',
+
+    ]
+    permissions = Permission.objects.filter(codename__in=codenames).all()
+
+    request.user.user_permissions.set(permissions)
+
+
 
     if request.user.is_authenticated:
         return render(request, 'home2.html', {
@@ -149,6 +163,16 @@ class BankTransferViewSet(viewsets.ModelViewSet):
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return super(BankTransferViewSet, self).get_queryset()
+        else:
+            return super(BankTransferViewSet, self).get_queryset().filter(
+                Q(iban_from=user.bank_customer.account_owned_by) |
+                Q(iban_to=user.bank_customer.account_owned_by) |
+                Q(created_by=user.bank_customer)
+            )
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):
@@ -159,3 +183,9 @@ class BankAccountViewSet(viewsets.ModelViewSet):
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return super(BankAccountViewSet, self).get_queryset()
+        else:
+            return super(BankAccountViewSet, self).get_queryset().filter(account_owned_by=user.bank_customer) # hier muss ein "or" hin

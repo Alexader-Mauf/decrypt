@@ -1,18 +1,21 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.db.models import Q
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import Group,Permission
+from rest_framework.response import Response
+
 from core import models
-from core.models import BankTransfer
+from core.models import BankAccount
 from . import serializers
+from .models import BankUserAdministration
 
 
 def login_view(request):
@@ -40,7 +43,6 @@ def logout_view(request):
 
 
 def loadhome(request):
-
     bankaccounts = request.user.bank_customer.account_owned_by.all()
 
     print(bankaccounts)
@@ -56,12 +58,10 @@ def loadhome(request):
 
     request.user.user_permissions.set(permissions)
 
-
-
     if request.user.is_authenticated:
         return render(request, 'home2.html', {
             "user": request.user,
-            "accounts":bankaccounts
+            "accounts": bankaccounts
         })
     else:
         return redirect(reverse('bank_index'))
@@ -76,7 +76,7 @@ def signup(request):
         return render(request, "signup.html")
 
     if request.method == "POST":
-        #POST
+        # POST
         # get data from a form
         vorname = request.POST.get("vorname")
         nachname = request.POST.get("name")
@@ -113,19 +113,7 @@ def signup(request):
             )
             account.save()
 
-
-
-            return render(request, "signup.html", {
-                "statusmsg": """
-                Nutzer erfolgreich erstellt
-                vorname:{}
-                nachname:{}
-                email:{}
-                password:{}
-                """.format(vorname, nachname, email, password).strip(),
-            })
-
-
+            return render(request, "login.html")
 
 
 def update_adress(request, user_id):
@@ -135,44 +123,100 @@ def update_adress(request, user_id):
     user.save()
 
 
-def create_transfer(request, iban_to, amount, use_case, iban_from):
-
-    transfer = BankTransfer(
-                iban_to=request.POST.get("iban_to"),
-                iban_from=request.POST.get("iban_from"),
-                amount=request.POST.get("amount"),
-                use_case=request.POST.get("use_case"),
-                created_by=request.user.get("id"),
-    )
+def create_transfer(request):
     bankaccounts = request.user.bank_customer.account_owned_by.all()
-    return render(request, 'home2.html', {
+
+    if request.method == "GET":
+        return render(request, 'home2.html', {
             "user": request.user,
-            "accounts": bankaccounts
+            "accounts": bankaccounts,
+            "statusmsg": None,
         })
 
+    if request.method == "POST":
+        iban_to = request.POST.get("iban_to")
+        iban_from = request.POST.get("iban_from")
+        amount = request.POST.get("amount")
+        use_case = request.POST.get("verwendungszweck")
+        print(
+            iban_from,
+            iban_to,
+            amount,
+            use_case,
+        )
+        created_by = request.user.bank_customer
+        iban_to = models.BankAccount.objects.get(iban=iban_to)
+        iban_from = models.BankAccount.objects.get(iban=iban_from)
 
+        # if BankAccount.objects.get(iban=request.POST.get("iban_to")):
+        try:
+            with transaction.atomic():
+                transfer = models.BankTransfer.objects.create(
+                    iban_to=iban_to,
+                    iban_from=iban_from,
+                    amount=amount,
+                    use_case=use_case,
+                    created_by=created_by,
+                )
+                transfer.save()
+            return render(request, 'home2.html', {
+                "user": request.user,
+                "accounts": bankaccounts,
+                "statusmsg": "Überweisung erfolgreich erstellt",
+            })
+        except Exception as e:
+            print(e)
+            return render(request, 'home2.html', {
+                "user": request.user,
+                "accounts": bankaccounts,
+                "statusmsg": "E R S T E L L E N Fehlgeschlagen",
+            })
+
+        # Unterscheidung success nicht success
+
+    # else:
+
+    #   return render(request, 'home2.html', {
+    #       "user": request.user,
+    #       "accounts": bankaccounts,
+    #       "statusmsg": "Es ist ein Fehler aufgetreten.",
+    #   })
+    #
+
+    # man könnte hier auch den transfer direkt ausführen
+    #
+    # User.bank_customer.account_owned_by.balance = User.bank_customer.account_owned_by.balance - amount
+    # User.bank_customer.account_owned_by.balance = User.bank_customer.account_owned_by.balance + amount
+    # both.save()
+
+    bankaccounts = BankUserAdministration(request.user).adminstrating_accounts
+    return render(request, 'home2.html', {
+        "user": request.user,
+        "accounts": bankaccounts,
+        "statusmsg": "Überweisung erfolgreich erstellt",
+    })
 
 
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
-    queryset = models.BankCustomer.objects.order_by('id')
+    queryset = models.BankCustomer.objects.order_by('id').all()
     permission_classes = [IsAuthenticated]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = {
-        #'name':['exact'],
-        'adress' : ['exact'],
+        # 'name':['exact'],
+        'adress': ['exact'],
         'created_at': ['gte', 'lte'],
         'updated_at': ['gte', 'lte'],
     }
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_superuser:
-            return super(BankCustomerViewSet, self).get_queryset()
-        else:
-            return super(BankCustomerViewSet, self).get_queryset().filter(user=user)
+#
+   # def get_queryset(self):
+   #     user = self.request.user
+   #     if user.is_superuser:
+   #         return super(BankCustomerViewSet, self).get_queryset()
+   #     else:
+   #         return super(BankCustomerViewSet, self).get_queryset().filter(user=user)
 
 
 class BankTransferViewSet(viewsets.ModelViewSet):
@@ -208,4 +252,11 @@ class BankAccountViewSet(viewsets.ModelViewSet):
         if user.is_superuser:
             return super(BankAccountViewSet, self).get_queryset()
         else:
-            return super(BankAccountViewSet, self).get_queryset().filter(account_owned_by=user.bank_customer) # hier muss ein "or" hin
+            return super(BankAccountViewSet, self).get_queryset().filter(
+                account_owned_by=user.bank_customer)  # hier muss ein "or" hin
+
+    def create(self, request):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)

@@ -9,38 +9,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bankmain.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css'%}"/>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top ">
-            <a class="navbar-brand" href="#">Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-4">
-                    <li class="nav-item">
-                        <a class="nav-link" data-value="about" href="#">About</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link " data-value="portfolio" href="#">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " data-value="blog" href="#">Blog</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link " data-value="team" href="#"> Team</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link " data-value="contact" href="#">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
 
     </div>
     <div class="row">
-        <a id="statusmsg">{{ statusmsg }}</a>
+
         <h1>Überweisung</h1>
     </div>
     <div class="row">
@@ -49,36 +26,46 @@
     </div>
 
     <div class="row">
+        <a id="statusmsg">{{ statusmsg }}</a>
         <p>Konto Transaktion von</p>
     </div>
-    <div class="row">
+    <form action="{% url 'create-transfer' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
 
-        <label for="accounts">Wähle dein Konto:</label>
-    </div>
-    <div class="col-sm">
-        <select name="accounts" id="iban_from">
-            {% for account in accounts %}
-            <option value=account.name>{{ account.iban }}</option>
-            {% endfor %}
-        </select>
+            <label for="accounts">Wähle dein Konto:</label>
+        </div>
+        <div class="col-sm">
+            <select name="iban_from" id="iban_from">
+                {% for account in accounts %}
+                <option value="{{account.iban}}">{{ account.iban }} {{ account.name }}</option>
+                {% endfor %}
+            </select>
 
-    </div>
-    <input type="hidden" id="created_by" name="created_by" val="{{ user.id }}">
-    <div class="row">
-        <p>Zielkonto</p>
-        <p><input type="text" id="iban_to" name="iban_to"></p>
-    </div>
-    <div>
-        <p>Verwendungszweck</p>
-        <p><input type="text" id="verwendungszweck" name="verwendungszweck"></p>
-    </div>
-    <div>
-        <p>überweisungsbetrag</p>
-        <input type="text" id="amount" name="amount">
-    </div>
-    <div class="row">
-        <input type="submit" id="action" value="Überweisung durchführen.">
-    </div>
+        </div>
+        <div class="row">
+            <p>Zielkonto</p>
+            <p><input type="text" id="iban_to" name="iban_to"></p>
+        </div>
+        <div class="row">
+            <p>Verwendungszweck</p>
+            <p><input type="text" id="verwendungszweck" name="verwendungszweck"></p>
+        </div>
+        <div>
+            <p>überweisungsbetrag</p>
+            <input type="text" id="amount" name="amount">
+        </div>
+        <div>
+            <p>Überweisungsdatum</p>
+            <input type="text" id="date" name="date">
+            <p>Sofortüberweisung</p>
+            <input type="checkbox" checked="checked" id="Sofortüberweisung" name="Sofortüberweisung">
+        </div>
+
+        <div class="row">
+            <input type="submit" id="action" value="Überweisung durchführen.">
+        </div>
+    </form>
 </div>
 <!--
 <header>
@@ -101,7 +88,12 @@
 <script src="{% static 'js/templatejs.js' %}" type="text/javascript">
 </script>
 <!-- <link href="path_to_staticfile_with_script.js"> -->
-
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="{% static 'js/jquery.datetimepicker.full.js' %}" type="text/javascript"></script>
+<script>
+    $('#date').datetimepicker({
+	inline:true,
+	});
+</script>
 </body>
 </html>

@@ -51,6 +51,10 @@ class BankAccount(models.Model):
         default=_generate_iban.__get__(models.Model),
         verbose_name="IBAN",
     )
+    administrated_by = models.ManyToManyField(
+        BankCustomer,
+        related_name='administrating_accounts',
+    )
     account_owned_by = models.ForeignKey(
         BankCustomer,
         # default=BankCustomer.user.username,
@@ -73,10 +77,10 @@ class BankAccount(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None) -> None:
+    def save(self, *args, **kwargs):
         if self.iban is None:
             self.iban = self._generate_iban()
-        super().save(force_insert, force_update, using, update_fields)
+        super(BankAccount, self).save(*args, **kwargs)
 
 
 class BankTransfer(models.Model):

@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions, IsAdminUser
 from rest_framework.response import Response
 
 from . import serializers, models
@@ -33,7 +33,7 @@ def make_transfers(request):
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
     queryset = models.BankCustomer.objects.order_by('id').all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]  # (IsAuthenticated, DjangoModelPermission)
+    permission_classes = [IsAdminUser]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
@@ -48,7 +48,7 @@ class BankCustomerViewSet(viewsets.ModelViewSet):
 class BankTransferViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankTransferSerializer
     queryset = models.BankTransfer.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]  # (IsAuthenticated, DjangoModelPermission)
+    permission_classes = [IsAdminUser]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
@@ -74,7 +74,7 @@ class BankTransferViewSet(viewsets.ModelViewSet):
 class BankAccountViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankAccountSerializer
     queryset = models.BankAccount.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]  # (IsAuthenticated, DjangoModelPermission)
+    permission_classes = [IsAdminUser]  # (IsAuthenticated, DjangoModelPermission)
     authentication_classes = (SessionAuthentication,
                               BasicAuthentication)  # zur authorisierung und errfüllung des tests(SessionAuthentication, BasicAuthentication)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)

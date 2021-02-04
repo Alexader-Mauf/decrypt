@@ -103,7 +103,8 @@ class TestApiClass(SetupClass):
         data = {
             "name": Generator.random_string(),
             "balance": "0.0000",
-            "account_owned_by": bankuser.pk
+            "account_owned_by": bankuser.pk,
+            "administrated_by": [bankuser.pk],
         }
         r = client.post('/core/api/bank-accounts/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)

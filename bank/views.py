@@ -13,7 +13,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core import models
-from core.models import BankAccount
 from . import serializers
 from .models import BankUserAdministration
 
@@ -210,13 +209,19 @@ class BankCustomerViewSet(viewsets.ModelViewSet):
         'created_at': ['gte', 'lte'],
         'updated_at': ['gte', 'lte'],
     }
-#
-   # def get_queryset(self):
-   #     user = self.request.user
-   #     if user.is_superuser:
-   #         return super(BankCustomerViewSet, self).get_queryset()
-   #     else:
-   #         return super(BankCustomerViewSet, self).get_queryset().filter(user=user)
+
+    def create(self, request):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return super(BankCustomerViewSet, self).get_queryset()
+        else:
+            return super(BankCustomerViewSet, self).get_queryset().filter(user=user)
 
 
 class BankTransferViewSet(viewsets.ModelViewSet):

@@ -68,7 +68,7 @@ class Generator:
             first_name=kwargs.get("first_name", Generator.random_string()),
             last_name=kwargs.get("last_name", Generator.random_string()),
         )
-        user.set_password(kwargs.get("asd", f"pw{random.randint(10000, 999909)}"),)
+        user.set_password(kwargs.get("asd", f"pw{random.randint(10000, 999909)}"), )
         # user.user_permissions.set(user_permissions) # have to programm the rights manualy since the test database is always fresh
         user.save()
         return user
@@ -168,43 +168,12 @@ class SetupClass(TestCase):
 
 class TestApiClass(SetupClass):
     def test_bankaccount(self):
-        # User Hart erzeugen % save mit permissions
-        bank_customer_username = "olaf"
-        bank_customer_pwd = "olfas secret"
-
-        user = User.objects.create(
-            username=bank_customer_username,
-            password=bank_customer_pwd,
-            first_name=f"vorname{random.randint(100000, 999999)}",
-            last_name=f"nachname{random.randint(100000, 999999)}",
-        )
-        user.set_password(bank_customer_pwd)
-        user.save()
-        user.save()
-        bankcustomer = BankCustomer.objects.create(
-            user=user
-        )
-        bankcustomer.save()
-        codenames = [
-            'view_banktransfer',
-            'add_banktransfer',
-            'view_bankaccount',
-            'view_bankcustomer',
-            'change_bankcustomer',
-        ]
-        permissions = Permission.objects.filter(codename__in=codenames).all()
-        user.user_permissions.set(permissions)
-
-        user.save()
-
         client = APIClient()
-        client.login(username=bank_customer_username, password=bank_customer_pwd)
-        #client.login(username=self.admin_username, password=self.admin_pwd)
+        client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
-        print(user.user_permissions.all())
-        bankuser = User.objects.get(username=bank_customer_username).bank_customer
+        bankuser = User.objects.get(username=self.bank_customer_username).bank_customer
 
-        account = Generator.generate_account(account_owned_by=bankcustomer)
+        account = Generator.generate_account(account_owned_by=bankuser)
 
         # testing accounts
         # List
@@ -241,46 +210,48 @@ class TestApiClass(SetupClass):
             data=data,
             format='json'
         )
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
         # self.assertEqual(r.json().get("name"), data.get("name"))
         # self.assertEqual(r.json().get("balance"), data.get("balance"))
 
         # Delete
         r = client.delete('/bank/api/bank-accounts/{}/'.format(account_id))
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_customers(self):
         client = APIClient()
         client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
 
-        bankuser = User.objects.get(username=self.bank_customer_username)
+        bankuser = User.objects.get(username=self.bank_customer_username).bank_customer
 
         # testing Customers
         # List
         r = client.get('/bank/api/bank-customers/')
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # customer = Generator.generate_customer(user=user)
         # Create
+        newuser = Generator.generate_user()
+        print(newuser.id)
         data = {
             "adress": Generator.random_string(),
-            "user": bankuser.id
+            "user_id": newuser.id
         }
         r = client.post('/bank/api/bank-customers/', data=data, format='json')
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
+        # BankCustomer erzeugen für newuser
         # Read own
         r = client.get('/bank/api/bank-customers/{}/'.format(bankuser.id))
 
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        self.assertEqual(r.json().get("adress"), data.get("adress"))
-        self.assertEqual(r.json().get("user"), data.get("user"))
+        self.assertEqual(r.json().get("adress"), bankuser.adress)
 
         # Read other
         otheruser = Generator.generate_customer()
         r = client.get('/bank/api/bank-customers/{}/'.format(otheruser.pk))
 
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
 
         # Update
         data = {
@@ -296,29 +267,22 @@ class TestApiClass(SetupClass):
 
         # Delete
         r = client.delete('/bank/api/bank-customers/{}/'.format(bankuser.id))
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_transfers(self):
         client = APIClient()
         client.login(username=self.bank_customer_username, password=self.bank_customer_pwd)
         # testing transfers
         user = User.objects.get(username=self.bank_customer_username)
-        print(user.user_permissions.all())
-        account_1 = user.bank_customer.account_owned_by  # der account muss mit der ralation auf den eingeloggten user gesetzt werden
+        account_1 = user.bank_customer.account_owned_by.first()  # der account muss mit der ralation auf den eingeloggten user gesetzt werden
         account_2 = Generator.generate_account()
         account_3 = Generator.generate_account()
 
         # List
-        # get self
         r = client.get('/bank/api/bank-transfers/')
-        print(r.json())
+        # get self
+        r = client.get(f'/bank/api/bank-transfers/{account_1.iban}/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
-        response_iban_from = r.json().get("iban_from")
-        response_iban_to = r.json().get("iban_to")
-        response_created_by = r.json().get("created_by")
-        self.assertEqual(response_created_by, user.id)
-        self.assertEqual(response_iban_to, account_2.iban)
-        self.assertEqual(response_iban_from, account_1.iban)
 
         # get other
         other_iban = account_2.iban

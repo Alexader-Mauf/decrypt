@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.utils import timezone
@@ -54,6 +54,7 @@ class BankAccount(models.Model):
     administrated_by = models.ManyToManyField(
         BankCustomer,
         related_name='administrating_accounts',
+        default=None
     )
     account_owned_by = models.ForeignKey(
         BankCustomer,
@@ -107,7 +108,7 @@ class BankTransfer(models.Model):
 
     execute_datetime = models.DateTimeField(
         default=timezone.now
-    )  # now is the default to be implemented
+    )
 
     is_open = models.BooleanField(
         default=True,
@@ -134,25 +135,34 @@ class BankTransfer(models.Model):
                 # do the transaction
 
                 ## Checks if transaction is possible
-                # user must be admin
+                # amount must be positive
+                if self.amount < 0:
+                    self.executionlog += (" Error: kann keine negativen beträge überweisen.",)
+                    self.is_open = False
+                    self.save()
+                    print("negativer amount")
+
+                # transfer darf nicht schon angesetzt wurden sein
                 if self.is_open == False:
                     self.executionlog += (" Error: dieser Auftrag wurde schon angesetzt")
                     self.save()
                     return
 
+                # Zielaccount darf nicht Absendeaccount sein
                 if account_from == account_to:
                     self.executionlog += (" Error: Kann keine Überweisung an das selbe Koto ausführen.",)
                     self.is_open = False
                     self.save()
                     print("gleicher account")
 
+                # man darf nicht mehr überweisen, als man geld auf dem Konto hat
                 if account_from.balance > amount:
                     print("starting  transaction")
                     self.iban_from.balance = self.iban_from.balance - self.amount
                     self.iban_to.balance = self.iban_to.balance + self.amount
                     self.iban_to.save()
                     self.iban_from.save()
-                    self.executionlog += ("Sucess: überweisung ausgeführt")
+                    self.executionlog = self.executionlog + "Sucess: überweisung ausgeführt"
                     # change
                     self.is_open = False
                     self.is_success = True
@@ -160,9 +170,8 @@ class BankTransfer(models.Model):
                 else:
                     print("nicht genug guthaben")
                     self.is_open = False
-                    self.executionlog += ("Nicht genug Guthaben.")
+                    self.executionlog += (" Error: Nicht genug Guthaben.")
                     self.save()
-
         except Exception as e:
             print(e)
 

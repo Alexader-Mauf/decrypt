@@ -11,7 +11,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
+from decimal import Decimal
 from core import models
 from . import serializers
 from .models import BankUserAdministration
@@ -137,17 +137,32 @@ def create_transfer(request):
         iban_from = request.POST.get("iban_from")
         amount = request.POST.get("amount")
         use_case = request.POST.get("verwendungszweck")
+        instant_transfer = request.POST.get("Sofortüberweisung", False)
+
+        amount = amount.replace(",", ".")
+        amount = Decimal(amount)
         print(
             iban_from,
             iban_to,
             amount,
             use_case,
+            instant_transfer,
         )
         created_by = request.user.bank_customer
-        iban_to = models.BankAccount.objects.get(iban=iban_to)
+        try:
+            iban_to = models.BankAccount.objects.get(iban=iban_to)
+        except Exception as e:
+            return render(request, 'home2.html', {
+                "user": request.user,
+                "accounts": bankaccounts,
+                "statusmsg": "Zieladresse Existiert nicht",
+            })
+
+
         iban_from = models.BankAccount.objects.get(iban=iban_from)
 
         # if BankAccount.objects.get(iban=request.POST.get("iban_to")):
+        #if
         try:
             with transaction.atomic():
                 transfer = models.BankTransfer.objects.create(
@@ -158,11 +173,6 @@ def create_transfer(request):
                     created_by=created_by,
                 )
                 transfer.save()
-            return render(request, 'home2.html', {
-                "user": request.user,
-                "accounts": bankaccounts,
-                "statusmsg": "Überweisung erfolgreich erstellt",
-            })
         except Exception as e:
             print(e)
             return render(request, 'home2.html', {
@@ -170,6 +180,15 @@ def create_transfer(request):
                 "accounts": bankaccounts,
                 "statusmsg": "E R S T E L L E N Fehlgeschlagen",
             })
+
+        if instant_transfer == "on":
+            transfer.run_transfer()
+
+        return render(request, 'home2.html', {
+            "user": request.user,
+            "accounts": bankaccounts,
+            "statusmsg": transfer.executionlog,
+        })
 
         # Unterscheidung success nicht success
 
@@ -242,6 +261,14 @@ class BankTransferViewSet(viewsets.ModelViewSet):
                 Q(iban_to=user.bank_customer.account_owned_by) |
                 Q(created_by=user.bank_customer)
             )
+
+    def partial_update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    #def create(self, request):
+    #    user = self.request.user
+    #    if (Q())
+    #    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):

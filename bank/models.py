@@ -9,17 +9,17 @@ from core import models
 
 class BankUserAdministration:
     def __init__(self, user: User):
-        bank_customer = models.BankCustomer.objects.get(user=user)
+        self.bank_customer = models.BankCustomer.objects.get(user=user)
 
     @property
     def owned_accounts(self):
-        return models.BankAccount.filter(
+        return models.BankAccount.objects.filter(
             account_owned_by=self.bank_customer
         ).all()
 
     @property
     def adminstrating_accounts(self):
-        return models.BankAccount.filter(
+        return models.BankAccount.objects.filter(
             Q(account_owned_by=self.bank_customer) |
             Q(administrated_by=self.bank_customer)
         ).all()

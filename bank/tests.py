@@ -9,39 +9,6 @@ from rest_framework.test import APIClient
 
 from core.models import BankTransfer, BankAccount, BankCustomer
 
-
-# content_type = ContentType.objects.get_for_model(BankTransfer)
-# permission_to_add_transfers = Permission.objects.create(
-#    codename='can_add_transfer',
-#    name='Kann eine Überweisung beauftragen',
-#    content_type=content_type,
-# )
-# permission_to_view_transfers = Permission.objects.create(
-#    codename='can_view_transfer',
-#    name='Kann eine Überweisung ansehen',
-#    content_type=content_type,
-# )
-# content_type = ContentType.objects.get_for_model(BankCustomer)
-# permission_to_view_customer = Permission.objects.create(
-#    codename='can_view_customer',
-#    name='Kann eine Überweisung ansehen',
-#    content_type=content_type,
-# )
-# content_type = ContentType.objects.get_for_model(BankAccount)
-# permission_to_add_accounts = Permission.objects.create(
-#    codename='can_add_account',
-#    name='Kann ein Konto eröffnen.',
-#    content_type=content_type,
-# )
-# user_permissions = [permission_to_add_accounts,permission_to_add_transfers,permission_to_view_transfers,permission_to_view_customer]
-
-
-#
-# def testtransfer(SetUpClass):
-#    sende an die transfer api einen post  request mit  json  und der  information konto from, konto to, betrag
-#    also check if send konto is loged in konto also das der authorisierte benutzer nur geld von seinem konto schickt
-
-
 class TestAPIEndpointAuthorization(TestCase):
     def test_api_authorization(self):
         urls = [
@@ -95,25 +62,17 @@ class Generator:
 
     @staticmethod
     def generate_transfer(**kwargs):
+        sender = Generator.generate_customer()
         transfer = BankTransfer(
-            iban_from=kwargs.get("iban", Generator.generate_account()),
-            iban_to=kwargs.get("iban", Generator.generate_account()),
-            amount=13
+            iban_from=kwargs.get("iban_from", Generator.generate_account(account_owned_by=sender)),
+            iban_to=kwargs.get("iban_to", Generator.generate_account()),
+            amount=13,
+            created_by=kwargs.get("created_by", sender),
+            use_case=Generator.random_string()
         )
         transfer.save()
         return transfer
 
-    # @staticmethod
-    # def generate_mandant(**kwargs):
-    #    mandant = models.Mandant.objects.create(
-    #        name=kwargs.get("name", Generator.random_string()),
-    #        agb=kwargs.get("agb", Generator.random_string()),
-    #        impressum=kwargs.get("impressum", Generator.random_string()),
-    #    )
-    #    mandant.save()
-    #    [mandant.users.add(x) for x in kwargs.get("users", [])]
-    #    mandant.save()
-    #    return mandant
 
 
 class SetupClass(TestCase):
@@ -232,7 +191,7 @@ class TestApiClass(SetupClass):
         # customer = Generator.generate_customer(user=user)
         # Create
         newuser = Generator.generate_user()
-        print(newuser.id)
+        # print(newuser.id)
         data = {
             "adress": Generator.random_string(),
             "user_id": newuser.id
@@ -277,16 +236,24 @@ class TestApiClass(SetupClass):
         account_1 = user.bank_customer.account_owned_by.first()  # der account muss mit der ralation auf den eingeloggten user gesetzt werden
         account_2 = Generator.generate_account()
         account_3 = Generator.generate_account()
+        transfer = Generator.generate_transfer(
+            iban_from=account_1,
+            iban_to=account_2,
+            amount=15,
+            created_by=user.bank_customer
+        )
 
         # List
         r = client.get('/bank/api/bank-transfers/')
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
+
         # get self
-        r = client.get(f'/bank/api/bank-transfers/{account_1.iban}/')
+        r = client.get(f'/bank/api/bank-transfers/{transfer.pk}/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # get other
-        other_iban = account_2.iban
-        r = client.get(f'/bank/api/bank-transfers/{other_iban}')
+        other_transfer = Generator.generate_transfer()
+        r = client.get(f'/bank/api/bank-transfers/{other_transfer.pk}/')
         self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
 
         # Create
@@ -301,7 +268,20 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.status_code, status.HTTP_201_CREATED)
         transfer_id = r.json().get('id')
 
+        # Read
+        r = client.get('/bank/api/bank-transfers/{}/'.format(transfer_id))
+        self.assertEqual(r.status_code, status.HTTP_200_OK)
+        self.assertEqual(r.json().get("iban_from"), account_1.iban)
+        self.assertEqual(r.json().get("iban_to"), account_2.iban)
+        self.assertEqual(r.json().get("amount"), data.get("amount"))
+        self.assertEqual(r.json().get("created_by"), data.get("created_by"))
+        self.assertEqual(r.json().get("use_case"), data.get("use_case"))
+        # self.assertEqual(r.json().get("is_open"), data.get("is_open"))
+        # self.assertEqual(r.json().get("is_success"), data.get("is_success"))
+        #
+
         # Create transfer with different Owner as Sender
+        # will create with logged in user as creator
         data = {
             "iban_from": account_1.iban,
             "iban_to": account_3.iban,
@@ -310,8 +290,8 @@ class TestApiClass(SetupClass):
             "amount": '300',
         }
         r = client.post('/bank/api/bank-transfers/', data=data, format='json')
-        self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST)
-
+        self.assertEqual(r.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(r.json().get('created_by'), user.bank_customer.pk)
         # Create transfer from foreign Account
         data = {
             "iban_from": account_2.iban,
@@ -334,18 +314,6 @@ class TestApiClass(SetupClass):
         r = client.post('/bank/api/bank-transfers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST)
 
-        # Read
-        r = client.get('/bank/api/bank-transfers/{}/'.format(transfer_id))
-        self.assertEqual(r.status_code, status.HTTP_200_OK)
-        self.assertEqual(r.json().get("iban_from"), data.get("iban_from"))
-        self.assertEqual(r.json().get("iban_to"), data.get("iban_to"))
-        self.assertEqual(r.json().get("amount"), data.get("amount"))
-        self.assertEqual(r.json().get("created_by"), data.get("created_by"))
-        self.assertEqual(r.json().get("use_case"), data.get("use_case"))
-        # self.assertEqual(r.json().get("is_open"), data.get("is_open"))
-        # self.assertEqual(r.json().get("is_success"), data.get("is_success"))
-        #
-
         # Update
         data = {
             "is_open": False,
@@ -356,11 +324,11 @@ class TestApiClass(SetupClass):
             data=data,
             format='json'
         )
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
-        # self.assertEqual(r.json().get("is_open"), data.get("is_open"))
-        # self.assertEqual(r.json().get("is_success"), data.get("is_success"))
+        self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        #self.assertEqual(r.json().get("is_open"), data.get("is_open"))
+        #self.assertEqual(r.json().get("is_success"), data.get("is_success"))
         # wäre es sinnvoll, wenn man self.assertEqual(None,data.get("is_open")) benutzt zum doppelcheck?
 
         # Delete
         r = client.delete('/bank/api/bank-accounts/{}/'.format(transfer_id))
-        self.assertEqual(r.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

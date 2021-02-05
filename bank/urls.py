@@ -15,7 +15,8 @@ urlpatterns = [
     path('sinup', views.signup, name='signup'),
     path('home', views.loadhome, name='loadhome'),
     path('create-transfer', views.create_transfer, name='create-transfer'),
-    path('logout', views.logout_view, name='logout')
+    path('logout', views.logout_view, name='logout'),
+    path('test', views.test, name='test')
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)

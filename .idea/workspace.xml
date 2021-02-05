@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixen der tests &#10;einschränken der berechtigungen von usern, Kundendaten einzusehen.&#10;nur noch 1 Fehler im Test!!!!">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/templates/home2.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/home2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612514784050</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons">
+      <created>1612524643641</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1612524643641</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,7 +356,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="inital setups for bank app&#10;trying to get the api with 2x states running&#10;1x unlimeted read/ write &#10;1x limeted read/write" />
     <MESSAGE value="added the api &#10;makemigrations throws an error" />
     <MESSAGE value="added a landingpage still missing requirements" />
     <MESSAGE value="trying to fix the requirements by finding the corrret static folder only to then realize, that i have to put all staticfiles in pipeline directories &#10;now i gotta look up on how to add images and other fileformats  to pipelines compiler.." />
@@ -376,6 +380,7 @@
     <MESSAGE value="started to do some work on the frontend &#10;also made the JQuery reference a view but im pretty sure that is wrong i just havent gotten the auth-system quite right yet" />
     <MESSAGE value="even more frontend work&#10;adding a kallendar to select the transfer date&#10;&#10;also found the bug in the tests (thanks andré) they still are not done but at least they work as intended now" />
     <MESSAGE value="fixen der tests &#10;einschränken der berechtigungen von usern, Kundendaten einzusehen.&#10;nur noch 1 Fehler im Test!!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixen der tests &#10;einschränken der berechtigungen von usern, Kundendaten einzusehen.&#10;nur noch 1 Fehler im Test!!!!" />
+    <MESSAGE value="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons" />
   </component>
 </project>

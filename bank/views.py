@@ -5,6 +5,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -16,6 +17,23 @@ from core import models
 from . import serializers
 from .models import BankUserAdministration
 
+def test(request):
+    try:
+        bankaccounts = request.user.bank_customer.account_owned_by.all()
+        # transfers muss erweitert werden um die transfers, wo man empfänger oder ersteller ist
+        transfers = request.user.bank_customer.account_owned_by.Überweisender.all()
+
+    except Exception as e:
+        return redirect(reverse('bank_index'))
+    if request.user.is_authenticated:
+        return render(request, 'transfer.html', {
+            "user": request.user,
+            "accounts": bankaccounts,
+            "transfers": transfers
+        })
+    else:
+        return redirect(reverse('bank_index'))
+
 
 def login_view(request):
     if request.method == "GET":
@@ -25,12 +43,13 @@ def login_view(request):
         usname = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username=usname, password=password)
-        login(request, user)
-        if user is not None:
+        try:
             login(request, user)
-            return redirect(reverse('loadhome'))
-        else:
-            output = f"Nutzername und Passwort nicht bekannt"
+            if user is not None:
+                login(request, user)
+                return redirect(reverse('loadhome'))
+        except Exception as e:
+            output = f"Nutzername oder Passwort nicht bekannt"
             return render(request, "login.html", {
                 "statusmsg": output
             })
@@ -45,17 +64,6 @@ def loadhome(request):
     bankaccounts = request.user.bank_customer.account_owned_by.all()
 
     print(bankaccounts)
-    codenames = [
-        'view_banktransfer',
-        'add_banktransfer',
-        'view_bankaccount',
-        'view_bankcustomer',
-        'change_bankcustomer',
-
-    ]
-    permissions = Permission.objects.filter(codename__in=codenames).all()
-
-    request.user.user_permissions.set(permissions)
 
     if request.user.is_authenticated:
         return render(request, 'home2.html', {
@@ -112,6 +120,23 @@ def signup(request):
             )
             account.save()
 
+            # die Rechtezuweisung ist dopelt gemoppelt jedoch ist keine Bankkunden Group
+            # programmatisch festgehalten diese wurde via Django-Admin interface erstellt
+            # vermutlich kann ich den folgenden code in der admin.py datein an der richtigen
+            # Stelle anbringen um die Gruppe auch bei Datenbankverlust erhalten zu lassen.
+            codenames = [
+                'view_banktransfer',
+                'add_banktransfer',
+                'view_bankaccount',
+                'view_bankcustomer',
+                'change_bankcustomer',
+
+            ]
+            permissions = Permission.objects.filter(codename__in=codenames).all()
+
+            user.user_permissions.set(permissions)
+            user.save()
+
             return render(request, "login.html")
 
 
@@ -165,12 +190,13 @@ def create_transfer(request):
         #if
         try:
             with transaction.atomic():
+
                 transfer = models.BankTransfer.objects.create(
                     iban_to=iban_to,
                     iban_from=iban_from,
                     amount=amount,
                     use_case=use_case,
-                    created_by=created_by,
+                    created_by=created_by
                 )
                 transfer.save()
         except Exception as e:
@@ -181,7 +207,9 @@ def create_transfer(request):
                 "statusmsg": "E R S T E L L E N Fehlgeschlagen",
             })
 
+        # muss das hier nochmal seperat in eine transaction.atomic() gepackt werden?
         if instant_transfer == "on":
+            transfer.execute_datetime = timezone.now
             transfer.run_transfer()
 
         return render(request, 'home2.html', {

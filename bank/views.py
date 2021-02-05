@@ -50,7 +50,7 @@ def login_view(request):
         if request.user.is_authenticated:
             return redirect(reverse('loadhome'))
         else:
-            return redirect(reverse('user_login'))
+            return redirect(reverse('login_view'))
 
 
 

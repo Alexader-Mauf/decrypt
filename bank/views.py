@@ -21,7 +21,7 @@ def test(request):
     try:
         bankaccounts = request.user.bank_customer.account_owned_by.all()
         # transfers muss erweitert werden um die transfers, wo man empfänger oder ersteller ist
-        transfers = request.user.bank_customer.account_owned_by.Überweisender.all()
+        transfers = request.user.bank_customer.created_by.all()
 
     except Exception as e:
         return redirect(reverse('bank_index'))
@@ -37,22 +37,21 @@ def test(request):
 
 def login_view(request):
     if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect(reverse('loadhome'))
         return render(request, "login.html")
     if request.method == "POST":
         # getting usernames as post from login
         usname = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username=usname, password=password)
-        try:
+        if user is not None:
             login(request, user)
-            if user is not None:
-                login(request, user)
-                return redirect(reverse('loadhome'))
-        except Exception as e:
-            output = f"Nutzername oder Passwort nicht bekannt"
-            return render(request, "login.html", {
-                "statusmsg": output
-            })
+        if request.user.is_authenticated:
+            return redirect(reverse('loadhome'))
+        else:
+            return redirect(reverse('user_login'))
+
 
 
 def logout_view(request):
@@ -62,13 +61,14 @@ def logout_view(request):
 
 def loadhome(request):
     bankaccounts = request.user.bank_customer.account_owned_by.all()
-
+    transfers = request.user.bank_customer.created_by.all()
     print(bankaccounts)
 
     if request.user.is_authenticated:
-        return render(request, 'home2.html', {
+        return render(request, 'transfer.html', {
             "user": request.user,
-            "accounts": bankaccounts
+            "accounts": bankaccounts,
+            "transfers": transfers
         })
     else:
         return redirect(reverse('bank_index'))
@@ -201,7 +201,7 @@ def create_transfer(request):
                 transfer.save()
         except Exception as e:
             print(e)
-            return render(request, 'home2.html', {
+            return render(request, 'transfer.html', {
                 "user": request.user,
                 "accounts": bankaccounts,
                 "statusmsg": "E R S T E L L E N Fehlgeschlagen",
@@ -212,7 +212,7 @@ def create_transfer(request):
             transfer.execute_datetime = timezone.now
             transfer.run_transfer()
 
-        return render(request, 'home2.html', {
+        return render(request, 'transfer.html', {
             "user": request.user,
             "accounts": bankaccounts,
             "statusmsg": transfer.executionlog,

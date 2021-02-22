@@ -16,7 +16,8 @@ urlpatterns = [
     path('home', views.loadhome, name='loadhome'),
     path('create-transfer', views.create_transfer, name='create-transfer'),
     path('logout', views.logout_view, name='logout'),
-    path('test', views.test, name='test')
+    path('test', views.test, name='test'),
+    path('nolog', views.login_failed, name='login_failed'),
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -50,7 +50,7 @@ def login_view(request):
         if request.user.is_authenticated:
             return redirect(reverse('loadhome'))
         else:
-            return redirect(reverse('login_view'))
+            return redirect(reverse('login_failed'))
 
 
 
@@ -60,19 +60,23 @@ def logout_view(request):
 
 
 def loadhome(request):
-    bankaccounts = request.user.bank_customer.account_owned_by.all()
-    transfers = request.user.bank_customer.created_by.all()
-    print(bankaccounts)
 
     if request.user.is_authenticated:
+        bankaccounts = request.user.bank_customer.account_owned_by.all()
+        transfers = request.user.bank_customer.created_by.all()
+        print(bankaccounts)
         return render(request, 'transfer.html', {
             "user": request.user,
             "accounts": bankaccounts,
             "transfers": transfers
         })
     else:
-        return redirect(reverse('bank_index'))
+        return redirect(reverse('bank_login_failed'))
 
+def login_failed(request):
+    return render(request, "login.html", {
+        "statusmsg": "Username or Password unknown"
+    })
 
 def index(request):
     return render(request, "login.html")

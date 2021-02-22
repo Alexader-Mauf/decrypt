@@ -170,7 +170,7 @@ class BankTransfer(models.Model):
                 else:
                     print("nicht genug guthaben")
                     self.is_open = False
-                    self.executionlog += (" Error: Nicht genug Guthaben.")
+                    self.executionlog = self.executionlog + " Error: Nicht genug Guthaben."
                     self.save()
         except Exception as e:
             print(e)

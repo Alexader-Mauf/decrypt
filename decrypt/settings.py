@@ -1,4 +1,5 @@
 import os
+
 """
 Django settings for decrypt project.
 
@@ -15,7 +16,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -36,7 +36,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +50,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'pipeline',
-    #Own
+    'bleach',
+    'crispy_forms',
+    # Own
     'core',
     'key',
     'keyform',
@@ -69,10 +70,9 @@ MIDDLEWARE = [
 ]
 
 MIDDLEWARE_CLASSES = (
-   'django.middleware.gzip.GZipMiddleware',
-   'pipeline.middleware.MinifyHTMLMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'pipeline.middleware.MinifyHTMLMiddleware',
 )
-
 
 ROOT_URLCONF = 'decrypt.urls'
 
@@ -94,20 +94,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'decrypt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ATOMIC_REQUESTS' : True,
+        'ATOMIC_REQUESTS': True,
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'banking',
         'USER': 'root',
         'PASSWORD': 'yfKWPwjUZnie[yeZGKPA',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-   }
+    }
 }
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -152,12 +151,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'key/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'key/static/')
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
@@ -167,42 +165,41 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-
 PIPELINE = {
     'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
-    'keyform': {
-        'source_filenames': (
-            'css/bootstrap.css',
-            'css/cover.css',
-            'css/product.css',
-        ),
-        'output_filename': 'css/keyform.css',
-        'extra_context': {
-            'media': 'screen,projection',
+        'keyform': {
+            'source_filenames': (
+                'css/bootstrap.css',
+                'css/cover.css',
+                'css/product.css',
+            ),
+            'output_filename': 'css/keyform.css',
+            'extra_context': {
+                'media': 'screen,projection',
+            },
         },
+        # 'stylesheetsbanking':{
+        #    'source_filenames':(
+        #        'device-mockups/device-mockups.min.css',
+        #        'css/bootstrap.css',
+        #        'vendor/simple-line-icons/css/simple-line-icons.css',
+        #        'vendor/fontawesome-freecss/all.min.css',
+        #        'css/new-age.css',
+        #        'device-mockups/device-mockups.min.css',
+        #    ),
+        #    'output_filename':'css/stylesheetsbanking.css',
+        # }
     },
-    #'stylesheetsbanking':{
-    #    'source_filenames':(
-    #        'device-mockups/device-mockups.min.css',
-    #        'css/bootstrap.css',
-    #        'vendor/simple-line-icons/css/simple-line-icons.css',
-    #        'vendor/fontawesome-freecss/all.min.css',
-    #        'css/new-age.css',
-    #        'device-mockups/device-mockups.min.css',
-    #    ),
-    #    'output_filename':'css/stylesheetsbanking.css',
-    #}
-},
     'JAVASCRIPT': {
         'jscripts': {
             'source_filenames': (
-              'js/jquery-3.5.1.min.js',
-              'js/read_write_data.js',
+                'js/jquery-3.5.1.min.js',
+                'js/read_write_data.js',
             ),
             'output_filename': 'js/jscripts.js',
         },
-        #'bankingjscripts':{
+        # 'bankingjscripts':{
         #    'source_filenames':(
         #        'vendor/jquery/jquery.min.js',
         #        'vendor/bootstrap/js/bootstrap.bundle.min.js',
@@ -210,14 +207,8 @@ PIPELINE = {
         #        'templateforbankkingapp/js/new-age.min.js',
         #    ),
         #    'output_filename':'js/bankingjscripts.js'
-        #}
+        # }
     },
-
 
     'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
     'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}
-
-
-
-
-

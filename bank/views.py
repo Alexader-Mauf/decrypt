@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.models import User
@@ -6,6 +8,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic import FormView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -15,6 +18,7 @@ from rest_framework.response import Response
 from decimal import Decimal
 from core import models
 from . import serializers
+from .forms import CreateTransferForm
 from .models import BankUserAdministration
 
 def test(request):
@@ -60,7 +64,6 @@ def logout_view(request):
 
 
 def loadhome(request):
-
     if request.user.is_authenticated:
         bankaccounts = request.user.bank_customer.account_owned_by.all()
         transfers = request.user.bank_customer.created_by.all()
@@ -79,11 +82,16 @@ def login_failed(request):
     })
 
 def index(request):
-    return render(request, "login.html")
+    if request.user.is_authenticated:
+        return redirect(reverse('loadhome'))
+    return redirect(reverse('login_view'))
 
 
 def signup(request):
     if request.method == "GET":
+        # prüfen ob schon eingeloggt
+        if request.user.is_authenticated:
+            return redirect(reverse('loadhome'))
         return render(request, "signup.html")
 
     if request.method == "POST":
@@ -134,7 +142,6 @@ def signup(request):
                 'view_bankaccount',
                 'view_bankcustomer',
                 'change_bankcustomer',
-
             ]
             permissions = Permission.objects.filter(codename__in=codenames).all()
 
@@ -149,6 +156,42 @@ def update_adress(request, user_id):
     newadress = request.POST.get("adress")
     user.BankCustomer.adress = newadress
     user.save()
+
+class CreateTransferView(FormView):
+    form_class = CreateTransferForm
+    lang = 'de'
+
+    def get(self, request, *args, **kwargs):
+        errors = request.session.get("core.login.errors")
+        errors = json.loads(errors) if errors is not None else {}
+        request.session["core.login.errors"] = None
+        form = self.get_form()
+        if request.user.is_authenticated:
+            return redirect(reverse('home'))
+        if errors is not None:
+            errors = [",".join(v) for k, v in errors.items()]
+            errors = "<br>".join(errors) if len(errors) > 0 else None
+        return render(request, 'login.html', {'form': form, 'errors': errors})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            cd = form.cleaned_data
+            cd.get("")
+
+            # logik erstellen des ransfers
+
+            #user = authenticate(request, username=cd.get("username"), password=cd.get("password"))
+            #if user is not None:
+            #    login(request, user)
+            #if request.user.is_authenticated:
+            #    return redirect(reverse('home'))
+            #else:
+            #    request.session['core.login.errors'] = json.dumps({"password": [_(
+            #        "<strong>Der Benutzername oder das Passwort ist ungültig.</strong><br>Beide Felder berücksichtigen die Groß-/Kleinschreibung.")]})
+            #    return redirect(reverse('user_login'))
+        request.session['core.login.errors'] = json.dumps(form.errors)
+        return redirect(reverse('user_login'))
 
 
 def create_transfer(request):
@@ -194,7 +237,9 @@ def create_transfer(request):
         #if
         try:
             with transaction.atomic():
-
+                # warum erstelle ich hier eine instanz wenn ich die information auch an die API
+                # senden könnte
+                # POST /bank/api/bank-transfers
                 transfer = models.BankTransfer.objects.create(
                     iban_to=iban_to,
                     iban_from=iban_from,
@@ -208,10 +253,11 @@ def create_transfer(request):
             return render(request, 'transfer.html', {
                 "user": request.user,
                 "accounts": bankaccounts,
-                "statusmsg": "E R S T E L L E N Fehlgeschlagen",
+                "statusmsg": "ERSTELLEN Fehlgeschlagen",
             })
 
         # muss das hier nochmal seperat in eine transaction.atomic() gepackt werden?
+        # nein  dies wird innerhalb der run_transfer() funktion gehandelt
         if instant_transfer == "on":
             transfer.execute_datetime = timezone.now
             transfer.run_transfer()

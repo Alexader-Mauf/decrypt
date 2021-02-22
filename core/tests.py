@@ -201,6 +201,11 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # Create
+
+        # darf ein Admin von anderen Konten aus überweisen?
+        # man sollte eine spezielle berechtigung  dafür erstellen
+
+
         data = {
             "iban_from": account_1.pk,
             "iban_to": account_2.pk,

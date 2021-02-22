@@ -68,6 +68,25 @@
         </div>
     </form>
 </div>
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <div style="display:flex; flex-direction: row; justify-content: space-evenly">
+        <div class="col-xs-6">
+            <h2>berweisung</h2>
+            {% csrf_token %}
+            {% if errors is not None %}
+            <div class="alert alert-danger" role="alert">{{errors|safe}}</div>
+            {% endif %}
+
+            {% crispy form %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
 <!--
 <header>
     <div class="overlay"></div>

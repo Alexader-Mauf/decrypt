@@ -314,6 +314,30 @@ class TestApiClass(SetupClass):
         r = client.post('/bank/api/bank-transfers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST)
 
+        # transfer mit ungültigem zielkonto IBAN nach Vorgaben
+        data = {
+            "iban_from": account_2.iban,
+            "iban_to": "UNGÜLTIGE EINGABE",
+            "created_by": account_3.account_owned_by.pk,
+            "use_case": Generator.random_string(),
+            "amount": '12',
+        }
+        r = client.post('/bank/api/bank-transfers/', data=data, format='json')
+        self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+        # transfer mit ungültigem Geldbbetrag "z.B. sdtfsgf"
+        data = {
+            "iban_from": account_2.iban,
+            "iban_to": account_3.iban,
+            "created_by": account_3.account_owned_by.pk,
+            "use_case": Generator.random_string(),
+            "amount": 'asd',
+        }
+        r = client.post('/bank/api/bank-transfers/', data=data, format='json')
+        self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST)
+
+
         # Update
         data = {
             "is_open": False,

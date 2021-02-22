@@ -10,7 +10,7 @@ router.register(r'api/bank-transfers', views.BankTransferViewSet)
 
 
 urlpatterns = [
-    path('', views.make_transfers, name='make_transfers')
+    path('execute-transfers', views.make_transfers, name='make_transfers')
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)

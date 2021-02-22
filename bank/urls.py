@@ -18,6 +18,7 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('test', views.test, name='test'),
     path('nolog', views.login_failed, name='login_failed'),
+    path('create-transfer-v2/', views.CreateTransferView.as_view(), name='user_login'),
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)

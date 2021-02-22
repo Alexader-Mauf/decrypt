@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
@@ -19,13 +20,13 @@ def make_transfers(request):
     success_ids = []
     faiL_ids = []
     for trans in transactions:
-        trans.runtransfer()
+        trans.run_transfer()
         if trans.is_success:
             success_ids.append(trans.id)
         else:
             faiL_ids.append(trans.id)
 
-    return Response(
+    return JsonResponse(
         {"success_ids": success_ids, "faiL_ids": faiL_ids},
         status=status.HTTP_200_OK,
     )

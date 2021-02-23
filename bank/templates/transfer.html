@@ -107,7 +107,7 @@
               <h6 class="my-0">{{transfer.use_case}}</h6>
               <small class="text-muted">{{transfer.execute_datetime}}</small>
             </div>
-            <span class="text-muted">${{transfer.amount}}</span>
+            <span class="text-muted">€{{transfer.amount|floatformat:2}}</span>
           </li>
           {% endfor%}
         </ul>

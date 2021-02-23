@@ -31,7 +31,7 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="username" class="form-control input_user" value="" id="username" placeholder="username">
+							<input type="text" name="username" class="form-control input_user" value="{{ last_input }}" id="username" placeholder="username">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
@@ -59,7 +59,7 @@
 						<a href="{% url 'signup' %}">Forgot your password?</a>
 					</div>
 					<div class="d-flex justify-content-center links">
-						<a>{{ statusmsg }}</a>
+
 					</div>
 				</div>
 			</div>

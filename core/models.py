@@ -1,5 +1,5 @@
 from datetime import datetime
-from decimal import Decimal
+
 from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.utils import timezone
@@ -17,18 +17,18 @@ class BankCustomer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return "{} {}".format(self.user.first_name, self.user.last_name)
-
-    def __repr__(self):
-        return "{} {}".format(self.user.first_name, self.user.last_name)
-
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     class Meta:
         verbose_name = "Bankkunde"
         verbose_name_plural = "Bankkunden"
+
+    def __str__(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+
+    def __repr__(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
 
 
 class BankAccount(models.Model):
@@ -83,6 +83,8 @@ class BankAccount(models.Model):
             self.iban = self._generate_iban()
         super(BankAccount, self).save(*args, **kwargs)
 
+def one_day_from_now():
+    return timezone.now()+timezone.timedelta(days=1)
 
 class BankTransfer(models.Model):
     iban_from = models.ForeignKey(
@@ -107,7 +109,7 @@ class BankTransfer(models.Model):
     )
 
     execute_datetime = models.DateTimeField(
-        default=timezone.now
+        default=one_day_from_now()
     )
 
     is_open = models.BooleanField(
@@ -175,14 +177,14 @@ class BankTransfer(models.Model):
         except Exception as e:
             print(e)
 
-    def __str__(self):
-        return str(self.pk)
-
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-    def __repr__(self):
-        return self.pk
+    def __str__(self) -> str:
+        return str(self.pk)
+
+    def __repr__(self) -> str:
+        return "{}".format(self.pk)
 
 
 class RepeatedTransaction(models.Model):

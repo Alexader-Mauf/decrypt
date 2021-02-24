@@ -13,7 +13,7 @@ class CreateTransferForm(forms.Form):
             required=True
         )
         self.fields["amount"] = forms.DecimalField(
-            label="Überweisungsbbetrag",
+            label="Überweisungsbetrag",
             required=True,
             min_value=0.01
         )

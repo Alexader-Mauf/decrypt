@@ -63,7 +63,9 @@
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0">{{transfer.use_case}}</h6>
-                    <small class="text-muted">{{transfer.execute_datetime}}</small>
+                    <small class="text-muted">Datum der  Überweisung: {{transfer.execute_datetime}}</small>
+                    <br>
+                    <small class="text-muted">Absernder: {{transfer.iban_from.account_owned_by}} {{transfer.iban_from}} </small>
                     <br>
                     <small class="text-muted">Empfänger: {{transfer.iban_to.account_owned_by}} {{transfer.iban_to}}</small>
                     <br>
@@ -71,6 +73,8 @@
                     {% if transfer.is_open == False %}
                     {% if transfer.is_success == False %}
                     <small class="text-muted">Fehlgeschlagen</small>
+                    <br>
+                    <small class="text-muted">log: {{transfer.executionlog}}</small>
                     {% else %}
                     <small class="text-muted">Erfolgreich</small>
                     {% endif %}
@@ -78,10 +82,18 @@
                     <small class="text-muted">pending</small>
                     {% endif %}
                 </div>
-                <span class="text-muted">€{{transfer.amount|floatformat:2}}</span>
+                {% if transfer.iban_to in accounts %}
+                <span class="text-success">€{{transfer.amount|floatformat:2}}</span>
+                {% else %}
+                <span class="text-danger">-€{{transfer.amount|floatformat:2}}</span>
+                {% endif %}
             </li>
             {% endfor%}
         </ul>
+        <div class="input-group">
+           <a href="{%url 'loadhome'%}" type="submit" class="btn btn-secondary">Show more</a>
+         </div>
+
         <!--<form class="needs-validation" novalidate action="{% url 'create-transfer' %}" method="POST">
                  {% csrf_token %}
                  <div class="row g-3">

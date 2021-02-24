@@ -70,6 +70,10 @@ def loadhome(request):
         # der transfers call ist fehlerhaft (?) -> er gibt eine liste mit transfer-ids wieder
         # das transfers hat keine representation -> wirft fehler beim übermitteln
         transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
+        transfers = models.BankTransfer.objects.filter(
+            Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
+            Q(iban_to=request.user.bank_customer.account_owned_by.first())
+        ).all().order_by("-created_at")[:10]
         # print(bankaccounts, request.user, transfers)
         # for transfer in transfers:
         # print(transfer)
@@ -233,13 +237,9 @@ class CreateTransferView(FormView):
                  'form': form}
             )
 
-
+#
 def create_transfer(request):
-    return render(request, 'home2.html', {
-        "user": request.user,
-        "accounts": BankUserAdministration(request.user).adminstrating_accounts,
-        "statusmsg": None,
-    })
+    return redirect(reverse('loadhome'))
 
 
 # if request.method == "POST":

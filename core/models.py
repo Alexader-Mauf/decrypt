@@ -103,9 +103,8 @@ class BankTransfer(models.Model):
     use_case = models.TextField(
         verbose_name="Verwendungszweck",
     )
-    executionlog = models.CharField(
-        max_length=255,
-        default=["erstellt"],
+    executionlog = models.TextField(
+        default="erstellt",
     )
 
     execute_datetime = models.DateTimeField(
@@ -139,10 +138,11 @@ class BankTransfer(models.Model):
                 ## Checks if transaction is possible
                 # amount must be positive
                 if self.amount < 0:
-                    self.executionlog += (" Error: kann keine negativen beträge überweisen.",)
+                    self.executionlog += (" Error: kann keine negativen beträge überweisen.")
                     self.is_open = False
                     self.save()
                     print("negativer amount")
+                    return
 
                 # transfer darf nicht schon angesetzt wurden sein
                 if self.is_open == False:
@@ -152,10 +152,11 @@ class BankTransfer(models.Model):
 
                 # Zielaccount darf nicht Absendeaccount sein
                 if account_from == account_to:
-                    self.executionlog += (" Error: Kann keine Überweisung an das selbe Koto ausführen.",)
+                    self.executionlog = self.executionlog + " Error: Kann keine Überweisung an das Absenderkonto ausführen."
                     self.is_open = False
                     self.save()
                     print("gleicher account")
+                    return
 
                 # man darf nicht mehr überweisen, als man geld auf dem Konto hat
                 if account_from.balance > amount:

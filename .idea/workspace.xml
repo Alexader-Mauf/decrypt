@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="made it so that the bank-index now also shows transfers which are incomming &#10;also added a distinction for incomming and outgoing transfers so that the amount changes color according to if the balance went up or down">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added admin functionality to execute transfers on singular transfers&#10;&#10;also added django-q in order to execute the new transfers daily">
+      <change afterPath="$PROJECT_DIR$/bank/static/js/load_new_enrtys.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/bank-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bank-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/bankbbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bankbbase.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/transfer.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/transfer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decrypt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,13 +76,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00001" summary="add app">
-      <created>1610377965638</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1610377965638</updated>
     </task>
     <task id="LOCAL-00002" summary="errorhandling and trying to get the script to an external location">
       <created>1610439709081</created>
@@ -413,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614180721380</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="added admin functionality to execute transfers on singular transfers&#10;&#10;also added django-q in order to execute the new transfers daily">
+      <created>1614246279797</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1614246279798</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -429,7 +436,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding additional functionality to the transfer-class" />
     <MESSAGE value="added a private API from which a root user can access the data" />
     <MESSAGE value="added tests for the newly buid core API" />
     <MESSAGE value="added tests for the cor package aswell as for bank&#10;created a method in transfers to commit the transfers" />
@@ -454,6 +460,7 @@
     <MESSAGE value="es werden nur noch dei 10 neusten überweisungen angezeigt&#10;&#10;wenn man sein passwort/username falsch eingibt, bleibt der username stehen&#10;&#10;die geldbeträge zeigen jetzt nur noch 2 nachkommastewllen an&#10;hinzufügen eines fav-icons&#10;hinzufügen der übberweisungsliste nach senden einer Überweisung&#10;&#10;started to include django forms -&gt; help what am i doing" />
     <MESSAGE value="soo much has changed geez &#10;we now use 2 templates that expand on bbankbase for displaying the views&#10;changed the model so that the default for execute datime is now 1 day in the future and not now &#10;changed from forms with a manually written view to a view class using django forms &#10;some minor UI improvements happened aswell &#10;everything is now displayed in € insted of $&#10;corrected the decimal places displayed &#10;probably more&#10;note to self commit more" />
     <MESSAGE value="made it so that the bank-index now also shows transfers which are incomming &#10;also added a distinction for incomming and outgoing transfers so that the amount changes color according to if the balance went up or down" />
-    <option name="LAST_COMMIT_MESSAGE" value="made it so that the bank-index now also shows transfers which are incomming &#10;also added a distinction for incomming and outgoing transfers so that the amount changes color according to if the balance went up or down" />
+    <MESSAGE value="added admin functionality to execute transfers on singular transfers&#10;&#10;also added django-q in order to execute the new transfers daily" />
+    <option name="LAST_COMMIT_MESSAGE" value="added admin functionality to execute transfers on singular transfers&#10;&#10;also added django-q in order to execute the new transfers daily" />
   </component>
 </project>

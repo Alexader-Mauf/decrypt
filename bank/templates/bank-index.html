@@ -34,7 +34,7 @@
                     <h6 class="my-0">{{account.name}}</h6>
                     <small class="text-muted">{{account.iban}}</small>
                 </div>
-                <span class="text-muted">€{{account.balance|floatformat:2}}</span>
+                <span class="text-muted">{{account.balance|floatformat:2}}€</span>
             </li>
             {% endfor %}
         </ul>
@@ -83,15 +83,15 @@
                     {% endif %}
                 </div>
                 {% if transfer.iban_to in accounts %}
-                <span class="text-success">€{{transfer.amount|floatformat:2}}</span>
+                <span class="text-success">+{{transfer.amount|floatformat:2}}€</span>
                 {% else %}
-                <span class="text-danger">-€{{transfer.amount|floatformat:2}}</span>
+                <span class="text-danger">-{{transfer.amount|floatformat:2}}€</span>
                 {% endif %}
             </li>
             {% endfor%}
         </ul>
         <div class="input-group">
-           <a href="{%url 'loadhome'%}" type="submit" class="btn btn-secondary">Show more</a>
+           <button type="submit" id="loadnew" class="btn btn-secondary">Show more</button>
          </div>
 
         <!--<form class="needs-validation" novalidate action="{% url 'create-transfer' %}" method="POST">

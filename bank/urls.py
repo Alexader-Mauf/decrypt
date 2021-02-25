@@ -11,7 +11,7 @@ router.register(r'api/bank-transfers', views.BankTransferViewSet)
 
 urlpatterns = [
 
-    path('login', views.login_view, name='login_view'),
+    path('login', views.LoginView.as_view(), name='login_view'),
     path('logout', views.logout_view, name='logout_view'),
     path('sinup', views.signup, name='signup'),
     path('home', views.loadhome, name='loadhome'),
@@ -21,6 +21,7 @@ urlpatterns = [
     path('nolog', views.login_failed, name='login_failed'),
     path('create-transfer-v2', views.CreateTransferView.as_view(), name='create-transfer-v2'),
     path('', views.index, name='bank_index'),
+    path('login2', views.LoginView.as_view(), name='new-login')
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)

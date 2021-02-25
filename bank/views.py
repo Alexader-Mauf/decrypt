@@ -16,7 +16,7 @@ from rest_framework.response import Response
 
 from core import models
 from . import serializers
-from .forms import CreateTransferForm
+from .forms import CreateTransferForm, LoginForm
 from .models import BankUserAdministration
 
 
@@ -76,7 +76,7 @@ def loadhome(request):
 
         # der transfers call ist fehlerhaft (?) -> er gibt eine liste mit transfer-ids wieder
         # das transfers hat keine representation -> wirft fehler beim übermitteln
-        #transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
+        # transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
         transfers = models.BankTransfer.objects.filter(
             Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
             Q(iban_to=request.user.bank_customer.account_owned_by.first())
@@ -176,6 +176,36 @@ def update_adress(request, user_id):
     user.save()
 
 
+class LoginView(FormView):
+    form_class = LoginForm
+    lang = 'de'
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()
+        if request.user.is_authenticated:
+            return redirect(reverse('loadhome'))
+        return render(request, 'login.html', {'form': form, })
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            cd = form.cleaned_data
+            username = cd.get("username")
+            password = cd.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if not cd.get("remember_user"):
+                    request.session.set_expiry(0)
+            if request.user.is_authenticated:
+                return redirect(reverse('loadhome'))
+        return render(
+            request,
+            'login.html',
+            {'form': form}
+        )
+
+
 class CreateTransferView(FormView):
     form_class = CreateTransferForm
     lang = 'de'
@@ -243,6 +273,7 @@ class CreateTransferView(FormView):
                 {'accounts': BankUserAdministration(request.user).adminstrating_accounts,
                  'form': form}
             )
+
 
 #
 def create_transfer(request):
@@ -393,10 +424,14 @@ class BankTransferViewSet(viewsets.ModelViewSet):
             return super(BankTransferViewSet, self).get_queryset()
         else:
             return super(BankTransferViewSet, self).get_queryset().filter(
-                Q(iban_from=user.bank_customer.account_owned_by) |
-                Q(iban_to=user.bank_customer.account_owned_by) |
+                Q(iban_from=user.bank_customer.account_owned_by.first()) |
+                Q(iban_to=user.bank_customer.account_owned_by.first()) |
                 Q(created_by=user.bank_customer)
             )
+
+  #  Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
+  #  Q(iban_to=request.user.bank_customer.account_owned_by.first())
+
 
     def partial_update(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)

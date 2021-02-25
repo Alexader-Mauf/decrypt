@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions, IsAdminUser
 from rest_framework.response import Response
-
+from django.urls import reverse
 from . import serializers, models
 from .models import BankTransfer
 
@@ -16,20 +16,23 @@ from .models import BankTransfer
 
 
 def make_transfers(request):
-    transactions = models.BankTransfer.objects.filter(is_open=True).all()
-    success_ids = []
-    faiL_ids = []
-    for trans in transactions:
-        trans.run_transfer()
-        if trans.is_success:
-            success_ids.append(trans.id)
-        else:
-            faiL_ids.append(trans.id)
+    if request.user.is_authenticated:
+        transactions = models.BankTransfer.objects.filter(is_open=True).all()
+        success_ids = []
+        faiL_ids = []
+        for trans in transactions:
+            trans.run_transfer()
+            if trans.is_success:
+                success_ids.append(trans.id)
+            else:
+                faiL_ids.append(trans.id)
 
-    return JsonResponse(
-        {"success_ids": success_ids, "faiL_ids": faiL_ids},
-        status=status.HTTP_200_OK,
-    )
+        return JsonResponse(
+            {"success_ids": success_ids, "faiL_ids": faiL_ids},
+            status=status.HTTP_200_OK,
+        )
+    return redirect(reverse('loadhome'))
+
 
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer

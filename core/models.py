@@ -83,8 +83,10 @@ class BankAccount(models.Model):
             self.iban = self._generate_iban()
         super(BankAccount, self).save(*args, **kwargs)
 
+
 def one_day_from_now():
-    return timezone.now()+timezone.timedelta(days=1)
+    return timezone.now() + timezone.timedelta(days=1)
+
 
 class BankTransfer(models.Model):
     iban_from = models.ForeignKey(
@@ -180,6 +182,18 @@ class BankTransfer(models.Model):
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+    @staticmethod
+    def run_all_transfers():
+        transactions = models.BankTransfer.objects.filter(is_open=True).all()
+        success_ids = []
+        faiL_ids = []
+        for trans in transactions:
+            trans.run_transfer()
+            if trans.is_success:
+                success_ids.append(trans.id)
+            else:
+                faiL_ids.append(trans.id)
 
     def __str__(self) -> str:
         return str(self.pk)

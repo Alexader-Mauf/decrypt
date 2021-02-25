@@ -425,8 +425,7 @@ class BankTransferViewSet(viewsets.ModelViewSet):
         else:
             return super(BankTransferViewSet, self).get_queryset().filter(
                 Q(iban_from=user.bank_customer.account_owned_by.first()) |
-                Q(iban_to=user.bank_customer.account_owned_by.first()) |
-                Q(created_by=user.bank_customer)
+                Q(iban_to=user.bank_customer.account_owned_by.first())
             )
 
   #  Q(iban_from=request.user.bank_customer.account_owned_by.first()) |

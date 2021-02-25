@@ -2,19 +2,9 @@ $( document ).ready(function() {
         console.log( "ready!" );
 
     $( "#loadnew" ).click(function() {
-            var username = $("#username").val()
-            var password = $("#password").val()
-            var passwordcheck = $("#password").val()
-            var vorname = $("#vorname").val()
-            var nachname = $("#name").val()
-            var email = $("#email").val()
-
-            $.post( "/bank/api/bank_customers/" , {
-             "name": name,
-             "vorname":  vorname,
-             "email":  email,
 
 
+            $.get( "/bank/api/bank-transfers/" , {
 
              })
             .done(function(data) {
@@ -22,6 +12,8 @@ $( document ).ready(function() {
                 $("#statusmsg").text("Kunde Angelegt:")
                 $("#statusmsg").val("Kunde Angelegt.")
             })
+            // was ist die id der Felder?
+            // die Felder werden genereiert für
             .fail(function(data) {
                 $("#statusmsg").val("Hoppla")
                 $("#statusmsg").text("diese Nachricht scheint nicht zu existieren")
@@ -29,3 +21,4 @@ $( document ).ready(function() {
             });
 
 });
+

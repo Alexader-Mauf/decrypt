@@ -48,8 +48,8 @@
                -->
 
         <div class="input-group">
-           <a href="{%url 'create-transfer-v2'%}" type="submit" class="btn btn-secondary">Neue überweisung</a>
-         </div>
+            <a href="{%url 'create-transfer-v2'%}" type="submit" class="btn btn-secondary">Neue überweisung</a>
+        </div>
     </div>
     <!-- Überweisungs Historie-->
     <div class="col-md-7 col-lg-8">
@@ -58,16 +58,18 @@
             <span class="badge bg-secondary rounded-pill">Überweisungshistorie</span>
         </h4>
         <!-- Liste mit den Übberweisungen die man beauftragt hat -->
-        <ul class="list-group mb-3">
+        <ul id="transactions" class="list-group mb-3">
             {% for transfer in transfers %}
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0">{{transfer.use_case}}</h6>
-                    <small class="text-muted">Datum der  Überweisung: {{transfer.execute_datetime}}</small>
+                    <small class="text-muted">Datum der Überweisung: {{transfer.execute_datetime}}</small>
                     <br>
-                    <small class="text-muted">Absernder: {{transfer.iban_from.account_owned_by}} {{transfer.iban_from}} </small>
+                    <small class="text-muted">Absender: {{transfer.iban_from.account_owned_by}}
+                        {{transfer.iban_from}} </small>
                     <br>
-                    <small class="text-muted">Empfänger: {{transfer.iban_to.account_owned_by}} {{transfer.iban_to}}</small>
+                    <small class="text-muted">Empfänger: {{transfer.iban_to.account_owned_by}}
+                        {{transfer.iban_to}}</small>
                     <br>
                     <small class="text-muted">Status:</small>
                     {% if transfer.is_open == False %}
@@ -91,8 +93,8 @@
             {% endfor%}
         </ul>
         <div class="input-group">
-           <button type="submit" id="loadnew" class="btn btn-secondary">Show more</button>
-         </div>
+            <button type="submit" id="loadnew" class="btn btn-secondary">Show more</button>
+        </div>
 
         <!--<form class="needs-validation" novalidate action="{% url 'create-transfer' %}" method="POST">
                  {% csrf_token %}
@@ -137,4 +139,37 @@
                </form> -->
     </div>
 </div>
+
+{% endblock %}
+{% block scripts %}
+
+<!-- Dieses Script soll nachfolgende elemente reinladen es braucht ebenfalls die "Stylinglogik" um
+  gürne und rote beträge anzuzeigen-->
+<script type="text/javascript">
+$( document ).ready(function() {
+console.log("HELLO!")
+$.getJSON("/bank/api/bank-transfers/?ordering=-created_at",function( data ) {
+console.log(data);
+// die folgende Zeile ist vergleichbar mit: "for el in data.results:"
+data.results.forEach(el => {
+ var row = `
+ <li class="list-group-item d-flex justify-content-between lh-sm">
+ <div>
+ <h6 class="my-0">el.use_case</h6>
+ <small class="text-muted">Datum der Überweisung: {el.execute.datetime}</small>
+ ${el.iban_from} ${el.iban_to} ${el.amount} ${el.created_at}<br>
+ `
+ $( "#transactions" ).append(row)
+
+})
+
+
+
+})
+
+
+
+
+});
+</script>
 {% endblock %}

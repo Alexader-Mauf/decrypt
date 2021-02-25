@@ -17,12 +17,23 @@ class BankCustomersSerializer(serializers.ModelSerializer):
 
 
 class BankTransferSerializer(serializers.ModelSerializer):
+    iban_from_username = serializers.SerializerMethodField('get_iban_from_username')
+    iban_to_username = serializers.SerializerMethodField('get_iban_to_username')
+
+    def get_iban_to_username(self, obj):
+        return str(obj.iban_to.account_owned_by)
+
+    def get_iban_from_username(self, obj):
+        return str(obj.iban_from.account_owned_by)
+
     class Meta:
         model = models.BankTransfer
         fields = (
             'id',
             'iban_from',
+            'iban_from_username',
             'iban_to',
+            'iban_to_username',
             'is_success',
             'is_open',
             'use_case',

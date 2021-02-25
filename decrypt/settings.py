@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'pipeline',
     'bleach',
     'crispy_forms',
+    'django_q',
     # Own
     'core',
     'key',
@@ -212,3 +213,9 @@ PIPELINE = {
 
     'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
     'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}
+
+
+Q_CLUSTER = {
+    "name": "transfer",
+    "orm": "default",  # Use Django's ORM + database for broker
+}

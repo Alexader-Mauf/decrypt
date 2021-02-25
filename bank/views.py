@@ -66,10 +66,17 @@ def logout_view(request):
 
 def loadhome(request):
     if request.user.is_authenticated:
-        bankaccounts = request.user.bank_customer.account_owned_by.all()
+        try:
+            bankaccounts = request.user.bank_customer.account_owned_by.all()
+        except Exception as e:
+            logout(request)
+            return render(request, 'login.html', {
+                "statusmsg": "keine Konten zu diesem Benutzer gefunden",
+            })
+
         # der transfers call ist fehlerhaft (?) -> er gibt eine liste mit transfer-ids wieder
         # das transfers hat keine representation -> wirft fehler beim übermitteln
-        transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
+        #transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
         transfers = models.BankTransfer.objects.filter(
             Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
             Q(iban_to=request.user.bank_customer.account_owned_by.first())
@@ -83,7 +90,7 @@ def loadhome(request):
             "transfers": transfers,
         })
     else:
-        return redirect(reverse('bank_login_failed'))
+        return redirect(reverse('login_failed'))
 
 
 def login_failed(request):

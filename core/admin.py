@@ -3,6 +3,14 @@ from . import models
 # Register your models here.
 
 
+def execute_transfer(modeladmin, request, queryset):
+    for entry in queryset:
+        entry.run_transfer()
+    execute_transfer.short_description = "führt mögliche Überweisungen aus"
+
+
+
+
 @admin.register(models.BankCustomer)
 class BankCustomerAdmin(admin.ModelAdmin):
     list_display = (
@@ -58,3 +66,7 @@ class BankTransferAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
+    select_related = (
+        'iban_from',
+    )
+    actions = [execute_transfer]

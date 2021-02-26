@@ -2,16 +2,20 @@ $(document).ready(function () {
   console.log("loadnewrdy!");
 
   var ibans = [];
+  var offset = 10;
+  var limit = 5;
+  var newtransfers = "http://127.0.0.1:8000/bank/api/bank-transfers/?ordering=-created_at&offset="+ String(offset) + "&limit=" + String(limit)
 
   $.getJSON("/bank/api/bank-accounts/", function (data) {
     console.log(data);
     ibans = data.results.map((el) => {
       return el.iban;
     });
-    console.log(ibans);
+    //console.log(ibans);
   });
 
-  console.log(ibans);
+  //console.log(ibans);
+
 
 
 
@@ -34,9 +38,13 @@ $(document).ready(function () {
   }
 
   $(loadnew).click(function () {
+    //console.log(offset);
+    var newtransfers = "http://127.0.0.1:8000/bank/api/bank-transfers/?ordering=-created_at&offset="+ String(offset) + "&limit=" + String(limit)
     $.getJSON(
-      "/bank/api/bank-transfers/?ordering=-created_at",
+      newtransfers,
       function (data) {
+        offset = offset + limit
+        //console.log(offset);
         // console.log(data);
         var own_iban = $.getJSON(
           "/bank/api/bank-transfers/?ordering=-created_at",
@@ -45,8 +53,8 @@ $(document).ready(function () {
             var row = `
          <li class="list-group-item d-flex justify-content-between lh-sm">
          <div>
-         <h6 class="my-0">${el.use_case}</h6>
-         <small class="text-muted">Datum der Überweisung: ${el.execute_datetime}</small>
+         <h6 class="my-0">${String(el.use_case)}</h6>
+         <small class="text-muted">Datum der Überweisung: ${dayjs(el.execute_datetime).format('MMM. DD, YYYY, hh:mm a')}</small>
          <br>
          <small class="text-muted">Absender: ${el.iban_from_username}</small>
          <br>
@@ -71,9 +79,9 @@ $(document).ready(function () {
             }
          row = row + `</div>`
             if (ibans.includes(el.iban_to)) {
-              row = row + `<span class="text-success">+ ${round(el.amount,2).toFixed(2)}€</span>`;
+              row = row + `<span class="text-success">+${round(el.amount,2).toFixed(2)}€</span>`;
             } else {
-              row = row + `<span class="text-danger">- ${round(el.amount,2).toFixed(2)}€</span>`;
+              row = row + `<span class="text-danger">-${round(el.amount,2).toFixed(2)}€</span>`;
             }
             $("#transactions").append(row);
           })

@@ -52,6 +52,7 @@ class BankAccountAdmin(admin.ModelAdmin):
 class BankTransferAdmin(admin.ModelAdmin):
     list_display = (
         "iban_from",
+        "use_case",
         "iban_to",
         "amount",
         "created_at",
@@ -63,6 +64,7 @@ class BankTransferAdmin(admin.ModelAdmin):
     )
     readonly_fields = (
         "pk",
+        "use_case",
         "created_at",
         "updated_at",
     )

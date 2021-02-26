@@ -1,3 +1,4 @@
+import bleach
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field, ButtonHolder
 from django import forms
@@ -78,6 +79,16 @@ class CreateTransferForm(forms.Form):
             return False
 
         return True
+
+    def clean_xss(self):
+        data = self.cleaned_data
+        data['verwendungszweck'] = bleach.clean(data.get('verwendungszweck', ''))
+
+    def clean(self):
+        cd = super(CreateTransferForm, self).clean()
+        self.clean_xss()
+        return cd
+
 
 
 class LoginForm(forms.Form):

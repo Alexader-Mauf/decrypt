@@ -17,7 +17,8 @@
             <span class="badge bg-secondary rounded-pill">{{accounts.count}}</span>
         </h4>
         <!-- dieses Element gibt eine liste an deren Elemente mit <li></li> spezifiziert werden können -->
-        <ul class="list-group mb-3">
+
+        <ul id="accounts" class="list-group mb-3">
             <!-- Beispiel eines Listeneintrags in das ul element -->
             <!--
                    <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -32,7 +33,7 @@
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0">{{account.name}}</h6>
-                    <small class="text-muted">{{account.iban}}</small>
+                    <small class="text-muted" id="accoun_owned" >{{account.iban}}</small>
                 </div>
                 <span class="text-muted">{{account.balance|floatformat:2}}€</span>
             </li>
@@ -142,34 +143,63 @@
 
 {% endblock %}
 {% block scripts %}
+<script type="text/javascript" src="{% static '/js/load_new_entrys.js' %}"></script>
+
 
 <!-- Dieses Script soll nachfolgende elemente reinladen es braucht ebenfalls die "Stylinglogik" um
   gürne und rote beträge anzuzeigen-->
-<script type="text/javascript">
+<!--<script type="text/javascript">
 $( document ).ready(function() {
-console.log("HELLO!")
-$.getJSON("/bank/api/bank-transfers/?ordering=-created_at",function( data ) {
-console.log(data);
-// die folgende Zeile ist vergleichbar mit: "for el in data.results:"
-data.results.forEach(el => {
- var row = `
- <li class="list-group-item d-flex justify-content-between lh-sm">
- <div>
- <h6 class="my-0">el.use_case</h6>
- <small class="text-muted">Datum der Überweisung: {el.execute.datetime}</small>
- ${el.iban_from} ${el.iban_to} ${el.amount} ${el.created_at}<br>
- `
- $( "#transactions" ).append(row)
+    console.log("HELLO!")
+    $( loadnew ).click(function() {
+        $.getJSON("/bank/api/bank-transfers/?ordering=-created_at",function( data ) {
+        console.log(data);
+        // die folgende Zeile ist vergleichbar mit: "for el in data.results:"
+        data.results.forEach(el => {
+         var row = `
+         <li class="list-group-item d-flex justify-content-between lh-sm">
+         <div>
+         <h6 class="my-0">el.use_case</h6>
+         <small class="text-muted">Datum der Überweisung: ${el.execute_datetime}</small>
+         <br>
+         <small class="text-muted">Absender: ${el.iban_from_username}
+                        ${el.iban_from} </small>
+         <br>
+         <small class="text-muted">Empfänger: ${el.iban_to_username}
+             ${el.iban_to}</small>
+         <small class="text-muted">Status:</small>
 
-})
+         if ($(el.is_open)== False) {
+            if ($(el.is_success) == False){
+            <small class="text-muted">Fehlgeschlagen</small>
+                    <br>
+                    <small class="text-muted">log: ${el.executionlog}</small>
+            } else {
+            <small class="text-muted">Erfolgreich</small>
+            }
+         } else {
+
+         }
+
+         <small class="text-muted">pending</small>
 
 
 
-})
+         ${el.iban_from} ${el.iban_to} ${el.amount} ${el.created_at}<br>
+
+         `
+         $( "#transactions" ).append(row)
+
+        })
 
 
 
+        })
+
+
+    });
 
 });
 </script>
+-->
 {% endblock %}

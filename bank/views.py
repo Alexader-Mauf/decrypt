@@ -64,7 +64,7 @@ def logout_view(request):
     return redirect(reverse('bank_index'))
 
 
-def loadhome(request):
+def index(request):
     if request.user.is_authenticated:
         try:
             bankaccounts = request.user.bank_customer.account_owned_by.all()
@@ -78,8 +78,9 @@ def loadhome(request):
         # das transfers hat keine representation -> wirft fehler beim übermitteln
         # transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
         transfers = models.BankTransfer.objects.filter(
-            Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
-            Q(iban_to=request.user.bank_customer.account_owned_by.first())
+            # iban from muss in Bank AccountAdministration sein
+            Q(iban_from__in=request.user.bank_customer.account_owned_by.all()) |
+            Q(iban_to__in=request.user.bank_customer.account_owned_by.all())
         ).all().order_by("-created_at")[:10]
         # print(bankaccounts, request.user, transfers)
         # for transfer in transfers:
@@ -99,10 +100,6 @@ def login_failed(request):
     })
 
 
-def index(request):
-    if request.user.is_authenticated:
-        return redirect(reverse('loadhome'))
-    return redirect(reverse('login_view'))
 
 
 def signup(request):
@@ -275,113 +272,6 @@ class CreateTransferView(FormView):
             )
 
 
-#
-def create_transfer(request):
-    return redirect(reverse('loadhome'))
-
-
-# if request.method == "POST":
-#    iban_to = request.POST.get("iban_to")
-#    iban_from = request.POST.get("iban_from")
-#    amount = request.POST.get("amount")
-#    use_case = request.POST.get("verwendungszweck")
-#    instant_transfer = request.POST.get("Sofortüberweisung", False)
-#    print(instant_transfer)
-#    newTransfer = CreateTransferView()
-#    newTransfer.post(request,
-#                     iban_to=iban_to,
-#                     iban_from=iban_from,
-#                     amount=amount,
-#                     use_case=use_case,
-#                     )
-#    # amount = amount.replace(",", ".")
-# amount = Decimal(amount)
-# print(
-#    iban_from,
-#    iban_to,
-#    amount,
-#    use_case,
-#    instant_transfer,
-# )
-# created_by = request.user.bank_customer
-#
-# try:
-#    iban_to = models.BankAccount.objects.get(iban=iban_to)
-# except Exception as e:
-#    return render(request, 'home2.html', {
-#        "user": request.user,
-#        "accounts": bankaccounts,
-#        "statusmsg": "Zieladresse Existiert nicht",
-#    })
-#
-#
-# iban_from = models.BankAccount.objects.get(iban=iban_from)
-#
-## if BankAccount.objects.get(iban=request.POST.get("iban_to")):
-##if
-# try:
-#    with transaction.atomic():
-#        # warum erstelle ich hier eine instanz wenn ich die information auch an die API
-#        # senden könnte
-#        # POST /bank/api/bank-transfers
-#        transfer = models.BankTransfer.objects.create(
-#            iban_to=iban_to,
-#            iban_from=iban_from,
-#            amount=amount,
-#            use_case=use_case,
-#            created_by=created_by
-#        )
-#        transfer.save()
-# except Exception as e:
-#    print(e)
-#    transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
-#    return render(request, 'transfer.html', {
-#        "user": request.user,
-#        "accounts": bankaccounts,
-#        "statusmsg": "ERSTELLEN Fehlgeschlagen",
-#        "transfers": transfers,
-#    })
-#
-## muss das hier nochmal seperat in eine transaction.atomic() gepackt werden?
-## nein  dies wird innerhalb der run_transfer() funktion gehandelt
-# if instant_transfer == "on":
-#    transfer.execute_datetime = timezone.now
-#    transfer.run_transfer()
-#
-# transfers = request.user.bank_customer.created_by.order_by("-created_at")[:10]
-# return render(request, 'transfer.html', {
-#    "user": request.user,
-#    "accounts": bankaccounts,
-#    "statusmsg": transfer.executionlog,
-#    "transfers": transfers,
-# })
-
-#
-# Unterscheidung success nicht success
-
-# else:
-
-#   return render(request, 'home2.html', {
-#       "user": request.user,
-#       "accounts": bankaccounts,
-#       "statusmsg": "Es ist ein Fehler aufgetreten.",
-#   })
-#
-
-# man könnte hier auch den transfer direkt ausführen
-#
-# User.bank_customer.account_owned_by.balance = User.bank_customer.account_owned_by.balance - amount
-# User.bank_customer.account_owned_by.balance = User.bank_customer.account_owned_by.balance + amount
-# both.save()
-
-
-# return render(request, 'home2.html', {
-#     "user": request.user,
-#     "accounts": bankaccounts,
-#     "statusmsg": "Überweisung erfolgreich erstellt",
-# })
-
-
 class BankCustomerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BankCustomersSerializer
     queryset = models.BankCustomer.objects.order_by('id').all()
@@ -428,17 +318,8 @@ class BankTransferViewSet(viewsets.ModelViewSet):
                 Q(iban_to=user.bank_customer.account_owned_by.first())
             )
 
-  #  Q(iban_from=request.user.bank_customer.account_owned_by.first()) |
-  #  Q(iban_to=request.user.bank_customer.account_owned_by.first())
-
-
     def partial_update(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    # def create(self, request):
-    #    user = self.request.user
-    #    if (Q())
-    #    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class BankAccountViewSet(viewsets.ModelViewSet):

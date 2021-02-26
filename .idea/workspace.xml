@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixed rounding issue">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button">
+      <change afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/static/js/load_new_entrys.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/load_new_entrys.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/templates/bankbbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bankbbase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/bank-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bank-index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -71,13 +68,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00005" summary="wording">
-      <created>1610549715511</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1610549715511</updated>
     </task>
     <task id="LOCAL-00006" summary="combined the 2 decrypts into 1 django file">
       <created>1610613001376</created>
@@ -415,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614334615318</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button">
+      <created>1614345024676</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1614345024676</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -431,7 +428,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added an @action to the BankTransferViewSet wich actuates the transfers that have is_open=True &#10;Bugfixing in the core TestSet  with andre&#10;&#10;the action still has an error coming up have to rewrite the logic of the run_transfer method" />
     <MESSAGE value="made  both tests work but still have to figure out how to set the authorization for tests" />
     <MESSAGE value="made the run_transfer Method  run as expected" />
     <MESSAGE value="added some nice-looking signup page stuff" />
@@ -456,6 +452,7 @@
     <MESSAGE value="changed the login form to be a Django-Form &#10;&#10;changed the Viewset for transfers to include transfers sent to the logged in user aswell as from him/her/apache" />
     <MESSAGE value="started to implemenet dynamic loading of additonal information" />
     <MESSAGE value="fixed rounding issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed rounding issue" />
+    <MESSAGE value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
   </component>
 </project>

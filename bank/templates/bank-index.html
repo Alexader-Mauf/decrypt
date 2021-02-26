@@ -75,11 +75,11 @@
                     <small class="text-muted">Status:</small>
                     {% if transfer.is_open == False %}
                     {% if transfer.is_success == False %}
-                    <small class="text-muted">Fehlgeschlagen</small>
+                    <small class="text-danger">Fehlgeschlagen</small>
                     <br>
                     <small class="text-muted">log: {{transfer.executionlog}}</small>
                     {% else %}
-                    <small class="text-muted">Erfolgreich</small>
+                    <small class="text-success">Erfolgreich</small>
                     {% endif %}
                     {% else %}
                     <small class="text-muted">pending</small>

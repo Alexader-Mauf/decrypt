@@ -81,7 +81,7 @@ def index(request):
             # iban from muss in Bank AccountAdministration sein
             Q(iban_from__in=request.user.bank_customer.account_owned_by.all()) |
             Q(iban_to__in=request.user.bank_customer.account_owned_by.all())
-        ).all().order_by("-created_at")[:10]
+        ).all().order_by("-created_at")[:5]
         # print(bankaccounts, request.user, transfers)
         # for transfer in transfers:
         # print(transfer)

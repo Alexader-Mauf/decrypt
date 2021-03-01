@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button">
-      <change afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="some sty changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/templates/bank-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bank-index.html" afterDir="false" />
     </list>
@@ -68,13 +67,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00006" summary="combined the 2 decrypts into 1 django file">
-      <created>1610613001376</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1610613001376</updated>
     </task>
     <task id="LOCAL-00007" summary="combined the 2 decrypts into 1 django file with a startpage">
       <created>1610614487411</created>
@@ -412,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614345024676</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="some sty changes">
+      <created>1614354130754</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1614354130754</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -428,7 +427,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="made  both tests work but still have to figure out how to set the authorization for tests" />
     <MESSAGE value="made the run_transfer Method  run as expected" />
     <MESSAGE value="added some nice-looking signup page stuff" />
     <MESSAGE value="tried some implemetations but struggle with the syntax" />
@@ -453,6 +451,7 @@
     <MESSAGE value="started to implemenet dynamic loading of additonal information" />
     <MESSAGE value="fixed rounding issue" />
     <MESSAGE value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
+    <MESSAGE value="some sty changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some sty changes" />
   </component>
 </project>

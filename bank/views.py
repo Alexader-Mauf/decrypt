@@ -91,7 +91,7 @@ def index(request):
             "transfers": transfers,
         })
     else:
-        return redirect(reverse('login_failed'))
+        return redirect(reverse('login_view'))
 
 
 def login_failed(request):

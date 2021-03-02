@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="paginating 1.0 implemented can co back / forward&#10;still missing a go back to the end button">
-      <change afterPath="$PROJECT_DIR$/key/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/key/migrations/__init__.py" afterDir="false" />
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="squashed migrations&#10;fixed bugs with the pagiantion buttons by making the url dynamic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/static/js/form-validation.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/static/js/load_new_entrys.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/load_new_entrys.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/templates/bank-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bank-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/templates/bankbbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/bankbbase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0002_auto_20210202_1246.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0003_auto_20210202_1250.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/migrations/0002_auto_20210301_1318.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0004_auto_20210204_1232.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/decrypt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,13 +67,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00009" summary="refactoring stuff">
-      <created>1610617575078</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1610617575078</updated>
     </task>
     <task id="LOCAL-00010" summary="all the compression stuff works now&#10;&#10;my stated directory at faulty syntax&#10;&#10;after makemigrations is everything uglyfied">
       <created>1610627561892</created>
@@ -424,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614595617733</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="squashed migrations&#10;fixed bugs with the pagiantion buttons by making the url dynamic">
+      <created>1614678642893</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1614678642894</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -440,7 +427,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="tried some implemetations but struggle with the syntax" />
     <MESSAGE value="made the dropdown in the trasferscreen work&#10;&#10;next step ist moving the database to mysql" />
     <MESSAGE value="fixed the broken JSON  after the model change also made tests better... (still not working 100% permissions still give me a headache)" />
     <MESSAGE value="made the api only show the personal entries not the entire list&#10;started working on tests by creating a logged in user, that tries to make the querys instead of a generated one with no attributes" />
@@ -465,6 +451,7 @@
     <MESSAGE value="some sty changes" />
     <MESSAGE value="fixed : no display of login form after pressing logout &#10;started: paginating of the Überweisungshistorie" />
     <MESSAGE value="paginating 1.0 implemented can co back / forward&#10;still missing a go back to the end button" />
-    <option name="LAST_COMMIT_MESSAGE" value="paginating 1.0 implemented can co back / forward&#10;still missing a go back to the end button" />
+    <MESSAGE value="squashed migrations&#10;fixed bugs with the pagiantion buttons by making the url dynamic" />
+    <option name="LAST_COMMIT_MESSAGE" value="squashed migrations&#10;fixed bugs with the pagiantion buttons by making the url dynamic" />
   </component>
 </project>

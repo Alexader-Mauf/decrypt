@@ -17,7 +17,6 @@ urlpatterns = [
     path('home', views.index, name='loadhome'),
     path('create-transfer', views.CreateTransferView.as_view(), name='create-transfer'),
     path('logout', views.logout_view, name='logout'),
-    path('test', views.test, name='test'),
     path('nolog', views.login_failed, name='login_failed'),
     path('create-transfer-v2', views.CreateTransferView.as_view(), name='create-transfer-v2'),
     path('', views.index, name='bank_index'),

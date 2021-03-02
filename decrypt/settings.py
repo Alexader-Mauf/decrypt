@@ -102,12 +102,22 @@ DATABASES = {
     'default': {
         'ATOMIC_REQUESTS': True,
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'banking',
+        'NAME': os.environ.get('DATABASE_HOST_DB', 'banking'),
         'USER': 'root',
         'PASSWORD': 'yfKWPwjUZnie[yeZGKPA',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
+   # #  DATABASES = {
+   #         'default': {
+   #             'ENGINE': 'django.db.backends.mysql',
+   #             'NAME': os.environ.get('DATABASE_NAME_DB', 'service-prod'),
+   #             'USER': 'service',
+   #             'PASSWORD': os.environ.get('DATABASE_PWD_DB', ''),
+   #             'HOST': os.environ.get('DATABASE_HOST_DB', ''),
+   #             'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
+   #         }
+   #     }
 }
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -219,3 +229,6 @@ Q_CLUSTER = {
     "name": "transfer",
     "orm": "default",  # Use Django's ORM + database for broker
 }
+
+if (os.environ.get('ENV', 'develop')) == 'production':
+    DEBUG = False

@@ -20,44 +20,6 @@ from .forms import CreateTransferForm, LoginForm
 from .models import BankUserAdministration
 
 
-def test(request):
-    try:
-        bankaccounts = request.user.bank_customer.account_owned_by.all()
-        # transfers muss erweitert werden um die transfers, wo man empfänger oder ersteller ist
-        transfers = request.user.bank_customer.created_by.all()
-
-    except Exception as e:
-        return redirect(reverse('bank_index'))
-    if request.user.is_authenticated:
-        return render(request, 'transfer.html', {
-            "user": request.user,
-            "accounts": bankaccounts,
-            "transfers": transfers
-        })
-    else:
-        return redirect(reverse('bank_index'))
-
-
-def login_view(request):
-    if request.method == "GET":
-        if request.user.is_authenticated:
-            return redirect(reverse('loadhome'))
-        return render(request, "login.html")
-    if request.method == "POST":
-        # getting usernames as post from login
-        usname = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=usname, password=password)
-        if user is not None:
-            login(request, user)
-        if request.user.is_authenticated:
-            return redirect(reverse('loadhome'))
-        else:
-            return render(request, "login.html", {
-                "statusmsg": "Username or Password unknown",
-                "last_input": usname,
-            })
-
 
 def logout_view(request):
     logout(request)

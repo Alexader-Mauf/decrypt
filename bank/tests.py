@@ -136,12 +136,14 @@ class TestApiClass(SetupClass):
 
         # testing accounts
         # List
+        print("testing: getting account information")
         # gibt nur eigene Accounts wieder (funktioniert das mit mehereren Accounts?)
         r = client.get(f'/bank/api/bank-accounts/{account.iban}/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
         self.assertEqual(r.json().get("iban"), account.iban)
 
         # Create
+        print("testing: account creation")
         data = {
             "name": "HOLZKOPF",
             "balance": "0.0000",
@@ -151,7 +153,7 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
         # Read not own account
-
+        print("testing: reading wrong  account")
         account_id = Generator.generate_account().iban
         r = client.get('/bank/api/bank-accounts/{}/'.format(account_id))
         self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
@@ -159,6 +161,7 @@ class TestApiClass(SetupClass):
         # self.assertEqual(r.json().get("balance"), data.get("balance"))
         # self.assertEqual(r.json().get("account_owned_by"), data.get("account_owned_by"))
 
+        print("testing: account creation")
         # Update
         data = {
             "name": Generator.random_string(),
@@ -172,7 +175,7 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
         # self.assertEqual(r.json().get("name"), data.get("name"))
         # self.assertEqual(r.json().get("balance"), data.get("balance"))
-
+        print("testing: account deletion")
         # Delete
         r = client.delete('/bank/api/bank-accounts/{}/'.format(account_id))
         self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -185,6 +188,7 @@ class TestApiClass(SetupClass):
 
         # testing Customers
         # List
+        print("testing: getting customer information")
         r = client.get('/bank/api/bank-customers/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
@@ -196,10 +200,10 @@ class TestApiClass(SetupClass):
             "adress": Generator.random_string(),
             "user_id": newuser.id
         }
+        print("testing: creating new customers")
         r = client.post('/bank/api/bank-customers/', data=data, format='json')
         self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-        # BankCustomer erzeugen für newuser
         # Read own
         r = client.get('/bank/api/bank-customers/{}/'.format(bankuser.id))
 
@@ -207,6 +211,7 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.json().get("adress"), bankuser.adress)
 
         # Read other
+        print("testing: getting other's customer information")
         otheruser = Generator.generate_customer()
         r = client.get('/bank/api/bank-customers/{}/'.format(otheruser.pk))
 
@@ -225,6 +230,7 @@ class TestApiClass(SetupClass):
         self.assertEqual(r.json().get("adress"), data.get("adress"))
 
         # Delete
+        print("testing: deleting customer")
         r = client.delete('/bank/api/bank-customers/{}/'.format(bankuser.id))
         self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -244,19 +250,23 @@ class TestApiClass(SetupClass):
         )
 
         # List
+        print("testing: getting customer transfers")
         r = client.get('/bank/api/bank-transfers/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # get self
+        print("testing: getting specific transfer ")
         r = client.get(f'/bank/api/bank-transfers/{transfer.pk}/')
         self.assertEqual(r.status_code, status.HTTP_200_OK)
 
         # get other
+        print("testing: getting transfer where user didnt  participate")
         other_transfer = Generator.generate_transfer()
         r = client.get(f'/bank/api/bank-transfers/{other_transfer.pk}/')
         self.assertEqual(r.status_code, status.HTTP_404_NOT_FOUND)
 
         # Create
+        print("testing: creating transfer")
         data = {
             "iban_from": account_1.iban,
             "iban_to": account_2.iban,
@@ -353,6 +363,7 @@ class TestApiClass(SetupClass):
         #self.assertEqual(r.json().get("is_success"), data.get("is_success"))
         # wäre es sinnvoll, wenn man self.assertEqual(None,data.get("is_open")) benutzt zum doppelcheck?
 
+        print("testing: deleting transfer")
         # Delete
         r = client.delete('/bank/api/bank-accounts/{}/'.format(transfer_id))
         self.assertEqual(r.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

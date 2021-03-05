@@ -125,7 +125,7 @@ def signup(request):
             user.user_permissions.set(permissions)
             user.save()
 
-            return render(request, "login.html")
+            return redirect(reverse("login_view"))
 
 
 def update_adress(request, user_id):

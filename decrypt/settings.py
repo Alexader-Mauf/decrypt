@@ -20,11 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y%dhwlx69v2*man8%zjt5&3de*vb_x3-g3e+8ut_d%es=0n9o5'
+# SECURITY WARNING: keep the secret key used in production secret! how?
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,23 +104,32 @@ DATABASES = {
     'default': {
         'ATOMIC_REQUESTS': True,
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DATABASE_HOST_DB', 'banking'),
+        'NAME': os.environ.get('DATABASE_NAME_DB', 'banking'),
         'USER': 'root',
-        'PASSWORD': 'yfKWPwjUZnie[yeZGKPA',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
-   # #  DATABASES = {
-   #         'default': {
-   #             'ENGINE': 'django.db.backends.mysql',
-   #             'NAME': os.environ.get('DATABASE_NAME_DB', 'service-prod'),
-   #             'USER': 'service',
-   #             'PASSWORD': os.environ.get('DATABASE_PWD_DB', ''),
-   #             'HOST': os.environ.get('DATABASE_HOST_DB', ''),
-   #             'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
-   #         }
-   #     }
+        'PASSWORD': os.environ.get('DATABASE_PWD', 'yfKWPwjUZnie[yeZGKPA'),
+        #'HOST': '0.0.0.0',
+        'HOST': os.environ.get('DATABASE_HOST_DB', '0.0.0.0'),
+        # as far as im aware this is connected to the docker container that runs the mysql databbase
+        # yet if i start this app in  a docker container django is undable to connect to the database
+        'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
+    },
+        'OPTIONS': {
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8',
+        },
+
 }
+#DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('DATABASE_NAME_DB', 'service-prod'),
+#         'USER': 'service',
+#         'PASSWORD': os.environ.get('DATABASE_PWD_DB', ''),
+#         'HOST': os.environ.get('DATABASE_HOST_DB', ''),
+#         'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 

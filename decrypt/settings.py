@@ -1,4 +1,5 @@
 import os
+
 """
 Django settings for decrypt project.
 
@@ -16,18 +17,26 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y%dhwlx69v2*man8%zjt5&3de*vb_x3-g3e+8ut_d%es=0n9o5'
+# SECURITY WARNING: keep the secret key used in production secret! how?
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
 
 ALLOWED_HOSTS = ["*"]
 
+LANGUAGE_CODE = 'de'
+
+TIME_ZONE = 'Europe/Berlin'
+
+USE_L10N = True
+
+USE_TZ = True
 
 # Application definition
 
@@ -39,10 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third Party
+    'django_seed',
     'rest_framework',
     'django_filters',
-    #Own
+    'pipeline',
+    'bleach',
+    'crispy_forms',
+    'django_q',
+    # Own
+    'core',
     'key',
+    'keyform',
+    'bank',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +71,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
+    'pipeline.middleware.MinifyHTMLMiddleware',
+)
 
 ROOT_URLCONF = 'decrypt.urls'
 
@@ -75,17 +97,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'decrypt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+        'ATOMIC_REQUESTS': True,
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DATABASE_NAME_DB', 'banking'),
+        'USER': 'root',
+        'PASSWORD': os.environ.get('DATABASE_PWD', 'yfKWPwjUZnie[yeZGKPA'),
+        #'HOST': '0.0.0.0',
+        'HOST': os.environ.get('DATABASE_HOST_DB', '0.0.0.0'),
+        # as far as im aware this is connected to the docker container that runs the mysql databbase
+        # yet if i start this app in  a docker container django is undable to connect to the database
+        'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
+    },
+        'OPTIONS': {
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8',
+        },
 
+}
+#DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('DATABASE_NAME_DB', 'service-prod'),
+#         'USER': 'service',
+#         'PASSWORD': os.environ.get('DATABASE_PWD_DB', ''),
+#         'HOST': os.environ.get('DATABASE_HOST_DB', ''),
+#         'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -106,7 +149,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 # Internationalization
@@ -122,9 +173,73 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'key/static/')
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'STYLESHEETS': {
+        'keyform': {
+            'source_filenames': (
+                'css/bootstrap.css',
+                'css/cover.css',
+                'css/product.css',
+            ),
+            'output_filename': 'css/keyform.css',
+            'extra_context': {
+                'media': 'screen,projection',
+            },
+        },
+        # 'stylesheetsbanking':{
+        #    'source_filenames':(
+        #        'device-mockups/device-mockups.min.css',
+        #        'css/bootstrap.css',
+        #        'vendor/simple-line-icons/css/simple-line-icons.css',
+        #        'vendor/fontawesome-freecss/all.min.css',
+        #        'css/new-age.css',
+        #        'device-mockups/device-mockups.min.css',
+        #    ),
+        #    'output_filename':'css/stylesheetsbanking.css',
+        # }
+    },
+    'JAVASCRIPT': {
+        'jscripts': {
+            'source_filenames': (
+                'js/jquery-3.5.1.min.js',
+                'js/read_write_data.js',
+            ),
+            'output_filename': 'js/jscripts.js',
+        },
+        # 'bankingjscripts':{
+        #    'source_filenames':(
+        #        'vendor/jquery/jquery.min.js',
+        #        'vendor/bootstrap/js/bootstrap.bundle.min.js',
+        #        'vendor/jquery-easing/jquery.easing.min.js',
+        #        'templateforbankkingapp/js/new-age.min.js',
+        #    ),
+        #    'output_filename':'js/bankingjscripts.js'
+        # }
+    },
+
+    'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor'}
+
+
+Q_CLUSTER = {
+    "name": "transfer",
+    "orm": "default",  # Use Django's ORM + database for broker
+}
+
+if (os.environ.get('ENV', 'develop')) == 'production':
+    DEBUG = False

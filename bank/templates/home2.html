@@ -1,0 +1,120 @@
+{% extends "bankbbase.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hier kann man überweisungen ansetzen</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bankmain.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css'%}"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'test' %}">Neue Seite</a>
+    </div>
+    <div class="row">
+
+        <h1>Überweisung</h1>
+    </div>
+    <div class="row">
+        <p>Hallo {{ user.last_name }} {{ user.first_name }}</p>
+
+    </div>
+
+    <div class="row">
+        <a id="statusmsg">{{ statusmsg }}</a>
+        <p>Konto Transaktion von</p>
+    </div>
+    <form action="{% url 'create-transfer' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+
+            <label for="accounts">Wähle dein Konto:</label>
+        </div>
+        <div class="col-sm">
+            <select name="iban_from" id="iban_from">
+                {% for account in accounts %}
+                <option value="{{account.iban}}">{{ account.iban }} {{ account.name }}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+        <div class="row">
+            <p>Zielkonto</p>
+            <p><input type="text" id="iban_to" name="iban_to"></p>
+        </div>
+        <div class="row">
+            <p>Verwendungszweck</p>
+            <p><input type="text" id="verwendungszweck" name="verwendungszweck"></p>
+        </div>
+        <div>
+            <p>überweisungsbetrag</p>
+            <input type="text" id="amount" name="amount">
+        </div>
+        <div>
+            <p>Überweisungsdatum</p>
+            <input type="text" id="date" name="date">
+            <p>Sofortüberweisung</p>
+            <input type="checkbox" id="Sofortüberweisung" name="Sofortüberweisung">
+        </div>
+
+        <div class="row">
+            <input type="submit" id="action" value="Überweisung durchführen.">
+        </div>
+    </form>
+</div>
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <div style="display:flex; flex-direction: row; justify-content: space-evenly">
+        <div class="col-xs-6">
+            <h2>berweisung</h2>
+            {% csrf_token %}
+            {% if errors is not None %}
+            <div class="alert alert-danger" role="alert">{{errors|safe}}</div>
+            {% endif %}
+
+            {% crispy form %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+<!--
+<header>
+    <div class="overlay"></div>
+     <div class="container">
+         <div class="description">
+             <h1>Wilkommen bei der Pogbbank</h1>
+              <p>dies ist eine Landingpage von  der man Überweisungen  aus schicken kann</p>
+             <button class="btn btn-outline-secondary btn-lg">MEHR STUFF</button>
+         </div>
+     </div>
+</header>
+-->
+{% load pipeline %}
+{% javascript 'jscripts' %}
+
+
+<script src="{% static 'js/maketrransfer.js' %}" type="text/javascript">
+</script>
+<script src="{% static 'js/templatejs.js' %}" type="text/javascript">
+</script>
+<!-- <link href="path_to_staticfile_with_script.js"> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="{% static 'js/jquery.datetimepicker.full.js' %}" type="text/javascript"></script>
+<script>
+    $('#date').datetimepicker({
+	inline:true,
+	});
+</script>
+</body>
+</html>

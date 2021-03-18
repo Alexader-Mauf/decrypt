@@ -1,0 +1,37 @@
+{% extends "basef.html" %}
+{% load static %}
+
+{% block title %}
+<div>
+    <h3 class="float-md-start mb-0">Secret Message</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Übersicht</a>
+        <!--<a class="nav-link" href="#">das Spacing</a>
+        <a class="nav-link" href="#">shit?</a>-->
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<h1 id="status-message">{{ content }}</h1>
+<p>{{ secretnote }}</p>
+<a href="{{ linktomsg }}">{{ linktomsg }}</a>
+<p class="lead">
+
+<!--<form action="{% url 'encode_decode' %}" method="post">-->
+    {% csrf_token %}
+
+    <!--<input id="message" type="text" name="message" value="" autocomplete="off" auto>-->
+    <br><br>
+    <a href="{% url 'formdex' %}" id="encode" name="encode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="SavemitForms">Secret-Message mit form</a>
+    <a href="{% url 'apistyle' %}" id="decode" name="decode" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="SavemitAPI">Secret-Message mit JQuery</a>
+    <a href="{% url 'banking' %}" id="banking" name="banking" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            value="SavemitAPI">Banking App</a>
+<!--
+</form>-->
+
+    {% endblock %}
+
+    {% block script %}
+    {% endblock %}

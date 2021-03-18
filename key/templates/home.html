@@ -5,14 +5,14 @@
 <div>
     <h3 class="float-md-start mb-0">Secret Message</h3>
     <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page">Decode</a>
+        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Übersicht</a>
         <!--<a class="nav-link" href="#">das Spacing</a>
         <a class="nav-link" href="#">shit?</a>-->
     </nav>
 </div>
 {% endblock %}
 {% block content %}
-<h1 id="status-message">Hier kannst du Secret Messages erstellen.</h1>
+<h1 id="status-message">Hier kannst du Secret Messages speichern.</h1>
 <p id="content"></p>
 <p class="lead">
 

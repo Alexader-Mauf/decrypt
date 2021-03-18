@@ -1,0 +1,208 @@
+{% extends "bankbbase.html" %}
+{% load static %}
+
+{% block title %}
+<h2>Wilkommen bei PogBank</h2>
+{% endblock %}
+
+{% block main %}
+<!-- das ist der Kombinierte div von dem überweisungsfomular und der Anzeige der Konten -->
+<!-- er ist eine "Reihe" im "haupt-div" container -->
+<div class="row g-3">
+    <!-- der container auf der rechten Seite(Konten/Transfers)-->
+    <div class="col-md-5 col-lg-4 order-md-last">
+        <!-- oberstes Element ist die Überschrift -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Deine Konten</span>
+            <span class="badge bg-secondary rounded-pill">{{accounts.count}}</span>
+        </h4>
+        <!-- dieses Element gibt eine liste an deren Elemente mit <li></li> spezifiziert werden können -->
+
+        <ul id="accounts" class="list-group mb-3">
+            <!-- Beispiel eines Listeneintrags in das ul element -->
+            <!--
+                   <li class="list-group-item d-flex justify-content-between lh-sm">
+                     <div>
+                       <h6 class="my-0">Product name</h6>
+                       <small class="text-muted">Brief description</small>
+                     </div>
+                     <span class="text-muted">$12</span>
+                   </li>
+                   -->
+            {% for account in accounts %}
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0">{{account.name}}</h6>
+                    <small class="text-muted" id="accoun_owned" >{{account.iban}}</small>
+                </div>
+                <span class="text-muted">{{account.balance|floatformat:2}}€</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <!--
+               <form class="card p-2">
+                 <div class="input-group">
+                   <input type="text" class="form-control" placeholder="Promo code">
+                   <button type="submit" class="btn btn-secondary">Redeem</button>
+                 </div>
+               </form>
+               -->
+
+        <div class="input-group">
+            <a href="{%url 'create-transfer-v2'%}" type="submit" class="btn btn-secondary">Neue überweisung</a>
+        </div>
+    </div>
+    <!-- Überweisungs Historie-->
+    <div class="col-md-7 col-lg-8">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Deine Überweisungen</span>
+            <span class="badge bg-secondary rounded-pill">Überweisungshistorie</span>
+        </h4>
+        <!-- Liste mit den Übberweisungen die man beauftragt hat -->
+        <ul id="transactions" class="list-group mb-3">
+            {% for transfer in transfers %}
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0">{{transfer.use_case}}</h6>
+                    <small class="text-muted">Datum der Überweisung: {{transfer.execute_datetime}}</small>
+                    <br>
+                    <small class="text-muted">Absender: {{transfer.iban_from.account_owned_by}}
+                        {{transfer.iban_from}} </small>
+                    <br>
+                    <small class="text-muted">Empfänger: {{transfer.iban_to.account_owned_by}}
+                        {{transfer.iban_to}}</small>
+                    <br>
+                    <small class="text-muted">Status:</small>
+                    {% if transfer.is_open == False %}
+                    {% if transfer.is_success == False %}
+                    <small class="text-danger">Fehlgeschlagen</small>
+                    <br>
+                    <small class="text-muted">log: {{transfer.executionlog}}</small>
+                    {% else %}
+                    <small class="text-success">Erfolgreich</small>
+                    {% endif %}
+                    {% else %}
+                    <small class="text-muted">pending</small>
+                    {% endif %}
+                </div>
+                {% if transfer.iban_to in accounts %}
+                <span class="text-success">+{{transfer.amount|floatformat:2}}€</span>
+                {% else %}
+                <span class="text-danger">-{{transfer.amount|floatformat:2}}€</span>
+                {% endif %}
+            </li>
+            {% endfor%}
+        </ul>
+        <div class="input-group">
+            <button type="submit" id="buttonfirst" class="btn btn-secondary">first</button>
+            <button type="submit" id="loadnew" class="btn btn-secondary">Neuer</button>
+            <button type="submit" id="loadolder" class="btn btn-secondary">Älter</button>
+            <button type="submit" id="buttonlast" class="btn btn-secondary">last</button>
+        </div>
+
+        <!--<form class="needs-validation" novalidate action="{% url 'create-transfer' %}" method="POST">
+                 {% csrf_token %}
+                 <div class="row g-3">
+                   <div class="col-sm-12">
+                     <label for="iban_from" class="form-label">Konto</label>
+                     <select name="iban_from" id="iban_from" class="form-control">
+                       {% for account in accounts %}
+                       <option value="{{account.iban}}">{{ account.name }} : {{ account.iban }}</option>
+                       {% endfor %}
+                     </select>
+                   </div>
+                   <div class="col-12">
+                     <label for="username" class="form-label">Zielkonto</label>
+                     <div class="input-group">
+                       <input type="text" class="form-control" id="iban_to" name="iban_to" placeholder="DE82XXXXXXXXXXXX" required>
+                     <div class="invalid-feedback">
+                         Your username is required.
+                       </div>
+                     </div>
+                   </div>
+                   <div class="col-12">
+                     <label for="amount" class="form-label"> Betrag in € </label>
+                     <input type="text" class="form-control" id="amount" name="amount" placeholder="24,23">
+                   </div>
+                   <div class="col-12">
+                     <label for="verwendungszweck" class="form-label">Verwendungszweck</label>
+                     <input type="text" class="form-control" id="verwendungszweck" name="verwendungszweck" placeholder="Miete für Januar">
+                   </div>
+                   <div class="col-12">
+                     <label for="address2" class="form-label">Verwendungszweck 2 <span class="text-muted">(Optional)</span></label>
+                     <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                   </div>
+                 <hr class="my-4">
+                 <div class="form-check">
+                   <input type="checkbox" class="form-check-input" id="Sofortüberweisung" name="Sofortüberweisung">
+                   <label class="form-check-label" for="Sofortüberweisung">Sofortüberweisung</label>
+                   <small class="text-muted">Es können weiter Kosten anfallen.</small>
+                 </div>
+                 <hr class="my-4">
+                 <button class="w-100 btn btn-primary btn-lg" id="action" type="submit">Überweisung durchführen</button>
+               </form> -->
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{% static '/js/load_new_entrys.js' %}"></script>
+
+
+<!-- Dieses Script soll nachfolgende elemente reinladen es braucht ebenfalls die "Stylinglogik" um
+  gürne und rote beträge anzuzeigen-->
+<!--<script type="text/javascript">
+$( document ).ready(function() {
+    console.log("HELLO!")
+    $( loadnew ).click(function() {
+        $.getJSON("/bank/api/bank-transfers/?ordering=-created_at",function( data ) {
+        console.log(data);
+        // die folgende Zeile ist vergleichbar mit: "for el in data.results:"
+        data.results.forEach(el => {
+         var row = `
+         <li class="list-group-item d-flex justify-content-between lh-sm">
+         <div>
+         <h6 class="my-0">el.use_case</h6>
+         <small class="text-muted">Datum der Überweisung: ${el.execute_datetime}</small>
+         <br>
+         <small class="text-muted">Absender: ${el.iban_from_username}
+                        ${el.iban_from} </small>
+         <br>
+         <small class="text-muted">Empfänger: ${el.iban_to_username}
+             ${el.iban_to}</small>
+         <small class="text-muted">Status:</small>
+
+         if ($(el.is_open)== False) {
+            if ($(el.is_success) == False){
+            <small class="text-muted">Fehlgeschlagen</small>
+                    <br>
+                    <small class="text-muted">log: ${el.executionlog}</small>
+            } else {
+            <small class="text-muted">Erfolgreich</small>
+            }
+         } else {
+
+         }
+
+         <small class="text-muted">pending</small>
+
+
+
+         ${el.iban_from} ${el.iban_to} ${el.amount} ${el.created_at}<br>
+
+         `
+         $( "#transactions" ).append(row)
+
+        })
+
+
+
+        })
+
+
+    });
+
+});
+</script>
+-->
+{% endblock %}

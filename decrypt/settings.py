@@ -163,7 +163,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'key/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
@@ -204,6 +204,7 @@ PIPELINE = {
             'source_filenames': (
                 'js/jquery-3.5.1.min.js',
                 'js/read_write_data.js',
+                'js/maketransfers.js',
             ),
             'output_filename': 'js/jscripts.js',
         },

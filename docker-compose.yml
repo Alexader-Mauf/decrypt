@@ -1,20 +1,11 @@
-version: "3.9"
-   
-#services:
-#  db
-#  server:
-#    build: .
-#    command: python manage.py runserver 0.0.0.0:8000
-#    ports:
-#      - "8000:8000"
-#      - "3307:3306"
- 
- 
+version: "3.8"
+
+
 services:
   db:
-    image: mysql:5.7
+    image: mysql
     ports:
-      - '3307:3306'
+      - '3306:3306'
     environment:
        MYSQL_DATABASE: 'banking'
        MYSQL_ROOT_PASSWORD: 'toor'
@@ -26,9 +17,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-       DATABASE_HOST_DB: 'banking'
-       DATABASE_PWD: 'toor'
-       DATABASE_HOST_DB: "db"
-       DATABASE_HOST_PORT: ""
+      DATABASE_HOST_DB: 'banking'
+      DATABASE_PWD: 'toor'
+      DATABASE_HOST_DB: db
+      DATABASE_HOST_PORT: "3306"
     depends_on:
       - db

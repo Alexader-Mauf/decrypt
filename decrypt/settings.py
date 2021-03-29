@@ -102,33 +102,21 @@ WSGI_APPLICATION = 'decrypt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ATOMIC_REQUESTS': True,
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DATABASE_NAME_DB', 'banking'),
         'USER': 'root',
         'PASSWORD': os.environ.get('DATABASE_PWD', 'yfKWPwjUZnie[yeZGKPA'),
-        #'HOST': '0.0.0.0',
         'HOST': os.environ.get('DATABASE_HOST_DB', '0.0.0.0'),
         # as far as im aware this is connected to the docker container that runs the mysql databbase
         # yet if i start this app in  a docker container django is undable to connect to the database
         'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
     },
-        'OPTIONS': {
-            # Tell MySQLdb to connect with 'utf8mb4' character set
-            'charset': 'utf8',
-        },
+        #'OPTIONS': {
+        #    # Tell MySQLdb to connect with 'utf8mb4' character set
+        #    'charset': 'utf8',
+        #},
 
 }
-#DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ.get('DATABASE_NAME_DB', 'service-prod'),
-#         'USER': 'service',
-#         'PASSWORD': os.environ.get('DATABASE_PWD_DB', ''),
-#         'HOST': os.environ.get('DATABASE_HOST_DB', ''),
-#         'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -163,7 +151,7 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'de-de'
 
 TIME_ZONE = 'CET'
 
@@ -240,6 +228,14 @@ Q_CLUSTER = {
     "name": "transfer",
     "orm": "default",  # Use Django's ORM + database for broker
 }
+
+if (os.environ.get('ENV_MACHINE', 'local')) == 'local':
+    # settings für locale machine
+    pass
+
+if (os.environ.get('ENV_MACHINE', 'local')) == 'pi':
+    # settings für pi
+    pass
 
 if (os.environ.get('ENV', 'develop')) == 'production':
     DEBUG = False

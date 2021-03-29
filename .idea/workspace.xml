@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="app: settings refactor for pi usage">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="deleting some old comments">
+      <change afterPath="$PROJECT_DIR$/bank/static/js/maketransfers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/key/static/css/banklogin.css" beforeDir="false" afterPath="$PROJECT_DIR$/key/static/css/banklogin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/key/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/key/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyform/templates/basef.html" beforeDir="false" afterPath="$PROJECT_DIR$/keyform/templates/basef.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/templates/transfer.html" beforeDir="false" afterPath="$PROJECT_DIR$/bank/templates/transfer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypt/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,11 +46,12 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/js" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/js" />
       <recent name="$PROJECT_DIR$/bank/static/img" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/keyform" />
@@ -73,62 +72,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00016" summary="added a landingpage still missing requirements">
-      <created>1610712993176</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1610712993177</updated>
-    </task>
-    <task id="LOCAL-00017" summary="trying to fix the requirements by finding the corrret static folder only to then realize, that i have to put all staticfiles in pipeline directories &#10;now i gotta look up on how to add images and other fileformats  to pipelines compiler..">
-      <created>1610720335856</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1610720335856</updated>
-    </task>
-    <task id="LOCAL-00018" summary="fixed migration issues&#10;trying to get pipelines runnning with the startbootstrap template">
-      <created>1610961927002</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1610961927002</updated>
-    </task>
-    <task id="LOCAL-00019" summary="added views for logging in and creating a user">
-      <created>1610964269637</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1610964269637</updated>
-    </task>
-    <task id="LOCAL-00020" summary="made the creationsite work with forms and django not via jscript und api">
-      <created>1610983552420</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1610983552421</updated>
-    </task>
-    <task id="LOCAL-00021" summary="fixed  alot of crashes  &#10;united the models to  have set relations &#10;added a seed.py file where i will eventualy seerd my model from">
-      <created>1611061257429</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1611061257429</updated>
-    </task>
-    <task id="LOCAL-00022" summary="the bugs are gone... for now&#10;were able to fix the database by resetting  it and removing the SecretMsg.Model form the core app&#10;made the transaction  page  now require a logged in user&#10;user creation does work now(?)&#10;-&gt; have to check if they get a generated iban on account creation">
-      <created>1611141763330</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1611141763330</updated>
-    </task>
-    <task id="LOCAL-00023" summary="TIL dont fuck with --init--">
-      <created>1611153843796</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1611153843796</updated>
     </task>
     <task id="LOCAL-00024" summary="adding additional functionality to the transfer-class">
       <created>1611156574511</created>
@@ -417,7 +360,63 @@
       <option name="project" value="LOCAL" />
       <updated>1617009265807</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="app: admin: changed description  of make transfers">
+      <created>1617009816947</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1617009816947</updated>
+    </task>
+    <task id="LOCAL-00066" summary="css: banklogin.css adjusted height of the menu">
+      <created>1617009866131</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1617009866131</updated>
+    </task>
+    <task id="LOCAL-00067" summary="app: changed header name zu axels tolle webseite">
+      <created>1617009902554</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1617009902554</updated>
+    </task>
+    <task id="LOCAL-00068" summary="models: changed maketransfers in order to fix a bug while sending multiple make-transfer requests at once">
+      <created>1617009987729</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1617009987729</updated>
+    </task>
+    <task id="LOCAL-00069" summary="&quot;decrypt-app&quot;: canged permissons to allow access to the api">
+      <created>1617010051753</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1617010051754</updated>
+    </task>
+    <task id="LOCAL-00070" summary="what even is this file?">
+      <created>1617010076865</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1617010076865</updated>
+    </task>
+    <task id="LOCAL-00071" summary="deleting some old comments">
+      <created>1617010349307</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1617010349307</updated>
+    </task>
+    <task id="LOCAL-00072" summary="gitignore: ignore staticfiles&#10;bankbase: got rid of traces to original authors">
+      <created>1617016323464</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1617016323465</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -433,14 +432,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixen der tests &#10;einschränken der berechtigungen von usern, Kundendaten einzusehen.&#10;nur noch 1 Fehler im Test!!!!" />
-    <MESSAGE value="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons" />
-    <MESSAGE value="aufbau einer hübscheren Transfer seite" />
-    <MESSAGE value="umbau des templates bis auf den Datumswähler fertiggestellt&#10;&#10;neue transfer-Seite zur hauptseite, die man nach dem login sieht gemacht" />
-    <MESSAGE value="fixed a wrong url name in views" />
-    <MESSAGE value="fixed last remnants of me deleting all the migration directories&#10;added an error msg if you enter wrong credentials" />
-    <MESSAGE value="added some stuff to the forms&#10;added a test for incorrect entering  of  a iban" />
-    <MESSAGE value="es werden nur noch dei 10 neusten überweisungen angezeigt&#10;&#10;wenn man sein passwort/username falsch eingibt, bleibt der username stehen&#10;&#10;die geldbeträge zeigen jetzt nur noch 2 nachkommastewllen an&#10;hinzufügen eines fav-icons&#10;hinzufügen der übberweisungsliste nach senden einer Überweisung" />
     <MESSAGE value="es werden nur noch dei 10 neusten überweisungen angezeigt&#10;&#10;wenn man sein passwort/username falsch eingibt, bleibt der username stehen&#10;&#10;die geldbeträge zeigen jetzt nur noch 2 nachkommastewllen an&#10;hinzufügen eines fav-icons&#10;hinzufügen der übberweisungsliste nach senden einer Überweisung&#10;&#10;started to include django forms -&gt; help what am i doing" />
     <MESSAGE value="soo much has changed geez &#10;we now use 2 templates that expand on bbankbase for displaying the views&#10;changed the model so that the default for execute datime is now 1 day in the future and not now &#10;changed from forms with a manually written view to a view class using django forms &#10;some minor UI improvements happened aswell &#10;everything is now displayed in € insted of $&#10;corrected the decimal places displayed &#10;probably more&#10;note to self commit more" />
     <MESSAGE value="made it so that the bank-index now also shows transfers which are incomming &#10;also added a distinction for incomming and outgoing transfers so that the amount changes color according to if the balance went up or down" />
@@ -458,6 +449,14 @@
     <MESSAGE value="css style changes" />
     <MESSAGE value="docker: add compose file for pi" />
     <MESSAGE value="app: settings refactor for pi usage" />
-    <option name="LAST_COMMIT_MESSAGE" value="app: settings refactor for pi usage" />
+    <MESSAGE value="app: admin: changed description  of make transfers" />
+    <MESSAGE value="css: banklogin.css adjusted height of the menu" />
+    <MESSAGE value="app: changed header name zu axels tolle webseite" />
+    <MESSAGE value="models: changed maketransfers in order to fix a bug while sending multiple make-transfer requests at once" />
+    <MESSAGE value="&quot;decrypt-app&quot;: canged permissons to allow access to the api" />
+    <MESSAGE value="what even is this file?" />
+    <MESSAGE value="deleting some old comments" />
+    <MESSAGE value="gitignore: ignore staticfiles&#10;bankbase: got rid of traces to original authors" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore: ignore staticfiles&#10;bankbase: got rid of traces to original authors" />
   </component>
 </project>

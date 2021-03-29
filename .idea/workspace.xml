@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="deleting some old comments">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/static/js/maketransfers.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketransfers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bank/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,13 +68,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00029" summary="made  both tests work but still have to figure out how to set the authorization for tests">
-      <created>1611316274943</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1611316274943</updated>
     </task>
     <task id="LOCAL-00030" summary="made the run_transfer Method  run as expected">
       <created>1611319134801</created>
@@ -414,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617016439523</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying">
+      <created>1617019776775</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1617019776775</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -430,7 +428,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="started to implemenet dynamic loading of additonal information" />
     <MESSAGE value="fixed rounding issue" />
     <MESSAGE value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
     <MESSAGE value="some sty changes" />
@@ -455,6 +452,7 @@
     <MESSAGE value="transfers: load in maketransfers" />
     <MESSAGE value="urls: added url for staticfiles" />
     <MESSAGE value="work work i guess" />
-    <option name="LAST_COMMIT_MESSAGE" value="work work i guess" />
+    <MESSAGE value="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying" />
   </component>
 </project>

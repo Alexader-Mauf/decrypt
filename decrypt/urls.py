@@ -19,6 +19,8 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import include, path
 from keyform import views as keyform_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('key/', include('key.urls')),
@@ -27,4 +29,4 @@ urlpatterns = [
     path('keyform/', include('keyform.urls')),
     path('bank/', include('bank.urls')),
     path('core/', include('core.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,7 +6,8 @@ from . import models
 def execute_transfer(modeladmin, request, queryset):
     for entry in queryset:
         entry.run_transfer()
-    execute_transfer.short_description = "führt mögliche Überweisungen aus"
+
+execute_transfer.short_description = "führt mögliche Überweisungen aus"
 
 
 

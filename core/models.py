@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models, transaction
+from django.db.models import F
 from django.utils import timezone
 
 
@@ -144,13 +145,13 @@ class BankTransfer(models.Model):
                     self.is_open = False
                     self.save()
                     print("negativer amount")
-                    return
+                    return None
 
                 # transfer darf nicht schon angesetzt wurden sein
                 if self.is_open == False:
                     self.executionlog += (" Error: dieser Auftrag wurde schon angesetzt")
                     self.save()
-                    return
+                    return None
 
                 # Zielaccount darf nicht Absendeaccount sein
                 if account_from == account_to:
@@ -158,25 +159,29 @@ class BankTransfer(models.Model):
                     self.is_open = False
                     self.save()
                     print("gleicher account")
-                    return
+                    return None
 
-                # man darf nicht mehr überweisen, als man geld auf dem Konto hat
+                # check ob genug guthaben
                 if account_from.balance > amount:
                     print("starting  transaction")
-                    self.iban_from.balance = self.iban_from.balance - self.amount
-                    self.iban_to.balance = self.iban_to.balance + self.amount
-                    self.iban_to.save()
-                    self.iban_from.save()
+                    BankAccount.objects.filter(
+                        iban=self.iban_from.iban
+                    ).update(balance=F('balance') - self.amount)
+                    BankAccount.objects.filter(
+                        iban=self.iban_to.iban
+                    ).update(balance=F('balance') + self.amount)
                     self.executionlog = self.executionlog + "Sucess: überweisung ausgeführt"
                     # change
                     self.is_open = False
                     self.is_success = True
                     self.save()
+                    return None
                 else:
                     print("nicht genug guthaben")
                     self.is_open = False
                     self.executionlog = self.executionlog + " Error: Nicht genug Guthaben."
                     self.save()
+                    return None
         except Exception as e:
             print(e)
 

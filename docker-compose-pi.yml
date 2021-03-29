@@ -1,0 +1,26 @@
+version: "3.8"
+
+
+services:
+  db:
+    image: jsurf/rpi-mariadb
+    ports:
+      - '3306:3306'
+    environment:
+       MYSQL_DATABASE: 'banking'
+       MYSQL_ROOT_PASSWORD: 'toor'
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/django-server
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_HOST_DB: 'banking'
+      DATABASE_PWD: 'toor'
+      DATABASE_HOST_DB: db
+      DATABASE_HOST_PORT: "3306"
+      ENV_MACHINE: 'pi'
+    depends_on:
+      - db

@@ -107,8 +107,6 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': os.environ.get('DATABASE_PWD', 'yfKWPwjUZnie[yeZGKPA'),
         'HOST': os.environ.get('DATABASE_HOST_DB', '0.0.0.0'),
-        # as far as im aware this is connected to the docker container that runs the mysql databbase
-        # yet if i start this app in  a docker container django is undable to connect to the database
         'PORT': os.environ.get('DATABASE_HOST_PORT', '3306'),
     },
         #'OPTIONS': {

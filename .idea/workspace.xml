@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="changed docker compose to v3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,13 +69,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00030" summary="made the run_transfer Method  run as expected">
-      <created>1611319134801</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1611319134801</updated>
     </task>
     <task id="LOCAL-00031" summary="added some nice-looking signup page stuff">
       <created>1611329865090</created>
@@ -412,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617019776775</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="changed docker compose to v3">
+      <created>1617020999532</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1617020999532</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -428,7 +429,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed rounding issue" />
     <MESSAGE value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
     <MESSAGE value="some sty changes" />
     <MESSAGE value="fixed : no display of login form after pressing logout &#10;started: paginating of the Überweisungshistorie" />
@@ -453,6 +453,7 @@
     <MESSAGE value="urls: added url for staticfiles" />
     <MESSAGE value="work work i guess" />
     <MESSAGE value="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying" />
+    <MESSAGE value="changed docker compose to v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed docker compose to v3" />
   </component>
 </project>

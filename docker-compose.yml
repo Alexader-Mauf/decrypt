@@ -23,3 +23,5 @@ services:
       DATABASE_HOST_PORT: "3306"
     depends_on:
       - db
+volumes:
+  db_data:{}

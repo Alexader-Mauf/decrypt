@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-        console.log( "ready!" );
+        console.log( "ready! apitransfers" );
 
     $( "#action" ).click(function() {
             var from = $("#iban_from").val()

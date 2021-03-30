@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+        console.log("ready on change scipt")
         var accountValues = null;
 
         $.get( "/bank/api/bank-accounts/", function( data ) {

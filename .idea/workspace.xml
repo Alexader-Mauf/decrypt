@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="changed docker compose to v3">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="docker compose: added volumeisation&#10;urls: fixed the displayed url of keyform not actually being callable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/js/maketransfers.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketransfers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketrransfer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,13 +70,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00031" summary="added some nice-looking signup page stuff">
-      <created>1611329865090</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1611329865091</updated>
     </task>
     <task id="LOCAL-00032" summary="tried some implemetations but struggle with the syntax">
       <created>1612194037133</created>
@@ -413,7 +407,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617020999532</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="docker compose: added volumeisation&#10;urls: fixed the displayed url of keyform not actually being callable">
+      <created>1617087966750</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1617087966750</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -429,7 +430,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed the dates in the newly loaded in transfers&#10;&#10;you are now able to view all transfers correctly with the load in button" />
     <MESSAGE value="some sty changes" />
     <MESSAGE value="fixed : no display of login form after pressing logout &#10;started: paginating of the Überweisungshistorie" />
     <MESSAGE value="paginating 1.0 implemented can co back / forward&#10;still missing a go back to the end button" />
@@ -454,6 +454,7 @@
     <MESSAGE value="work work i guess" />
     <MESSAGE value="deleted old code remnants&#10;rewrote the maketransfers on change still is anoying" />
     <MESSAGE value="changed docker compose to v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed docker compose to v3" />
+    <MESSAGE value="docker compose: added volumeisation&#10;urls: fixed the displayed url of keyform not actually being callable" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker compose: added volumeisation&#10;urls: fixed the displayed url of keyform not actually being callable" />
   </component>
 </project>

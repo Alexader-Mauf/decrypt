@@ -204,7 +204,6 @@ PIPELINE = {
             'source_filenames': (
                 'js/jquery-3.5.1.min.js',
                 'js/read_write_data.js',
-                'js/maketransfers.js',
             ),
             'output_filename': 'js/jscripts.js',
         },

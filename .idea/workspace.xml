@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="now displays a warning if you enter a number too large in Übberweisungsbetrag">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Project_Euler" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
   </component>
   <component name="RecentsManager">
@@ -68,13 +68,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00034" summary="fixed the broken JSON  after the model change also made tests better... (still not working 100% permissions still give me a headache)">
-      <created>1612280126691</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1612280126692</updated>
     </task>
     <task id="LOCAL-00035" summary="made the api only show the personal entries not the entire list&#10;started working on tests by creating a logged in user, that tries to make the querys instead of a generated one with no attributes">
       <created>1612346884323</created>
@@ -412,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617094149213</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="now displays a warning if you enter a number too large in Übberweisungsbetrag">
+      <created>1617094250225</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1617094250225</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

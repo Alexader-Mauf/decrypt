@@ -1,10 +1,18 @@
 $(document).ready(function () {
     var accountValues = {};
-
+    var transferValues ;
   $.get("/bank/api/bank-accounts/", function (data) {
     var accounts = data["results"];
     accounts.forEach(function (item) {
       accountValues[item.iban] = parseFloat(item.balance);
+    });
+  });
+  $.get("/bank/api/bank-transfers/", function (data) {
+    var transfers = data["results"];
+    transfers.forEach(function (item) {
+      if (item.is_open){
+      transferValues += parseFloat(item.amount);
+            }
     });
   });
   console.log("Load was performed.");
@@ -17,7 +25,13 @@ $(document).ready(function () {
     if (accountValues[selectedIban] < $("#id_amount").val()) {
       alert("Eventuell nicht genug Guthaben.");
     }
+    if (accountValues[selectedIban] < transferValues {
+      alert("Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung.");
+    }
+
   });
+
+
 
   console.log("ready on change scipt");
 

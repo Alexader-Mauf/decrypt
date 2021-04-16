@@ -1,13 +1,21 @@
 $(document).ready(function () {
-    var accountValues = {};
-    var transferValues ;
+
   $.get("/bank/api/bank-accounts/", function (data) {
-    var accounts = data["results"];
+
+  }).done(function (data) {var accounts = data["results"];
     accounts.forEach(function (item) {
       accountValues[item.iban] = parseFloat(item.balance);
-    });
-  });
-  $.get("/bank/api/bank-transfers/", function (data) {
+    })
+        console.log("Load was performed.");
+    };
+    )
+    .fail(var accountValues = {
+    'selectedIban' => null
+     };
+    var transferValues = parseFloat(0););
+
+
+  console.log($("#iban_from option:selected").val());$.get("/bank/api/bank-transfers/", function (data) {
     var transfers = data["results"];
     transfers.forEach(function (item) {
       if (item.is_open){
@@ -15,19 +23,29 @@ $(document).ready(function () {
             }
     });
   });
-  console.log("Load was performed.");
-  console.log($("#iban_from option:selected").val());
   console.log(accountValues);
 
-  $("#id_amount").keyup(function () {
+  $("id=['id_amount']").keyup(function () {
     //$(".amount").val($("#id_amount").text.replace(",", '.'););
-    selectedIban = $("#id_iban_from option:selected").val();
-    if (accountValues[selectedIban] < $("#id_amount").val()) {
-      alert("Eventuell nicht genug Guthaben.");
+    var selectedIban = $("#id_iban_from option:selected").val();
+    var amount = $("#id_amount").val().parseFloat();
+    var bankAmount = accountValues[selectedIban].parseFloat();
+    var transferAmount = transferValues.parseFloat();
+
+    if (!isNaN(amount) && !isNaN(bankAmount)) {
+        if (accountValues[selectedIban] < amount) {
+          alert("Eventuell nicht genug Guthaben.");
+        }
     }
-    if (accountValues[selectedIban] < transferValues {
-      alert("Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung.");
+
+    if(!isNaN(bankAmount) && !isNaN(transferAmount)) {
+        alert("Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung.");
     }
+    else {
+      console.error('Fehler beim anlden der Kontoinformationen. accountValues');
+    }
+
+
 
   });
 

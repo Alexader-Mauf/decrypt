@@ -9,6 +9,8 @@ services:
     environment:
        MYSQL_DATABASE: 'banking'
        MYSQL_ROOT_PASSWORD: 'toor'
+    volumes:
+      - db-data:/var/lib/mysql/data
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -24,3 +26,5 @@ services:
       ENV_MACHINE: 'pi'
     depends_on:
       - db
+volumes:
+  db-data:

@@ -9,6 +9,10 @@ $(document).ready(function () {
         console.log("Load was performed.");
     };
     )
+    .on("error", function() {
+        alert("Kein Konto gefunden.")
+    }
+    )
     .fail(var accountValues = {
     'selectedIban' => null
      };
@@ -42,13 +46,19 @@ $(document).ready(function () {
         alert("Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung.");
     }
     else {
-      console.error('Fehler beim anlden der Kontoinformationen. accountValues');
+      console.error('Fehler beim anladen der Kontoinformationen. accountValues');
     }
 
 
 
   });
 
+  $("#id_iban_to").change(function() {
+        var iban_to = $("#id_ian_to").val();
+        if(iban_to == "" ){
+            alert("Bbitte IBAN angeben");
+        }
+  });
 
 
   console.log("ready on change scipt");

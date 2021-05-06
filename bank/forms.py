@@ -25,7 +25,7 @@ class CreateTransferForm(forms.Form):
             required=True
         )
         self.fields["iban_from"] = forms.ChoiceField(
-            label="Abbsender",
+            label="Absender",
             required=True,
             choices=[(x.iban, "{} {}".format(x.name, x.iban)) for x in self.accounts_from],
         )

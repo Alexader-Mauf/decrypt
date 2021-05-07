@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="now displays a warning if you enter an amount that would exceed the predicted amount of money in you bankaccount">
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixed typo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/css/bankmain.css" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/css/bankmain.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/static/css/form-validation.css" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/css/form-validation.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bank/static/js/maketransfers.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketransfers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decrypt/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/decrypt/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose-pi.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose-pi.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key/static/css/form-validation.css" beforeDir="false" afterPath="$PROJECT_DIR$/key/static/css/form-validation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,27 +73,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00036" summary="started to do some work on the frontend &#10;also made the JQuery reference a view but im pretty sure that is wrong i just havent gotten the auth-system quite right yet">
-      <created>1612365840944</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1612365840944</updated>
-    </task>
-    <task id="LOCAL-00037" summary="even more frontend work&#10;adding a kallendar to select the transfer date&#10;&#10;also found the bug in the tests (thanks andré) they still are not done but at least they work as intended now">
-      <created>1612452750618</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1612452750618</updated>
-    </task>
-    <task id="LOCAL-00038" summary="fixen der tests &#10;einschränken der berechtigungen von usern, Kundendaten einzusehen.&#10;nur noch 1 Fehler im Test!!!!">
-      <created>1612514784050</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1612514784050</updated>
     </task>
     <task id="LOCAL-00039" summary="Die Tests laufen -&gt; mein Code funktioniert 0.o&#10;hinzufügen des Logout buttons">
       <created>1612524643641</created>
@@ -416,8 +396,39 @@
       <option name="project" value="LOCAL" />
       <updated>1617696251102</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="now displays a warning if you enter an amount that would exceed the predicted amount of money in you bankaccount">
+      <created>1618567871766</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1618567871767</updated>
+    </task>
+    <task id="LOCAL-00086" summary="aadded .on_error">
+      <created>1620299310830</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1620299310830</updated>
+    </task>
+    <task id="LOCAL-00087" summary="fixed typo">
+      <created>1620299319806</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1620299319806</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -432,8 +443,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="squashed migrations&#10;fixed bugs with the pagiantion buttons by making the url dynamic" />
-    <MESSAGE value="rewrote the Javascript its waay DRY'er now also commented out all the console logs -&gt; not needed in production" />
     <MESSAGE value="changes in order  to host this inside a docker container" />
     <MESSAGE value="css style changes" />
     <MESSAGE value="docker: add compose file for pi" />
@@ -457,6 +466,8 @@
     <MESSAGE value="got rid of old code that threw errors: transferview v2" />
     <MESSAGE value="now displays a warning if you enter a number too large in Übberweisungsbetrag" />
     <MESSAGE value="now displays a warning if you enter an amount that would exceed the predicted amount of money in you bankaccount" />
-    <option name="LAST_COMMIT_MESSAGE" value="now displays a warning if you enter an amount that would exceed the predicted amount of money in you bankaccount" />
+    <MESSAGE value="aadded .on_error" />
+    <MESSAGE value="fixed typo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed typo" />
   </component>
 </project>

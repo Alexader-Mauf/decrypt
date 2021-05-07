@@ -30,3 +30,6 @@ html {
     top:0;
     background: rgba(244, 244, 244, 0.79);
 }
+.error{
+    border: solid 5px #FF0000;  
+}

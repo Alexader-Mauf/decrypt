@@ -1,3 +1,12 @@
 .container {
   max-width: 960px;
 }
+.error {
+  border: solid 2px #FF0000;
+}
+.correct {
+  border: solid 2px #228B22;
+}
+.warning {
+  border: solid 2px #ffa500;
+}

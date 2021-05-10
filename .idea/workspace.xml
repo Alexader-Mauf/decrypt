@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="added errorproofing and dependencie updates">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bank/static/js/maketransfers.js" beforeDir="false" afterPath="$PROJECT_DIR$/bank/static/js/maketransfers.js" afterDir="false" />
-    </list>
+    <list default="true" id="f6b2c315-45dc-4f40-b4ad-ccb2ad22d032" name="Default Changelist" comment="fixed bugs in the errorproofing mostly related to not using &quot;id_&quot; after &quot;#&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,13 +66,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610370482852</updated>
-    </task>
-    <task id="LOCAL-00040" summary="aufbau einer hübscheren Transfer seite">
-      <created>1612531765582</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1612531765582</updated>
     </task>
     <task id="LOCAL-00041" summary="umbau des templates bis auf den Datumswähler fertiggestellt&#10;&#10;neue transfer-Seite zur hauptseite, die man nach dem login sieht gemacht">
       <created>1612536404011</created>
@@ -413,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620391208267</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="fixed bugs in the errorproofing mostly related to not using &quot;id_&quot; after &quot;#&quot;">
+      <created>1620646750776</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1620646750776</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -439,7 +436,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changes in order  to host this inside a docker container" />
     <MESSAGE value="css style changes" />
     <MESSAGE value="docker: add compose file for pi" />
     <MESSAGE value="app: settings refactor for pi usage" />
@@ -464,6 +460,7 @@
     <MESSAGE value="now displays a warning if you enter an amount that would exceed the predicted amount of money in you bankaccount" />
     <MESSAGE value="aadded .on_error" />
     <MESSAGE value="fixed typo" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed typo" />
+    <MESSAGE value="fixed bugs in the errorproofing mostly related to not using &quot;id_&quot; after &quot;#&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bugs in the errorproofing mostly related to not using &quot;id_&quot; after &quot;#&quot;" />
   </component>
 </project>

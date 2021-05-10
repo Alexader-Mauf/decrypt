@@ -106,10 +106,10 @@ $(document).ready(function () {
 
     if (!isNaN(selectedAccountAmount) && !isNaN(opentransferAmount) && !isNaN(todoAmount)) {
       if (selectedAccountAmount<(opentransferAmount+todoAmount)) {
-        $("#id_amount").addClass('error');
-        alert(
-          "Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung."
-        );
+        $("#id_amount").addClass('warning');
+        //alert(
+        //  "Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung."
+        //);
         return
       }
     } else {

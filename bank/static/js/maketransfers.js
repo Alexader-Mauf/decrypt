@@ -55,54 +55,61 @@ $(document).ready(function () {
       };
     });
 
-  console.log($("#iban_from option:selected").val());
 
   // noch offenen Transaktionen die kommen können anrechnen
-  $.get("/bank/api/bank-transfers/", function (data) {
-    var transfers = data["results"];
-    transfers.forEach(function (item) {
-      if (item.is_open) {
-        if (item.iban_to==$('#id_from').val()){
-        transferValues = transferValues - parseFloat(item.amount);
-        }
-        if (item.iban_from==$('#id_from').val()){
-          transferValues += parseFloat(item.amount);
-          }
-      }
+  $.get("/bank/api/bank-transfers/")
+    .done(
+        function (data) {
+            var transfers = data["results"];
+            transfers.forEach(function (item) {
+                if (item.is_open == true) {
+                    console.log("true", item.iban_to, $("#id_iban_from option:selected").val() )
+                    if (item.iban_to == $('#id_iban_from').val()) {
+                        transferValues = transferValues - parseFloat(item.amount);
+                    }
+                    if (item.iban_from == $('#id_iban_from').val()) {
+                        transferValues = transferValues + parseFloat(item.amount);
+                    }
+                }
+            });
+        })
+    .fail(function () {
+            alert('kein anladen möglich')
     });
-  });
+
 
   console.log(accountValues);
-  
-  $('id_amount').change(function () {
-    
-  })
 
-  $('#id_amount').keyup(function () {
+
+  $('#id_amount').on("keyup" ,function () {
     var selectedIban = $("#id_iban_from option:selected").val();
     var todoAmount = parseFloat($("#id_amount").val());
     var selectedAccountAmount = parseFloat(accountValues[selectedIban]);
     var opentransferAmount = parseFloat(transferValues);
 
+
+    $('#id_amount').removeClass('error');
+    $('#id_amount').removeClass('correct');
     if (isNaN(todoAmount)){
+      $("#id_amount").addClass('error');
       alert("bitte eine Zahl eingeben");
-      $("id_amount").addClass('error');
+
     }
 
     if (!isNaN(todoAmount) && !isNaN(selectedAccountAmount)) {
       if (selectedAccountAmount < todoAmount) {
-        alert("Eventuell nicht genug Guthaben.");
         $('#id_amount').addClass('error');
+        alert("Eventuell nicht genug Guthaben.");
         return
-      }
+        }
     }
 
-    if (!isNaN(selectedAccountAmount) && !isNaN(opentransferAmount)) {
+    if (!isNaN(selectedAccountAmount) && !isNaN(opentransferAmount) && !isNaN(todoAmount)) {
       if (selectedAccountAmount<(opentransferAmount+todoAmount)) {
+        $("#id_amount").addClass('error');
         alert(
           "Ihr Kontostand abzüglich offener Überweisungen reicht nicht aus für diese überweisung."
         );
-        $('#id_amount').addClass('error');
         return
       }
     } else {
@@ -110,11 +117,12 @@ $(document).ready(function () {
         "Fehler beim anladen der Kontoinformationen. accountValues"
       );
     }
-    $("#id_amount").removeClass('error');
-    $("#id_amount").addClass('correct');
+    if (selectedAccountAmount>todoAmount){
+        $("#id_amount").addClass('correct');
+    }
   });
 
-  $("#id_iban_to").change(function () {
+  $("#id_iban_to").on('focusout', function () {
     var iban_to = $("#id_iban_to").val();
     if (isValidIBANNumber(iban_to)!=1){
       $('#id_iban_to').removeClass('correct');
@@ -127,7 +135,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#id_verwendungszweck").keyup(function(){
+  $("#id_verwendungszweck").on("change keyup",function(){
     if($(this).val().length == 0 ){
       $('#id_verwendungszweck').removeClass('correct');
       $('#id_verwendungszweck').addClass('error');

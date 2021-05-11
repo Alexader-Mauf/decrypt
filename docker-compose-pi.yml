@@ -19,7 +19,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_HOST_DB: 'banking'
+      DATABASE_NAME_DB: 'banking'
       DATABASE_PWD: 'toor'
       DATABASE_HOST_DB: db
       DATABASE_HOST_PORT: "3306"
